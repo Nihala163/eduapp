@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481262430344",
+    "project_id": "eduapp-7d130",
+    "storage_bucket": "eduapp-7d130.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481262430344:android:029a5b091e55a4e30f973d",
+        "android_client_info": {
+          "package_name": "com.hariapp.eduapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIf_n_dQpSmCTioUyyEGZGZX0zHqf4Xgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
