@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBa6m6_vvjcj7Wn4QVhoDv7WK6P24B8_fg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>481262430344</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hariapp.eduapp</string>
+	<key>PROJECT_ID</key>
+	<string>eduapp-7d130</string>
+	<key>STORAGE_BUCKET</key>
+	<string>eduapp-7d130.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:481262430344:ios:0b57918f9614aa2f0f973d</string>
+</dict>
+</plist>
