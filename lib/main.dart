@@ -1,6 +1,6 @@
+import 'package:eduapp/Youtube%20video%20view.dart';
 import 'package:flutter/material.dart';
 
-import 'USER/LOGIN SCREEN.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Login(),
+      home: MyHomePage(),
     );
   }
 }
