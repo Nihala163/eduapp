@@ -11,6 +11,9 @@ import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+import 'Dash.dart';
+import 'RegistrationForm.dart';
+
 class OtpScreen extends StatefulWidget {
   final String verificationId;
 
@@ -71,12 +74,12 @@ class _OtpScreenState extends State<OtpScreen> with CodeAutoFill {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => UserSignup(),
-      //   ),
-      // );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RegistrationFoarm(),
+        ),
+      );
     } catch (e) {
       if (kDebugMode) {
         print("Error during OTP validation: $e");

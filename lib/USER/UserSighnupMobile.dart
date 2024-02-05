@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import 'UserOtpScreen.dart';
@@ -20,16 +21,16 @@ class SignMobile extends StatefulWidget {
 
 class _SignMobileState extends State<SignMobile> {
   //
-  // Future<void> getData() async {
-  //   SharedPreferences spref = await SharedPreferences.getInstance();
-  //   String mobile = '';
-  //   mobile = phoneController.text;
-  //   setState(() {
-  //     spref.setString("num", mobile as String);
-  //     print("mobile............$mobile");
-  //   });
-  //   print("Updated");
-  // }
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    String mobile = '';
+    mobile = phoneController.text;
+    setState(() {
+      spref.setString("num", mobile as String);
+      print("mobile............$mobile");
+    });
+    print("Updated");
+  }
 
   //
   final TextEditingController phoneController = TextEditingController();
@@ -197,8 +198,8 @@ class _SignMobileState extends State<SignMobile> {
               children: [
                 InkWell(
                   onTap: () {
-                    // getData();
-                    // otpNumber();
+                    getData();
+                    otpNumber();
                   },
                   child: Container(
                     height: 50.h,

@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:excel/excel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Dash.dart';
 
 class RegistrationFoarm extends StatefulWidget {
   const RegistrationFoarm({super.key});
@@ -15,24 +19,71 @@ class RegistrationFoarm extends StatefulWidget {
 }
 
 class _RegistrationFoarmState extends State<RegistrationFoarm> {
+  var mob = '';
+  void initState() {
+    getData();
+  }
+
+  var Name;
+  var Mobile;
+
+  var Email;
+
+  Future<void> setData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    Name = name.text;
+    Mobile = mob.simplifyText();
+
+    Email = email.toString();
+
+    setState(() {
+      spref.setString("name", Name);
+      spref.setString("phone", Mobile);
+      spref.setString("email", Email.toString());
+
+      print("sharepfr:$Name");
+      print("shareprf:$Mobile");
+      print("Shareprf$Email");
+    });
+    print("Updated");
+  }
+
+//
+//
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      mob = spref.getString("num")!;
+      spref.setString("id", mob);
+    });
+    //
+
+    print("sp Updated");
+  }
+
   Future<dynamic> register() async {
     await FirebaseFirestore.instance.collection('UserRegister').add({
       "Name": name.text,
       "Email": email.text,
-      "Phone number": phonenumber.text,
+      "Phone number": mob,
       "College": selectedcollegeValue,
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
     });
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Dash(),
+        ));
     print("Register sucsess");
   }
 
   //=======================================================================================================
 
   final _formfield = GlobalKey<FormState>();
-  final name = TextEditingController();
-  final email = TextEditingController();
-  final phonenumber = TextEditingController();
+  var name = TextEditingController();
+  var email = TextEditingController();
+  var phonenumber = TextEditingController();
 
   bool passToggle = true;
 
@@ -60,8 +111,6 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
   String? selectedDepartmentValue;
   String? SelectedYear;
   String? selectedcollegeValue;
-
-  bool _passwordValid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -160,8 +209,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                               const EdgeInsets.only(left: 30, right: 30, top: 5)
                                   .r,
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             controller: email,
-                            obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -456,16 +505,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                           child: InkWell(
                             onTap: () {
                               if (_formfield.currentState!.validate()) {
-                                if (selectedGender == null) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                          content: Text(
-                                    "Please choose your  gender",
-                                    style: TextStyle(color: Colors.red),
-                                  )));
-                                } else {
-                                  register();
-                                }
+                                setData();
+                                register();
                               } else
                                 print("Faild");
                             },
