@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 import 'UserOtpScreen.dart';
@@ -21,16 +20,16 @@ class SignMobile extends StatefulWidget {
 
 class _SignMobileState extends State<SignMobile> {
   //
-  Future<void> getData() async {
-    SharedPreferences spref = await SharedPreferences.getInstance();
-    String mobile = '';
-    mobile = phoneController.text;
-    setState(() {
-      spref.setString("num", mobile as String);
-      print("mobile............$mobile");
-    });
-    print("Updated");
-  }
+  // Future<void> getData() async {
+  //   SharedPreferences spref = await SharedPreferences.getInstance();
+  //   String mobile = '';
+  //   mobile = phoneController.text;
+  //   setState(() {
+  //     spref.setString("num", mobile as String);
+  //     print("mobile............$mobile");
+  //   });
+  //   print("Updated");
+  // }
 
   //
   final TextEditingController phoneController = TextEditingController();
@@ -128,6 +127,7 @@ class _SignMobileState extends State<SignMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -151,6 +151,26 @@ class _SignMobileState extends State<SignMobile> {
               ],
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Enter your Mobile Number",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600, fontSize: 25),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "We Will send you a Confirmation Code",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w300, fontSize: 15),
+              )
+            ],
+          ),
           Padding(
             padding: EdgeInsets.only(top: 50.h, left: 50.w, right: 50.w),
             child: IntlPhoneField(
@@ -158,6 +178,7 @@ class _SignMobileState extends State<SignMobile> {
               decoration: InputDecoration(
                 labelText: 'Phone Number',
                 border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
@@ -176,14 +197,14 @@ class _SignMobileState extends State<SignMobile> {
               children: [
                 InkWell(
                   onTap: () {
-                    getData();
-                    otpNumber();
+                    // getData();
+                    // otpNumber();
                   },
                   child: Container(
                     height: 50.h,
-                    width: 180.w,
+                    width: 250.w,
                     decoration: BoxDecoration(
-                        color: Colors.indigo.shade900,
+                        color: Colors.purple,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
