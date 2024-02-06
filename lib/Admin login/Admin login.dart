@@ -55,7 +55,7 @@ class _AdminloginState extends State<Adminlogin> {
                               // 'AdminExpress',
                               'EduPort',
                               style: ralewayStyle.copyWith(
-                                fontSize: 48.0,
+                                fontSize: 49.0,
                                 color: AppColors.whiteColor,
                                 fontWeight: FontWeight.w800,
                               ),
