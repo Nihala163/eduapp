@@ -46,7 +46,7 @@ dependencies:
   file_picker: ^6.1.1
   image_picker: ^1.0.7
   intl_phone_field: ^3.2.0
-  webview_flutter: ^2.0.10
+#  webview_flutter: ^2.0.10
   flutter_rating_bar: ^4.0.1
   fluttertoast: ^8.2.4
   sms_autofill: ^2.3.0
@@ -96,7 +96,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/
+     - assets/educationapplog-removebg-preview.png
+     - assets/Screenshot_2024-02-05_164244-removebg-preview.png
+     - assets/educationapplog-removebg-preview.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
