@@ -76,7 +76,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
     });
-    Navigator.pushReplacement(
+
+    await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => Dashboard(),
