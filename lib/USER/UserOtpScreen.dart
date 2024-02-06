@@ -11,6 +11,9 @@ import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
+import 'Dash.dart';
+import 'RegistrationForm.dart';
+
 class OtpScreen extends StatefulWidget {
   final String verificationId;
 
@@ -71,12 +74,12 @@ class _OtpScreenState extends State<OtpScreen> with CodeAutoFill {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => UserSignup(),
-      //   ),
-      // );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RegistrationFoarm(),
+        ),
+      );
     } catch (e) {
       if (kDebugMode) {
         print("Error during OTP validation: $e");
@@ -105,66 +108,78 @@ class _OtpScreenState extends State<OtpScreen> with CodeAutoFill {
               },
               icon: Icon(Icons.arrow_back_ios))),
       body: _isConnected
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 250.h,
-                        width: 250.w,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("assets/Mob.png"))),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Pinput(
-                    controller: otpController,
-                    keyboardType: TextInputType.number,
-                    length: 6,
-                    onChanged: (value) => otp = value,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 100.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: isLoading ? null : verifyOtp,
-                        child: Container(
-                          height: 50.h,
-                          width: 180.w,
+          ? SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 250.h,
+                          width: 250.w,
                           decoration: BoxDecoration(
-                              color: Colors.indigo.shade900,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    blurRadius: 5.0,
-                                    offset: const Offset(0.0, 3.0)),
-                              ]),
-                          child: Center(
-                              child: Text(
-                            "verify",
-                            style: GoogleFonts.poppins(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          )),
+                              image: DecorationImage(
+                                  image: AssetImage("assets/OTTP.png"))),
                         ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Enter Verification code",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600, fontSize: 25),
                       )
                     ],
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Pinput(
+                      controller: otpController,
+                      keyboardType: TextInputType.number,
+                      length: 6,
+                      onChanged: (value) => otp = value,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 100.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: isLoading ? null : verifyOtp,
+                          child: Container(
+                            height: 50.h,
+                            width: 250.w,
+                            decoration: BoxDecoration(
+                                color: Colors.purple,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      blurRadius: 5.0,
+                                      offset: const Offset(0.0, 3.0)),
+                                ]),
+                            child: Center(
+                                child: Text(
+                              "verify",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             )
           : Center(
               child: Column(

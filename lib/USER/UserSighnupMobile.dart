@@ -128,6 +128,7 @@ class _SignMobileState extends State<SignMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -151,6 +152,26 @@ class _SignMobileState extends State<SignMobile> {
               ],
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Enter your Mobile Number",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600, fontSize: 25),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "We Will send you a Confirmation Code",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w300, fontSize: 15),
+              )
+            ],
+          ),
           Padding(
             padding: EdgeInsets.only(top: 50.h, left: 50.w, right: 50.w),
             child: IntlPhoneField(
@@ -158,6 +179,7 @@ class _SignMobileState extends State<SignMobile> {
               decoration: InputDecoration(
                 labelText: 'Phone Number',
                 border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
@@ -181,9 +203,9 @@ class _SignMobileState extends State<SignMobile> {
                   },
                   child: Container(
                     height: 50.h,
-                    width: 180.w,
+                    width: 250.w,
                     decoration: BoxDecoration(
-                        color: Colors.indigo.shade900,
+                        color: Colors.purple,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(

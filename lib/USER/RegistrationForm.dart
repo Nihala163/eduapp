@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:excel/excel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Dash.dart';
 
 class RegistrationFoarm extends StatefulWidget {
   const RegistrationFoarm({super.key});
@@ -15,36 +19,71 @@ class RegistrationFoarm extends StatefulWidget {
 }
 
 class _RegistrationFoarmState extends State<RegistrationFoarm> {
+  var mob = '';
+  void initState() {
+    getData();
+  }
+
+  var Name;
+  var Mobile;
+
+  var Email;
+
+  Future<void> setData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    Name = name.text;
+    Mobile = mob.simplifyText();
+
+    Email = email.toString();
+
+    setState(() {
+      spref.setString("name", Name);
+      spref.setString("phone", Mobile);
+      spref.setString("email", Email.toString());
+
+      print("sharepfr:$Name");
+      print("shareprf:$Mobile");
+      print("Shareprf$Email");
+    });
+    print("Updated");
+  }
+
+//
+//
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      mob = spref.getString("num")!;
+      spref.setString("id", mob);
+    });
+    //
+
+    print("sp Updated");
+  }
+
   Future<dynamic> register() async {
     await FirebaseFirestore.instance.collection('UserRegister').add({
       "Name": name.text,
       "Email": email.text,
-      "Phone number": phonenumber.text,
-      "Gender": selectedGender,
+      "Phone number": mob,
       "College": selectedcollegeValue,
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
-      "Date of birth": _date.text,
-      "Address": address.text,
-      "College": selectedcollegeValue,
-      "Profilestatus": 2.bitLength,
-      "Password": password.text
     });
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Dash(),
+        ));
     print("Register sucsess");
   }
 
   //=======================================================================================================
 
   final _formfield = GlobalKey<FormState>();
-
-  final name = TextEditingController();
-  final email = TextEditingController();
-  final phonenumber = TextEditingController();
-  final password = TextEditingController();
-  final confirmpass = TextEditingController();
-  final address = TextEditingController();
-
-  TextEditingController _date = TextEditingController();
+  var name = TextEditingController();
+  var email = TextEditingController();
+  var phonenumber = TextEditingController();
 
   bool passToggle = true;
 
@@ -73,8 +112,6 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
   String? SelectedYear;
   String? selectedcollegeValue;
 
-  bool _passwordValid = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +134,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                       fontSize: 19.sp,
                       color: Colors.black),
                 ),
-                background: Image.asset("assets/LOGO.png"),
+                background: Image.asset("assets/EMPLOYIBILITY.png"),
               ),
             ),
             SliverList(
@@ -172,8 +209,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                               const EdgeInsets.only(left: 30, right: 30, top: 5)
                                   .r,
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             controller: email,
-                            obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
@@ -212,208 +249,9 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
 
                         //============================================================================================================================
 
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 15).r,
-                          child: Text(
-                            'Phone number',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.sp,
-                                color: Colors.black),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
-                          child: TextFormField(
-                            controller: phonenumber,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Enter Phone number',
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff878787)),
-                                contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 15)
-                                    .r,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                border: const OutlineInputBorder()),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter valied phone number";
-                              }
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 15).r,
-                          child: Text(
-                            'Gender',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.sp,
-                                color: Colors.black),
-                          ),
-                        ),
-
-                        RadioListTile(
-                          title: Text('Male'),
-                          value: 'male',
-                          groupValue: selectedGender,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedGender = value!;
-                            });
-                          },
-                        ),
-                        RadioListTile(
-                          title: Text('Female'),
-                          value: 'female',
-                          groupValue: selectedGender,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedGender = value!;
-                            });
-                          },
-                        ),
-                        RadioListTile(
-                            title: Text('Other'),
-                            value: 'other',
-                            groupValue: selectedGender,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedGender = value!;
-                              });
-                            }),
-
                         //=======================================================================================================================================================
 
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 15).r,
-                          child: Text(
-                            'Date of birth',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.sp,
-                                color: Colors.black),
-                          ),
-                        ),
-
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
-                          child: TextFormField(
-                            enabled: true,
-                            controller: _date,
-                            decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Select date',
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff878787)),
-                                contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 15)
-                                    .r,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                border: const OutlineInputBorder()),
-                            onTap: () async {
-                              DateTime? pickeddate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2101));
-
-                              if (pickeddate != null) {
-                                setState(() {
-                                  _date.text = DateFormat('yyyy-MM-dd')
-                                      .format(pickeddate);
-                                });
-                              }
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter Date of birth";
-                              }
-                            },
-                          ),
-                        ),
                         //=======================================================================================================================================================
-
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 15).r,
-                          child: Text(
-                            'Address',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.sp,
-                                color: Colors.black),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
-                          child: TextFormField(
-                            controller: address,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Enter Address',
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff878787)),
-                                contentPadding: EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 15)
-                                    .r,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                border: const OutlineInputBorder()),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter Address";
-                              }
-                            },
-                          ),
-                        ),
 
                         //=======================================================================================================================================================
 
@@ -658,119 +496,6 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                           ),
                         ),
 
-                        //======================================================================================================================================
-
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 20).r,
-                          child: Text(
-                            'Password',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.sp,
-                                color: Colors.black),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
-                          child: TextFormField(
-                            controller: password,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              hintText: 'Enter Password',
-                              errorText: _passwordValid
-                                  ? null
-                                  : 'Passwords do not match',
-                              hintStyle: GoogleFonts.poppins(
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff878787)),
-                              contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 15)
-                                  .r,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xff878787)),
-                                borderRadius: BorderRadius.circular(8).r,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Color(0xff878787)),
-                                borderRadius: BorderRadius.circular(8).r,
-                              ),
-                              border: const OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter Password";
-                              } else if (value!.isEmpty) {
-                                return "Enter Password";
-                              } else if (password.text.length < 6) {
-                                return "Password Length Should not be less\nthan 6 characters";
-                              }
-                            },
-                          ),
-                        ),
-
-                        //======================================================================================================================================
-
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 20).r,
-                          child: Text(
-                            'Confirm Password',
-                            style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 17.sp,
-                                color: Colors.black),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
-                          child: TextFormField(
-                            controller: confirmpass,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Confirm Password',
-                                errorText: _passwordValid
-                                    ? null
-                                    : 'Passwords do not match',
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff878787)),
-                                contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 15)
-                                    .r,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Color(0xff878787)),
-                                  borderRadius: BorderRadius.circular(8).r,
-                                ),
-                                border: const OutlineInputBorder()),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Enter Password";
-                              } else if (confirmpass.text != password.text) {
-                                return "Passwords do not match";
-                              }
-                            },
-                          ),
-                        ),
-
-                        //======================================================================================================================================
-
                         SizedBox(
                           height: 30,
                         ),
@@ -780,16 +505,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                           child: InkWell(
                             onTap: () {
                               if (_formfield.currentState!.validate()) {
-                                if (selectedGender == null) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                          content: Text(
-                                    "Please choose your  gender",
-                                    style: TextStyle(color: Colors.red),
-                                  )));
-                                } else {
-                                  register();
-                                }
+                                setData();
+                                register();
                               } else
                                 print("Faild");
                             },
@@ -798,7 +515,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                               width: 200.w,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8).r,
-                                  color: Colors.indigo.shade900),
+                                  color: Colors.purple),
                               child: Center(
                                 child: Text(
                                   'REGISTER',
