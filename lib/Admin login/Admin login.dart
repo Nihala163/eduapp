@@ -228,7 +228,7 @@ class _AdminloginState extends State<Adminlogin> {
                           child: InkWell(
                             onTap: () {
                               if (_formfield.currentState!.validate()) {
-                                if (email.text == 'kmo@gmail.com' &&
+                                if (email.text == 'kmo@gmail.com'&&
                                     password.text == 'kmo123') {
                                   print("click");
                                   // Navigator.push(context, MaterialPageRoute(
