@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'UserOtpScreen.dart';
 
 class MobileLogin extends StatefulWidget {
   const MobileLogin({super.key});
@@ -13,6 +19,13 @@ class MobileLogin extends StatefulWidget {
 }
 
 class _MobileLoginState extends State<MobileLogin> {
+  final TextEditingController Phonecontroll = TextEditingController();
+
+  String formatPhoneNumber(String phoneNumber, String countryCode) {
+    String digits = phoneNumber.replaceAll(RegExp(r'\D'), '');
+    return '+$countryCode$digits';
+  }
+
   var phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -91,10 +104,7 @@ class _MobileLoginState extends State<MobileLogin> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    // getData();
-                    // otpNumber();
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 50.h,
                     width: 250.w,
