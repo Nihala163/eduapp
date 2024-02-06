@@ -12,19 +12,20 @@ class VideoHome extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
           width: double.infinity,
           height: size.height / 5,
           color: Colors.white,
-          child:  Center(
-            child: InkWell(onTap:() {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return AdminScreen();
-              },));
-            },
+          child: Center(
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return AdminScreen();
+                  },
+                ));
+              },
               child: Container(
                 height: 40.h,
                 width: 30.w,
@@ -41,18 +42,35 @@ class VideoHome extends StatelessWidget {
                 ),
               ),
             ),
-          ),),
-         SizedBox(height: 20,),
-         AppText(text: "All Videos", weight: FontWeight.w500, size: 8, textcolor: Colors.black),
-            SizedBox(height: 20,),
-         Expanded(
-           child: ListView.builder(itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(title: Text("VIDEO NAME"),tileColor: Colors.grey,trailing: IconButton(onPressed: (){}, icon: Icon(Icons.delete)),),
-            );
-                   },itemCount: 20,),
-         )
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        AppText(
+            text: "All Videos",
+            weight: FontWeight.w500,
+            size: 8,
+            textcolor: Colors.black),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  title: Text("VIDEO NAME"),
+                  tileColor: Colors.white,
+                  trailing:
+                      IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                ),
+              );
+            },
+            itemCount: 20,
+          ),
+        )
       ]),
     );
   }
