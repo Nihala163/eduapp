@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../USER/UserNotification.dart';
+import 'SubjectList.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -107,7 +108,13 @@ class _DashboardState extends State<Dashboard> {
         Padding(
           padding: const EdgeInsets.all(15),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SubjecteList(),
+                  ));
+            },
             child: Container(
               height: 150,
               width: double.infinity,
