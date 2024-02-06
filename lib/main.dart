@@ -1,13 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:eduapp/admin.dart/new.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'USER/LOGIN SCREEN.dart';
-import 'firebase_options.dart';
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options:
-  DefaultFirebaseOptions.currentPlatform,);
+
+void main() {
   runApp(const MyApp());
 }
 
@@ -18,13 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(builder: (context, child) =>
-     MaterialApp(debugShowCheckedModeBanner: false,
+       MaterialApp(debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: Login(),
+        home: DashboardScreen(),
       ),
       designSize: Size(390, 844),
     );

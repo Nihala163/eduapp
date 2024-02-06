@@ -1,3 +1,5 @@
+import 'package:eduapp/Youtube/Youtube%20video%20adding.dart';
+import 'package:eduapp/admin.dart/videohome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -122,7 +124,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       case 0:
         return HomeScreen();
       case 1:
-        return VideoScreen();
+        return VideoHome();
       case 2:
         return MaterialScreen();
       case 3:
