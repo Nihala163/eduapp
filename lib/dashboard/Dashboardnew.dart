@@ -1,3 +1,5 @@
+import 'package:eduapp/USER/RegistrationForm.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +15,14 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  //signout function
+  signOut() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => RegistrationFoarm()));
+  }
+
   var Name1;
   var Mobile;
   var department;
@@ -55,6 +65,7 @@ class _DashboardState extends State<Dashboard> {
                       color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.w600)),
+              SizedBox(width: 10),
               Text(Name1,
                   style: GoogleFonts.poppins(
                       color: Colors.white,
@@ -82,7 +93,9 @@ class _DashboardState extends State<Dashboard> {
         color: Colors.white,
         child: Row(children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                signOut();
+              },
               icon: Icon(
                 Icons.logout,
                 color: Colors.red,
