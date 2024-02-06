@@ -20,13 +20,13 @@ class _DashTwoState extends State<DashTwo> {
               size: 30,
             )),
       ),
-      body: Column(
-        children: [
-          SubjectContainerrr(
+      body: ListView.builder(itemCount: 8,
+        itemBuilder: (BuildContext context, int index) {
+          return SubjectContainerrr(
             subname: 'English',
             subimage: 'assets/dashImage.jpg',
-          ),
-        ],
+          );
+        },
       ),
     );
   }
