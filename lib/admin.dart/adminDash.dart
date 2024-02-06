@@ -22,63 +22,63 @@
 //   //"Food and Beverage Service Assistant",
 //   "Health Sanitary Inspector",
 // ];
-// ist<String> Subject = ["Cad", "Auto Mobile", "Es"];
+// //ist<String> Subject = ["Cad", "Auto Mobile", "Es"];
 // String? selectedSyear;
 // String? selectedSclass;
 // String? selectedSsub;
-// String? uploadUrl;
-// final Tradecontollor = TextEditingController();
-// DropdownMenu(
-// inputDecorationTheme: InputDecorationTheme(
-// contentPadding: EdgeInsets.symmetric(
-// vertical: 10.h, horizontal: 10.h),
-// border: OutlineInputBorder()),
-// hintText: "Select Trade",
-// menuStyle: const MenuStyle(
-// backgroundColor: MaterialStatePropertyAll(white)),
-// controller: Tradecontollor,
-// enableFilter: true,
-// enableSearch: true,
-// requestFocusOnTap: true,
-// dropdownMenuEntries: Studentclass.map(
-// (e) => DropdownMenuEntry(value: e, label: e)).toList(),
-// onSelected: (value) {
-// setState(() {
-// selectedSclass = value;
-// });
-// },
-// ),
-// const SizedBox(height: 20),
-// DropdownMenu(
-// inputDecorationTheme: InputDecorationTheme(
-// contentPadding: EdgeInsets.symmetric(
-// vertical: 10.h, horizontal: 10.h),
-// border: OutlineInputBorder()),
-// hintText: "Select Year",
-// menuStyle: const MenuStyle(
-// backgroundColor: MaterialStatePropertyAll(white)),
-// dropdownMenuEntries: Studentyear.map(
-// (e) => DropdownMenuEntry(value: e, label: e)).toList(),
-// onSelected: (value) {
-// setState(() {
-// selectedSyear = value;
-// });
-// },
-// ),
-// const SizedBox(height: 20),
-// DropdownMenu(
-// inputDecorationTheme: InputDecorationTheme(
-// contentPadding: EdgeInsets.symmetric(
-// vertical: 10.h, horizontal: 10.h),
-// border: OutlineInputBorder()),
-// hintText: "Select Suject",
-// menuStyle: const MenuStyle(
-// backgroundColor: MaterialStatePropertyAll(white)),
-// dropdownMenuEntries: Subject.map(
-// (e) => DropdownMenuEntry(value: e, label: e)).toList(),
-// onSelected: (value) {
-// setState(() {
-// selectedSsub = value;
-// });
-// },
-// ),
+// // String? uploadUrl;
+// // final Tradecontollor = TextEditingController();
+// // DropdownMenu(
+// // inputDecorationTheme: InputDecorationTheme(
+// // contentPadding: EdgeInsets.symmetric(
+// // vertical: 10.h, horizontal: 10.h),
+// // border: OutlineInputBorder()),
+// // hintText: "Select Trade",
+// // menuStyle: const MenuStyle(
+// // backgroundColor: MaterialStatePropertyAll(white)),
+// // controller: Tradecontollor,
+// // enableFilter: true,
+// // enableSearch: true,
+// // requestFocusOnTap: true,
+// // dropdownMenuEntries: Studentclass.map(
+// // (e) => DropdownMenuEntry(value: e, label: e)).toList(),
+// // onSelected: (value) {
+// // setState(() {
+// // selectedSclass = value;
+// // });
+// // },
+// // ),
+// // const SizedBox(height: 20),
+// // DropdownMenu(
+// // inputDecorationTheme: InputDecorationTheme(
+// // contentPadding: EdgeInsets.symmetric(
+// // vertical: 10.h, horizontal: 10.h),
+// // border: OutlineInputBorder()),
+// // hintText: "Select Year",
+// // menuStyle: const MenuStyle(
+// // backgroundColor: MaterialStatePropertyAll(white)),
+// // dropdownMenuEntries: Studentyear.map(
+// // (e) => DropdownMenuEntry(value: e, label: e)).toList(),
+// // onSelected: (value) {
+// // setState(() {
+// // selectedSyear = value;
+// // });
+// // },
+// // ),
+// // const SizedBox(height: 20),
+// // DropdownMenu(
+// // inputDecorationTheme: InputDecorationTheme(
+// // contentPadding: EdgeInsets.symmetric(
+// // vertical: 10.h, horizontal: 10.h),
+// // border: OutlineInputBorder()),
+// // hintText: "Select Suject",
+// // menuStyle: const MenuStyle(
+// // backgroundColor: MaterialStatePropertyAll(white)),
+// // dropdownMenuEntries: Subject.map(
+// // (e) => DropdownMenuEntry(value: e, label: e)).toList(),
+// // onSelected: (value) {
+// // setState(() {
+// // selectedSsub = value;
+// // });
+// // },
+// // ),

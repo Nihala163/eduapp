@@ -1,9 +1,7 @@
-import 'package:eduapp/Admin%20login/demo.dart';
 import 'package:eduapp/Admin%20login/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 // import 'package:responsive_layout/app_colors.dart';
 // import 'package:responsive_layout/app_icons.dart';
 // import 'package:responsive_layout/app_styles.dart';
