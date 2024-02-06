@@ -1,3 +1,4 @@
+import 'package:eduapp/Admin%20login/Phone%20number.dart';
 import 'package:eduapp/Admin%20login/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +11,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app colors.dart';
 import 'app stayles.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class Adminlogin extends StatefulWidget {
+  const Adminlogin({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Adminlogin> createState() => _AdminloginState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _AdminloginState extends State<Adminlogin> {
   final _formfield = GlobalKey<FormState>();
 
   final email = TextEditingController();
@@ -215,25 +216,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (value!.isEmpty) {
                               return "Enter Password";
                             } else if (password.text.length < 6) {
-                              return "Password Length Should not be less\nthan 6 characters";
+                              return "Password don't match";
                             }
                           },
                         ),
-                        //
-                        // SizedBox(height: height * 0.03),
-                        // Align(
-                        //   alignment: Alignment.centerRight,
-                        //   child: TextButton(
-                        //     onPressed: (){},
-                        //     child: Text('Forgot Password?',
-                        //       style: ralewayStyle.copyWith(
-                        //         fontSize: 12.0,
-                        //         color: AppColors.mainBlueColor,
-                        //         fontWeight: FontWeight.w600,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+
 
                         SizedBox(height: height * 0.05),
                         Material(
@@ -241,13 +228,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: InkWell(
                             onTap: () {
                               if (_formfield.currentState!.validate()) {
-                                Navigator.pushReplacement(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return Demo();
-                                  },
-                                ));
-                                email.clear();
-                                password.clear();
+                                if (email.text == 'kmo@gmail.com' &&
+                                    password.text == 'kmo123') {
+                                  print("click");
+                                  // Navigator.push(context, MaterialPageRoute(
+                                  //   builder: (context) {
+                                  //     return AuthenticationScreen();
+                                  //   },
+                                  // ));
+                                }
                               }
                             },
                             borderRadius: BorderRadius.circular(16.0),
