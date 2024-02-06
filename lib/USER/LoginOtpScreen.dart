@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pinput/pinput.dart';
 
+import 'Dash.dart';
+
 class LoginOtp extends StatefulWidget {
-  const LoginOtp({super.key});
+  LoginOtp({
+    super.key,
+  });
 
   @override
   State<LoginOtp> createState() => _LoginOtpState();
@@ -40,7 +46,8 @@ class _LoginOtpState extends State<LoginOtp> {
               )
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Enter Verification Code",
@@ -49,7 +56,8 @@ class _LoginOtpState extends State<LoginOtp> {
               )
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Please sign in to continue",
@@ -61,11 +69,9 @@ class _LoginOtpState extends State<LoginOtp> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Pinput(
-              
-              keyboardType: TextInputType.number,
-              length: 6,
-              onChanged: (value) => otp = value,
-            ),
+                keyboardType: TextInputType.number,
+                length: 6,
+                controller: Getotp),
           ),
           Padding(
             padding: EdgeInsets.only(top: 100.h),
@@ -73,10 +79,7 @@ class _LoginOtpState extends State<LoginOtp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    // getData();
-                    // otpNumber();
-                  },
+                  onTap: () async {},
                   child: Container(
                     height: 50.h,
                     width: 250.w,
@@ -91,21 +94,21 @@ class _LoginOtpState extends State<LoginOtp> {
                         ]),
                     child: Center(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Verify",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            )
-                          ],
-                        )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Verify",
+                          style: GoogleFonts.poppins(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        )
+                      ],
+                    )),
                   ),
                 )
               ],
@@ -116,3 +119,5 @@ class _LoginOtpState extends State<LoginOtp> {
     );
   }
 }
+
+TextEditingController Getotp = TextEditingController();

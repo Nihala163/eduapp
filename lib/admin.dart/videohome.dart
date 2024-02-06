@@ -64,7 +64,7 @@ class VideoHome extends StatelessWidget {
                   title: Text("VIDEO NAME"),
                   tileColor: Colors.white,
                   trailing:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
                 ),
               );
             },

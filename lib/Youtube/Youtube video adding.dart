@@ -34,7 +34,11 @@ class _AdminScreenState extends State<AdminScreen> {
     "Health Sanitary Inspector",
   ];
   List year = ['1st Yr', '2nd yr'];
+  final Stream<QuerySnapshot> _tradeStream =
+  FirebaseFirestore.instance.collection('TradeCollection').snapshots();
   List<String> Subject = ["Cad", "Auto Mobile", "Es"];
+  String? selectedTrade;
+  String? selectedSubject;
   String? selectedSyear;
   String? selectedSclass;
   String? selectedSsub;
@@ -65,25 +69,37 @@ class _AdminScreenState extends State<AdminScreen> {
               SizedBox(height: 16.0),
               Row(
                 children: [
-                  DropdownMenu(
-                    inputDecorationTheme: InputDecorationTheme(
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.h, horizontal: 10.h),
-                        border: OutlineInputBorder()),
-                    hintText: "Select Trade",
-                    menuStyle: const MenuStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.white)),
-                    controller: Tradecontollor,
-                    enableFilter: true,
-                    enableSearch: true,
-                    requestFocusOnTap: true,
-                    dropdownMenuEntries: Studentclass.map(
-                        (e) => DropdownMenuEntry(value: e, label: e)).toList(),
-                    onSelected: (value) {
-                      setState(() {
-                        selectedSclass = value;
-                      });
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection('TradeCollection').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        List<String> tradeList = snapshot.data!.docs
+                            .map((DocumentSnapshot document) =>
+                            document['trade'].toString())
+                            .toList();
+
+                        return DropdownButton<String>(
+                          hint:Text("Select Trade"),
+                          value: selectedTrade, // Set initial value if needed
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedTrade = newValue!;
+                            });
+                          },
+                          items: tradeList
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            ),
+                          )
+                              .toList(),
+                        );
+                      }
                     },
                   ),
                   const SizedBox(
@@ -109,12 +125,13 @@ class _AdminScreenState extends State<AdminScreen> {
                                     height: 30,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {
-                                      FirebaseFirestore.instance
+                                    onPressed: ()async {
+                                      await FirebaseFirestore.instance
                                           .collection('TradeCollection')
                                           .add({
                                         'trade': addTradeControllor.text.trim()
                                       });
+                                      addTradeControllor.clear();
                                     },
                                     child: Text("Add Trade"),
                                     style: ButtonStyle(
@@ -137,7 +154,7 @@ class _AdminScreenState extends State<AdminScreen> {
                       );
                     },
                     child: Text("+"),
-                    shape: CircleBorder(),
+                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                     backgroundColor: Colors.white,
                   )
                 ],
@@ -148,9 +165,9 @@ class _AdminScreenState extends State<AdminScreen> {
               DropdownMenu(
                 inputDecorationTheme: InputDecorationTheme(
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.h),
+                    EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.h),
                     border: OutlineInputBorder()),
-                hintText: "Select Trade",
+                hintText: "Year",
                 menuStyle: const MenuStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.white)),
                 controller: Yearcontollor,
@@ -169,26 +186,97 @@ class _AdminScreenState extends State<AdminScreen> {
               SizedBox(
                 height: 10,
               ),
-              DropdownMenu(
-                inputDecorationTheme: InputDecorationTheme(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.h),
-                    border: OutlineInputBorder()),
-                hintText: "Select Subject",
-                menuStyle: const MenuStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
-                controller: Subjectcontollor,
-                enableFilter: true,
-                enableSearch: true,
-                requestFocusOnTap: true,
-                dropdownMenuEntries:
-                    Subject.map((e) => DropdownMenuEntry(value: e, label: e))
-                        .toList(),
-                onSelected: (value) {
-                  setState(() {
-                    selectedSclass = value;
-                  });
-                },
+              Row(
+                children: [
+                  StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection('SubjectCollection').snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        List<String> tradeList = snapshot.data!.docs
+                            .map((DocumentSnapshot document) =>
+                            document['trade'].toString())
+                            .toList();
+
+                        return DropdownButton<String>(
+                          hint:Text("Select Trade"),
+                          value: selectedSubject, // Set initial value if needed
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedSubject = newValue!;
+                            });
+                          },
+                          items: tradeList
+                              .map<DropdownMenuItem<String>>(
+                                (String value) => DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            ),
+                          )
+                              .toList(),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () async {
+                      return showDialog<void>(
+                        context: context,
+                        barrierDismissible: false, // user must tap button!
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Add Subject'),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  TextFormField(
+                                    controller: addTradeControllor,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder()),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: ()async {
+                                      await FirebaseFirestore.instance
+                                          .collection('SubjectCollection')
+                                          .add({
+                                        'subject': addTradeControllor.text.trim()
+                                      });
+                                      addTradeControllor.clear();
+                                    },
+                                    child: Text("Add Subject"),
+                                    style: ButtonStyle(
+                                        shape: MaterialStatePropertyAll(
+                                            ContinuousRectangleBorder())),
+                                  )
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('ok'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Text("+"),
+                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    backgroundColor: Colors.white,
+                  )
+                ],
               ),
               SizedBox(
                 height: 50,

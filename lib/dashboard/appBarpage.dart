@@ -47,7 +47,7 @@ class LoginContainer extends StatelessWidget {
       height: 150,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.purple.shade100,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -63,7 +63,7 @@ class LoginContainer extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10.0, right: 10),
           child: Container(
             height: 120,
-            width: 150,
+            width: 110,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
