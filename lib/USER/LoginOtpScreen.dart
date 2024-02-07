@@ -8,10 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pinput/pinput.dart';
 
+import '../dashboard/Dashboardnew.dart';
 import 'Dash.dart';
 
 class LoginOtp extends StatefulWidget {
+  String verificationid = '';
   LoginOtp({
+    required this.verificationid,
     super.key,
   });
 
@@ -20,6 +23,42 @@ class LoginOtp extends StatefulWidget {
 }
 
 class _LoginOtpState extends State<LoginOtp> {
+  TextEditingController Getotp = TextEditingController();
+  //
+  //
+  Future<void> verifyOtp() async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: widget.verificationid,
+        smsCode: Getotp.text,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      print("<<<<<<<<<<<<<<<<<<<go dashborad>>>>>>>>>>>>>>>>>>>");
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Dashboard(),
+        ),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error during OTP validation: $e");
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Invalid OTP. Please try again."),
+          duration: Duration(seconds: 10),
+        ),
+      );
+    }
+  }
+  //
+  //
+
   @override
   Widget build(BuildContext context) {
     String otp;
@@ -79,7 +118,9 @@ class _LoginOtpState extends State<LoginOtp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () async {},
+                  onTap: () async {
+                    verifyOtp();
+                  },
                   child: Container(
                     height: 50.h,
                     width: 250.w,

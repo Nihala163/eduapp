@@ -61,7 +61,7 @@ class _DashboardState extends State<Dashboard> {
           automaticallyImplyLeading: false,
           title: Row(
             children: [
-              Text("Hi",
+              Text("Hi..",
                   style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 30,
