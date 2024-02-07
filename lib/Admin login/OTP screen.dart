@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:eduapp/Admin%20login/Admin%20login.dart';
-import 'package:eduapp/Admin%20login/demo.dart';
+
 import 'package:eduapp/admin.dart/View%20user%20login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

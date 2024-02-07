@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../USER/LOGIN SCREEN.dart';
 import '../USER/UserNotification.dart';
 import 'SubjectList.dart';
 
@@ -21,7 +22,7 @@ class _DashboardState extends State<Dashboard> {
   signOut() async {
     await auth.signOut();
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => RegistrationFoarm()));
+        context, MaterialPageRoute(builder: (context) => MobileLogin()));
   }
 
   var Name1;
