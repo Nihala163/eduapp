@@ -116,6 +116,7 @@ class _MobileLoginState extends State<MobileLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
