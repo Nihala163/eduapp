@@ -4,11 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../admin.dart/Admin panal.dart';
 
-class AddVideo extends StatefulWidget {
-  const AddVideo({super.key});
+class EditVideo extends StatefulWidget {
+  final url;
+  final id;
+  final trade;
+  final year;
+
+  final subject;
+  const EditVideo(
+      {super.key,
+        required this.id,
+        required this.url,
+        required this.trade,
+        required this.year,
+        required this.subject});
 
   @override
-  State<AddVideo> createState() => _AddVideoState();
+  State<EditVideo> createState() => _EditVideoState();
 }
 
 final linkController = TextEditingController();
@@ -22,7 +34,7 @@ String? selectedYear;
 String? selectedSubject;
 String? selectedModule;
 
-class _AddVideoState extends State<AddVideo> {
+class _EditVideoState extends State<EditVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +63,7 @@ class _AddVideoState extends State<AddVideo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const AppText(
-                        text: "Add Video",
+                        text: "Edit Video",
                         weight: FontWeight.bold,
                         size: 7,
                         textcolor: Colors.purple),
@@ -438,7 +450,8 @@ class _AddVideoState extends State<AddVideo> {
                                             } else {
                                               await FirebaseFirestore.instance
                                                   .collection('video')
-                                                  .add({
+                                                  .doc(widget.id)
+                                                  .update({
                                                 'url': linkController.text,
                                                 'trade': selectedTrade,
                                                 'subject': selectedSubject,
@@ -462,7 +475,7 @@ class _AddVideoState extends State<AddVideo> {
                                                       side: BorderSide(
                                                           color:
                                                           Colors.black)))),
-                                          child: const Text("Submit")),
+                                          child: const Text("Edit")),
                                       ElevatedButton(
                                           onPressed: () {
                                             Navigator.pop(context);
@@ -489,7 +502,7 @@ class _AddVideoState extends State<AddVideo> {
                                         borderRadius: BorderRadius.zero,
                                         side:
                                         BorderSide(color: Colors.purple)))),
-                            child: const Text("Add")),
+                            child: const Text("Update")),
                         SizedBox(
                           width: 10.w,
                         ),
