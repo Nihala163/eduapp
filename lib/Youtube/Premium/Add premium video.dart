@@ -1,15 +1,15 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Admin panal.dart';
+import '../../admin.dart/Admin student progres.dart';
 
-class AddVideo extends StatefulWidget {
-  const AddVideo({super.key});
+
+class Premium_videoAdd extends StatefulWidget {
+  const Premium_videoAdd({super.key});
 
   @override
-  State<AddVideo> createState() => _AddVideoState();
+  State<Premium_videoAdd> createState() => _Premium_videoAddState();
 }
 
 final linkController = TextEditingController();
@@ -23,11 +23,11 @@ String? selectedYear;
 String? selectedSubject;
 String? selectedModule;
 
-class _AddVideoState extends State<AddVideo> {
+class _Premium_videoAddState extends State<Premium_videoAdd> {
   Future<bool> checkLinkExists(String link) async {
     // Reference to the Firestore collection
     CollectionReference videoCollection =
-    FirebaseFirestore.instance.collection('video');
+    FirebaseFirestore.instance.collection('premiumvideo');
 
     // Query to check if the document with the given link exists
     QuerySnapshot querySnapshot =
@@ -42,8 +42,8 @@ class _AddVideoState extends State<AddVideo> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.purple,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Colors.yellow,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Column(children: [
         SizedBox(
@@ -67,8 +67,8 @@ class _AddVideoState extends State<AddVideo> {
                      AppText(
                         text: "Add Video",
                         weight: FontWeight.bold,
-                        size: 7,
-                        textcolor: Colors.purple),
+                        size: 7.sp,
+                        textcolor: Colors.yellow),
                     SizedBox(
                       height: 60.h,
                     ),
@@ -164,7 +164,7 @@ class _AddVideoState extends State<AddVideo> {
                                                 },
                                                 icon: const Icon(
                                                   Icons.close,
-                                                  color: Colors.purple,
+                                                  color: Colors.yellow,
                                                 ))
                                           ],
                                         ),
@@ -207,10 +207,10 @@ class _AddVideoState extends State<AddVideo> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Colors.yellow,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               )
                             ],
@@ -333,7 +333,7 @@ class _AddVideoState extends State<AddVideo> {
                                                 },
                                                 icon: const Icon(
                                                   Icons.close,
-                                                  color: Colors.purple,
+                                                  color: Colors.yellow,
                                                 ))
                                           ],
                                         ),
@@ -377,10 +377,10 @@ class _AddVideoState extends State<AddVideo> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Colors.yellow,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               )
                             ],
@@ -403,32 +403,32 @@ class _AddVideoState extends State<AddVideo> {
                               if (linkController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Enter video link"),
-                                    backgroundColor: Colors.purple,
+                                    content: Text("Enter video link",style: TextStyle(color:Colors.black,)),
+                                    backgroundColor: Colors.yellow,
                                     behavior: SnackBarBehavior.floating,
                                   ),
                                 );
                               } else if (selectedTrade == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Select Trade"),
-                                    backgroundColor: Colors.purple,
+                                    content: Text("Select Trade",style: TextStyle(color:Colors.black,)),
+                                    backgroundColor: Colors.yellow,
                                     behavior: SnackBarBehavior.floating,
                                   ),
                                 );
                               } else if (selectedSubject == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Select Subject"),
-                                    backgroundColor: Colors.purple,
+                                    content: Text("Select Subject",style: TextStyle(color:Colors.black,)),
+                                    backgroundColor: Colors.yellow,
                                     behavior: SnackBarBehavior.floating,
                                   ),
                                 );
                               } else if (selectedYear == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Select Year"),
-                                    backgroundColor: Colors.purple,
+                                    content: Text("Select Year",style: TextStyle(color:Colors.black,)),
+                                    backgroundColor: Colors.yellow,
                                     behavior: SnackBarBehavior.floating,
                                   ),
                                 );
@@ -445,7 +445,7 @@ class _AddVideoState extends State<AddVideo> {
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text('OK'),
+                                          child: const Text('OK',style: TextStyle(color:Colors.black,),)
                                         ),
                                       ],
                                     );
@@ -453,7 +453,7 @@ class _AddVideoState extends State<AddVideo> {
                                 );
                               } else {
                                 await FirebaseFirestore.instance
-                                    .collection('video')
+                                    .collection('premiumvideo')
                                     .add({
                                   'url': linkController.text,
                                   'trade': selectedTrade,
@@ -471,10 +471,10 @@ class _AddVideoState extends State<AddVideo> {
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
-                                    const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        side: BorderSide(color: Colors.purple)))),
-                            child: const Text("Add")),
+                                     RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(color: Colors.black)))),
+                            child: const Text("Add",style: TextStyle(color:Colors.black,))),
                         SizedBox(
                           width: 10.w,
                         ),
@@ -490,10 +490,10 @@ class _AddVideoState extends State<AddVideo> {
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
-                                    const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        side: BorderSide(color: Colors.purple)))),
-                            child: const Text("Clear"))
+                                     RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        side: BorderSide(color: Colors.black)))),
+                            child: const Text("Clear",style: TextStyle(color:Colors.black,)))
                       ],
                     )
                   ]),

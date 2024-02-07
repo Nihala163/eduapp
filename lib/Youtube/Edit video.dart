@@ -79,10 +79,10 @@ class _EditVideoState extends State<EditVideo> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const AppText(
+                     AppText(
                         text: "Edit Video",
                         weight: FontWeight.bold,
-                        size: 7,
+                        size: 7.sp,
                         textcolor: Colors.purple),
                     SizedBox(
                       height: 60.h,

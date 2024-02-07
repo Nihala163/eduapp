@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Premium/Premium video home.dart';
+
 class AdminDash extends StatefulWidget {
   const AdminDash({super.key});
 
@@ -19,7 +21,8 @@ class _AdminDashState extends State<AdminDash> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: _selectedIndex==2?Colors.yellow:Colors.purple,
+
         leading: IconButton(
             onPressed: () {
               setState(() {
@@ -33,7 +36,7 @@ class _AdminDashState extends State<AdminDash> {
         title: Text(
           "Admin Dashboard",
           style: TextStyle(
-              color: Colors.white, fontSize: 8.sp, fontWeight: FontWeight.w400),
+              color:  _selectedIndex==2?Colors.black:Colors.white, fontSize: 8.sp, fontWeight: FontWeight.w400),
         ),
         actions: [
           Container(
@@ -85,14 +88,14 @@ class _AdminDashState extends State<AdminDash> {
                   size: 4,
                   textcolor: Colors.black),
             ),
-            // NavigationRailDestination(
-            //   icon: Icon(Icons.quiz),
-            //   label: AppText(
-            //       text: "Quiz",
-            //       weight: FontWeight.w400,
-            //       size: 4,
-            //       textcolor: Colors.black),
-            // ),
+            NavigationRailDestination(
+              icon: Icon(Icons.monetization_on,color: Colors.yellow),
+              label: AppText(
+                  text: "Premium",
+                  weight: FontWeight.w400,
+                  size: 4,
+                  textcolor: Colors.black),
+            ),
             // NavigationRailDestination(
             //   icon: Icon(Icons.person),
             //   label: AppText(
@@ -120,8 +123,8 @@ class _AdminDashState extends State<AdminDash> {
         return HomeScreen();
       case 1:
         return VideoHome();
-    // case 2:
-    //   return MaterialScreen();
+    case 2:
+      return Premuim_VideoHome();
     // case 3:
     //   return ProfileScreen();
       default:
