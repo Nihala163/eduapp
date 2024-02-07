@@ -1,4 +1,3 @@
-import 'package:eduapp/Admin%20login/Phone%20number.dart';
 import 'package:eduapp/Admin%20login/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -151,14 +150,10 @@ class _AdminloginState extends State<Adminlogin> {
                               ),
                               border: const OutlineInputBorder()),
                           validator: (value) {
-                            bool emailvalid = RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value!);
-
                             if (value!.isEmpty) {
-                              return "Enter Email";
-                            } else if (!emailvalid) {
-                              return "Enter Valied Email";
+                              return "Enter Password";
+                            } else if (email.text!='kmo@gmail.com') {
+                              return "E-mail don't match";
                             }
                           },
                         ),
@@ -215,7 +210,7 @@ class _AdminloginState extends State<Adminlogin> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter Password";
-                            } else if (password.text.length < 6) {
+                            } else if (password.text!='kmo123') {
                               return "Password don't match";
                             }
                           },
