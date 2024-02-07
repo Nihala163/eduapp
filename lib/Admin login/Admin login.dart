@@ -30,7 +30,7 @@ class _AdminloginState extends State<Adminlogin> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColors.backColor,
+      backgroundColor: Colors.purple[100],
       body: SizedBox(
         height: height,
         width: width,
@@ -45,7 +45,7 @@ class _AdminloginState extends State<Adminlogin> {
                   : Expanded(
                       child: Container(
                         height: height,
-                        color: AppColors.mainBlueColor,
+                        color: Colors.purple,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -56,7 +56,7 @@ class _AdminloginState extends State<Adminlogin> {
                               'EduPort',
                               style: ralewayStyle.copyWith(
                                 fontSize: 49.0,
-                                color: AppColors.whiteColor,
+                                color: Colors.purple[100],
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -71,7 +71,7 @@ class _AdminloginState extends State<Adminlogin> {
                       horizontal: ResponsiveWidget.isSmallScreen(context)
                           ? height * 0.032
                           : height * 0.12),
-                  color: AppColors.backColor,
+                  color: Colors.purple[100],
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.only(bottom: 40.0),
                     child: Column(
@@ -245,13 +245,13 @@ class _AdminloginState extends State<Adminlogin> {
                                   horizontal: 70.0, vertical: 18.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: AppColors.mainBlueColor,
+                                color: Colors.purple
                               ),
                               child: Text(
                                 'Login',
                                 style: ralewayStyle.copyWith(
                                   fontWeight: FontWeight.w700,
-                                  color: AppColors.whiteColor,
+                                  color: Colors.purple[100],
                                   fontSize: 16.0,
                                 ),
                               ),
