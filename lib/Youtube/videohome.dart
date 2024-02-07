@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../Youtube/Edit video.dart';
-import '../Youtube/Youtube video adding.dart';
+import 'Edit video.dart';
+import 'Youtube video adding.dart';
 
 class VideoHome extends StatefulWidget {
   VideoHome({super.key});
