@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:excel/excel.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../dashboard/Dashboardnew.dart';
+import 'Dash.dart';
 
 class RegistrationFoarm extends StatefulWidget {
   const RegistrationFoarm({super.key});
@@ -25,28 +23,21 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
 
   var Name;
   var Mobile;
-  var department;
+
   var Email;
-  var Year;
-  var college;
 
   Future<void> setData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     Name = name.text;
     Mobile = mob.simplifyText();
+
     Email = email.toString();
-    department = selectedDepartmentValue.toString();
-    college = selectedcollegeValue.toString();
-    Year = SelectedYear.toString();
 
     setState(() {
       spref.setString("name", Name);
       spref.setString("phone", Mobile);
       spref.setString("email", Email.toString());
-      spref.setString("collage", college);
-      spref.setString("Department", department);
-      spref.setString("Year", Year);
-      print("<<<<<<<<<<<<<<<sharedprefrencedataadded>>>>>>>>>>>>>>>");
+
       print("sharepfr:$Name");
       print("shareprf:$Mobile");
       print("Shareprf$Email");
@@ -76,11 +67,10 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
     });
-
-    await Navigator.pushReplacement(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Dashboard(),
+          builder: (context) => Dash(),
         ));
     print("Register sucsess");
   }

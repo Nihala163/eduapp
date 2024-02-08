@@ -54,7 +54,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.amber,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Column(children: [
@@ -80,7 +80,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                         text: "Add Video",
                         weight: FontWeight.bold,
                         size: 7.sp,
-                        textcolor: Colors.yellow),
+                        textcolor: Colors.amber),
                     SizedBox(
                       height: 60.h,
                     ),
