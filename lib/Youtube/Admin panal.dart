@@ -81,7 +81,7 @@ class _AdminDashState extends State<AdminDash> {
                   textcolor: Colors.black),
             ),
             NavigationRailDestination(
-              icon: Icon(Icons.video_collection_outlined),
+              icon: Icon(Icons.video_collection_outlined,color: Colors.purple,),
               label: AppText(
                   text: "Video",
                   weight: FontWeight.w400,
