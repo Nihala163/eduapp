@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 class Viewuserprofile extends StatefulWidget {
   Viewuserprofile({super.key, this.id});
   final id;
@@ -16,9 +15,6 @@ class Viewuserprofile extends StatefulWidget {
 }
 
 class _ViewuserprofileState extends State<Viewuserprofile> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +24,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
         title: Text(
           "Profile",
           style: GoogleFonts.inter(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       backgroundColor: Colors.white70,
@@ -58,15 +52,17 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
               }
               return Center(
                 child: Container(
-                  width: 800,height: 600,decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          blurRadius: 5.0,
-                          offset: const Offset(0.0, 5.0)),
-                    ],
-                    borderRadius: BorderRadius.circular(10).r,
-                    color: Colors.white),
+                  width: 800,
+                  height: 600,
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.purple.withOpacity(0.5),
+                            blurRadius: 5.0,
+                            offset: const Offset(0.0, 5.0)),
+                      ],
+                      borderRadius: BorderRadius.circular(10).r,
+                      color: Colors.white),
                   child: ListView(
                     children: [
                       SizedBox(
@@ -93,304 +89,194 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                       SizedBox(
                         height: 40.h,
                       ),
+
+                      //==============================================================================================================
+
                       Padding(
-                        padding: const EdgeInsets.only(left: 20).r,
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+                        padding: const EdgeInsets.only(left: 100, right: 100).r,
+                        child: Column(
                           children: [
-                            SizedBox(
-                                height: 50.h,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 150.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Student Name",
-                                            style: GoogleFonts.inter(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            ':',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
+                            Table(
+                              border: TableBorder.all(color: Colors.white),
+                              defaultVerticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              children: [
+                                TableRow(children: [
+                                  Container(
+                                    height: 40,
+                                    child: TableCell(
+                                      child: Text(
+                                        "Student Name",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 200.w,
-                                        height: 50.h,
-                                        child: Text(
-                                          snapshot.data!['Name'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            //======================================================================================================================
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                                height: 50.h,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 150.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "E-mail",
-                                            style: GoogleFonts.inter(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            ':',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                  ),
+                                  TableCell(
+                                      child: Center(child: Text(":")),
+                                      verticalAlignment:
+                                          TableCellVerticalAlignment.middle),
+                                  TableCell(
+                                    child: Text(
+                                      snapshot.data!['Name'],
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
                                     ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 200.w,
-                                        height: 50.h,
-                                        child: Text(
-                                          snapshot.data!['Email'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            //======================================================================================================================
+                                  ),
+                                ]),
 
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                                height: 50.h,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 150.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Phone Number",
-                                            style: GoogleFonts.inter(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            ':   ',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 200.w,
-                                        height: 50.h,
-                                        child: Text(
-                                          snapshot.data!['Phone number'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            //======================================================================================================================
 
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                                height: 50.h,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 150.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "College",
-                                            style: GoogleFonts.inter(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            ':   ',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 200.w,
-                                        height: 50.h,
-                                        child: Text(
-                                          snapshot.data!['College'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            //======================================================================================================================
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                                height: 50.h,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 150.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Department",
-                                            style: GoogleFonts.inter(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            ':   ',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 200.w,
-                                        height: 50.h,
-                                        child: Text(
-                                          snapshot.data!['Department'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            //======================================================================================================================
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                                height: 50.h,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 50.h,
-                                      width: 150.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Year",
-                                            style: GoogleFonts.inter(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            ':   ',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 200.w,
-                                        height: 50.h,
-                                        child: Text(
-                                          snapshot.data!['Year'],
-                                          style: GoogleFonts.inter(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            //======================================================================================================================
 
+                                //===========================================================================================================================
+
+                                TableRow(children: [
+                                  Container( height: 40,
+                                    child: TableCell(
+                                      child: Text(
+                                        "E-mail",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                      child: Center(child: Text(":")),
+                                      verticalAlignment:
+                                      TableCellVerticalAlignment.middle),
+                                  TableCell(
+                                    child: Text(
+                                      snapshot.data!['Email'],
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ]),
+
+                                //===========================================================================================================================
+                                TableRow(children: [
+                                  Container( height: 40,
+                                    child: TableCell(
+                                      child: Text(
+                                        "Phone Number",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                      child: Center(child: Text(":")),
+                                      verticalAlignment:
+                                      TableCellVerticalAlignment.middle),
+                                  TableCell(
+                                    child: Text(
+                                      snapshot.data!['Phone number'],
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ]),
+
+                                //===========================================================================================================================
+                                TableRow(children: [
+                                  Container( height: 40,
+                                    child: TableCell(
+                                      child: Text(
+                                        "College",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                      child: Center(child: Text(":")),
+                                      verticalAlignment:
+                                      TableCellVerticalAlignment.middle),
+                                  TableCell(
+                                    child: Text(
+                                      snapshot.data!['College'],
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ]),
+
+                                //===========================================================================================================================
+                                TableRow(children: [
+                                  Container( height: 40,
+                                    child: TableCell(
+                                      child: Text(
+                                        "Department",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                      child: Center(child: Text(":")),
+                                      verticalAlignment:
+                                      TableCellVerticalAlignment.middle),
+                                  TableCell(
+                                    child: Text(
+                                      snapshot.data!['Department'],
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ]),
+
+                                //===========================================================================================================================
+                                TableRow(children: [
+                                  Container( height: 40,
+                                    child: TableCell(
+                                      child: Text(
+                                        "Year",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                      child: Center(child: Text(":")),
+                                      verticalAlignment:
+                                      TableCellVerticalAlignment.middle),
+                                  TableCell(
+                                    child: Text(
+                                      snapshot.data!['Year'],
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black),
+                                    ),
+                                  ),
+                                ]),
+
+                                //===========================================================================================================================
+
+
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -415,7 +301,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                         offset: const Offset(0.0, 5.0)),
                                   ],
                                   borderRadius: BorderRadius.circular(10).r,
-                                  color: Colors.indigo[900]),
+                                  color: Colors.purple),
                               child: Center(
                                 child: Text(
                                   "Back",
