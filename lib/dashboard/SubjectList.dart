@@ -14,6 +14,7 @@ class _SubjecteListState extends State<SubjecteList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           "Subject",
           style: TextStyle(
@@ -28,7 +29,8 @@ class _SubjecteListState extends State<SubjecteList> {
               Navigator.of(context).pop();
             },
             icon: Icon(
-              Icons.arrow_back_sharp,
+              Icons.arrow_back_ios,
+              color: Colors.white,
               size: 30,
             )),
       ),
