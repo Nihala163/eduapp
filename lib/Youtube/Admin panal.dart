@@ -100,26 +100,26 @@ class _AdminDashState extends State<AdminDash> {
                 ],
               ),
             ),
-            NavigationRailDestination(
-              icon: Icon(Icons.currency_rupee,color: Colors.blueAccent),
-              label: Row(
-                children: [
-                  AppText(
-                      text: "Payment",
-                      weight: FontWeight.w400,
-                      size: 4,
-                      textcolor: Colors.blueAccent),SizedBox(width: 10,),
-                ],
-              ),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Icons.notification_add,color: Colors.yellow),
-              label: AppText(
-                  text: "Notification",
-                  weight: FontWeight.w400,
-                  size: 4,
-                  textcolor: Colors.black),
-            ),
+            // NavigationRailDestination(
+            //   icon: Icon(Icons.currency_rupee,color: Colors.blueAccent),
+            //   label: Row(
+            //     children: [
+            //       AppText(
+            //           text: "Payment",
+            //           weight: FontWeight.w400,
+            //           size: 4,
+            //           textcolor: Colors.blueAccent),SizedBox(width: 10,),
+            //     ],
+            //   ),
+            // ),
+            // NavigationRailDestination(
+            //   icon: Icon(Icons.notification_add,color: Colors.yellow),
+            //   label: AppText(
+            //       text: "Notification",
+            //       weight: FontWeight.w400,
+            //       size: 4,
+            //       textcolor: Colors.black),
+           // ),
           ],
           selectedIndex: _selectedIndex,
           onDestinationSelected: (int index) {
@@ -182,41 +182,41 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
-                            count: "10", click:() {
-
-                            },),
-              ),
-            VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
-              count: "10", click: () {
-
-              },)
-
-          ],),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: VideoBox(name: "", img: img, count: count, click: click),
-            ),
-            VideoBox(name: name, img: img, count: count, click: click)
-          ],),
-        )
-
-
-
-
-
-      ]),
+      // body: Column(children: [
+      //   Padding(
+      //     padding: const EdgeInsets.all(10.0),
+      //     child: Row(
+      //       children: [
+      //         Padding(
+      //           padding: const EdgeInsets.only(right: 30),
+      //           child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
+      //                       count: "10", click:() {
+      //
+      //                       },),
+      //         ),
+      //       VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
+      //         count: "10", click: () {
+      //
+      //         },)
+      //
+      //     ],),
+      //   ),
+      //   Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: Row(children: [
+      //       Padding(
+      //         padding: const EdgeInsets.all(8.0),
+      //         child: VideoBox(name: "", img: img, count: count, click: click),
+      //       ),
+      //       VideoBox(name: name, img: img, count: count, click: click)
+      //     ],),
+      //   )
+      //
+      //
+      //
+      //
+      //
+      // ]),
     );
   }
 }

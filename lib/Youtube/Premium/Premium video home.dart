@@ -2,6 +2,7 @@ import 'package:eduapp/Youtube/Premium/Add%20premium%20video.dart';
 import 'package:eduapp/Youtube/Premium/Edit%20Premium%20video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -77,83 +78,127 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
 
                               return SizedBox(
                                 width: double.infinity,
-                                child: DataTable(
-                                  headingRowColor: MaterialStatePropertyAll(
-                                      Colors.amber.shade200),
-                                  columns: [
-                                    DataColumn(
-                                        label: Text(
-                                      'No',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                    DataColumn(
-                                        label: Text('Subject',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold))),
-                                    DataColumn(
-                                        label: Text('Trade',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold))),
-                                    DataColumn(
-                                        label: Text('Year',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold))),
-                                    DataColumn(
-                                        label: Text('Actions',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold))),
-                                  ],
-                                  rows: List<DataRow>.generate(
-                                    user.length,
-                                    (index) => DataRow(cells: [
-                                      DataCell(Text("${index + 1}")),
-                                      DataCell(Text(user[index]['subject'])),
-                                      DataCell(Text(user[index]['trade'])),
-                                      DataCell(Text(user[index]['year'])),
-                                      DataCell(
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Edit_PremiumVideo(
-                                                      id: user[index].id,
-                                                      trade: user[index]
-                                                          ['trade'],
-                                                      subject: user[index]
-                                                          ['subject'],
-                                                      url: user[index]['url'],
-                                                      year: user[index]['year'],
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  child: DataTable(
+                                    headingRowColor: MaterialStatePropertyAll(
+                                        Colors.amber.shade200),
+                                    columns: [
+                                      DataColumn(
+                                          label: Text(
+                                        'No',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                      DataColumn(
+                                          label: Text('Subject',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      DataColumn(
+                                          label: Text('Trade',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      DataColumn(
+                                          label: Text('Year',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      DataColumn(
+                                          label: Text('Actions',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                    ],
+                                    rows: List<DataRow>.generate(
+                                      user.length,
+                                      (index) => DataRow(cells: [
+                                        DataCell(Text("${index + 1}")),
+                                        DataCell(Text(user[index]['subject'])),
+                                        DataCell(Text(user[index]['trade'])),
+                                        DataCell(Text(user[index]['year'])),
+                                        DataCell(
+                                          Row(
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Edit_PremiumVideo(
+                                                        id: user[index].id,
+                                                        trade: user[index]
+                                                            ['trade'],
+                                                        subject: user[index]
+                                                            ['subject'],
+                                                        url: user[index]['url'],
+                                                        year: user[index]['year'],
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                              icon: Icon(
-                                                Icons.edit_document,
-                                                color: Colors.amber,
+                                                  );
+                                                },
+                                                icon: Icon(
+                                                  Icons.edit_document,
+                                                  color: Colors.amber,
+                                                ),
                                               ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  user[index]
-                                                      .reference
-                                                      .delete();
-                                                });
-                                              },
-                                              icon: Icon(
-                                                Icons.delete,
-                                                color: Colors.amber,
+                                              IconButton(
+                                                onPressed: () {
+                                                  showDialog<void>(
+                                                    context: context,
+                                                    barrierDismissible: false, // user must tap button!
+                                                    builder: (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: const Text('Are you sure Delete??'),
+                                                        content: const SingleChildScrollView(
+                                                          child: ListBody(
+                                                            children: <Widget>[
+
+                                                              Text('Are you shure to delete this video!!'),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            child: const Text('Delete'),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                user[index]
+                                                                    .reference
+                                                                    .delete();
+                                                              });
+                                                              Fluttertoast.showToast(
+                                                                  msg: "Deleted Successfully",
+                                                                  toastLength: Toast.LENGTH_SHORT,
+                                                                  //  gravity: ToastGravity.CENTER,
+                                                                  timeInSecForIosWeb: 3,
+                                                                  backgroundColor: Colors.red,
+                                                                  textColor: Colors.white,
+                                                                  fontSize: 16.0
+                                                              );
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                            child: const Text('Cancel'),
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                icon: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.amber,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ]),
+                                      ]),
+                                    ),
                                   ),
                                 ),
                               );
