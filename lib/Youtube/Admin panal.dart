@@ -12,7 +12,7 @@ class AdminDash extends StatefulWidget {
   State<AdminDash> createState() => _AdminDashState();
 }
 
-bool isExpanded = false;
+bool isExpanded = true;
 int _selectedIndex = 0;
 
 class _AdminDashState extends State<AdminDash> {
@@ -36,7 +36,7 @@ class _AdminDashState extends State<AdminDash> {
         title: Text(
           "Admin Dashboard",
           style: TextStyle(
-              color:  _selectedIndex==2?Colors.black:Colors.white, fontSize: 8.sp, fontWeight: FontWeight.w400),
+              color:  _selectedIndex==2?Colors.black:Colors.white, fontSize: 7.sp, fontWeight: FontWeight.bold),
         ),
         actions: [
           Container(
