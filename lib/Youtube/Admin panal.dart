@@ -21,7 +21,7 @@ class _AdminDashState extends State<AdminDash> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: _selectedIndex==2?Colors.yellow:Colors.purple,
+        backgroundColor: _selectedIndex==2?Colors.amber:Colors.purple,
 
         leading: IconButton(
             onPressed: () {
@@ -89,12 +89,18 @@ class _AdminDashState extends State<AdminDash> {
                   textcolor: Colors.black),
             ),
             NavigationRailDestination(
-              icon: Icon(Icons.monetization_on,color: Colors.yellow),
-              label: AppText(
-                  text: "Premium",
-                  weight: FontWeight.w400,
-                  size: 4,
-                  textcolor: Colors.black),
+              icon: Icon(Icons.monetization_on,color: Colors.amber),
+              label: Row(
+                children: [
+                  AppText(
+                      text: "Premium",
+                      weight: FontWeight.w400,
+                      size: 4,
+                      textcolor: Colors.amber),
+                  SizedBox(width: 10,),
+                  Icon(Icons.workspace_premium,color: Colors.amber,)
+                ],
+              ),
             ),
             // NavigationRailDestination(
             //   icon: Icon(Icons.person),
