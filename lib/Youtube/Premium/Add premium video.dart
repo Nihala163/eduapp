@@ -25,15 +25,27 @@ String? selectedModule;
 
 class _Premium_videoAddState extends State<Premium_videoAdd> {
   Future<bool> checkLinkExists(String link) async {
-    // Reference to the Firestore collection
     CollectionReference videoCollection =
     FirebaseFirestore.instance.collection('premiumvideo');
 
-    // Query to check if the document with the given link exists
     QuerySnapshot querySnapshot =
     await videoCollection.where('url', isEqualTo: link).get();
+    return querySnapshot.docs.isNotEmpty;
+  }
+  Future<bool> checkYTradeExists(String link) async {
+    CollectionReference videoCollection =
+    FirebaseFirestore.instance.collection('TradeCollection');
 
-    // Check if any documents are returned
+    QuerySnapshot querySnapshot =
+    await videoCollection.where('trade', isEqualTo: link).get();
+    return querySnapshot.docs.isNotEmpty;
+  }
+  Future<bool> checkYSubjectExists(String link) async {
+    CollectionReference videoCollection =
+    FirebaseFirestore.instance.collection('SubjectCollection');
+
+    QuerySnapshot querySnapshot =
+    await videoCollection.where('subject', isEqualTo: link).get();
     return querySnapshot.docs.isNotEmpty;
   }
 
@@ -182,7 +194,37 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () async {
-                                                  await FirebaseFirestore
+                                                  bool linkExists =
+                                                  await checkYTradeExists(addTradeControllor.text);
+
+                                                  if (addTradeControllor.text.isEmpty) {
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text("Enter trade",style: TextStyle(color:Colors.black,)),
+                                                        backgroundColor: Colors.yellow,
+                                                        behavior: SnackBarBehavior.floating,
+                                                      ),
+                                                    );
+                                                  }else if (linkExists) {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: const Text('Error'),
+                                                          content: const Text(
+                                                              'The provided trade already exists in the list.'),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: const Text('OK',style: TextStyle(color:Colors.black,),)
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }else{await FirebaseFirestore
                                                       .instance
                                                       .collection(
                                                       'TradeCollection')
@@ -191,7 +233,8 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                         .text
                                                         .trim()
                                                   });
-                                                  addTradeControllor.clear();
+                                                  addTradeControllor.clear();}
+
                                                 },
                                                 style: const ButtonStyle(
                                                     shape: MaterialStatePropertyAll(
@@ -351,7 +394,39 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () async {
-                                                  await FirebaseFirestore
+                                                  bool linkExists =
+                                                  await checkYSubjectExists(addSubControllor.text);
+
+                                                  if (addSubControllor.text.isEmpty) {
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text("Enter Subject",style: TextStyle(color:Colors.black,)),
+                                                        backgroundColor: Colors.yellow,
+                                                        behavior: SnackBarBehavior.floating,
+                                                      ),
+                                                    );
+                                                  }else if (linkExists) {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: const Text('Error'),
+                                                          content: const Text(
+                                                              'The provided Subject already exists in the list.'),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: const Text('OK',style: TextStyle(color:Colors.black,),)
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+                                                  else
+                                                  {await FirebaseFirestore
                                                       .instance
                                                       .collection(
                                                       'SubjectCollection')
@@ -360,7 +435,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                         .text
                                                         .trim()
                                                   });
-                                                  addSubControllor.clear();
+                                                  addSubControllor.clear();}
                                                 },
                                                 style: const ButtonStyle(
                                                     shape: MaterialStatePropertyAll(
