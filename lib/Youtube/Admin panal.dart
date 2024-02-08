@@ -96,20 +96,30 @@ class _AdminDashState extends State<AdminDash> {
                       text: "Premium",
                       weight: FontWeight.w400,
                       size: 4,
-                      textcolor: Colors.amber),
-                  SizedBox(width: 10,),
-                  Icon(Icons.workspace_premium,color: Colors.amber,)
+                      textcolor: Colors.amber),SizedBox(width: 10,),Icon(Icons.workspace_premium,color: Colors.amber,)
                 ],
               ),
             ),
-            // NavigationRailDestination(
-            //   icon: Icon(Icons.person),
-            //   label: AppText(
-            //       text: "Profile",
-            //       weight: FontWeight.w400,
-            //       size: 4,
-            //       textcolor: Colors.black),
-            // ),
+            NavigationRailDestination(
+              icon: Icon(Icons.currency_rupee,color: Colors.blueAccent),
+              label: Row(
+                children: [
+                  AppText(
+                      text: "Payment",
+                      weight: FontWeight.w400,
+                      size: 4,
+                      textcolor: Colors.blueAccent),SizedBox(width: 10,),
+                ],
+              ),
+            ),
+            NavigationRailDestination(
+              icon: Icon(Icons.notification_add,color: Colors.yellow),
+              label: AppText(
+                  text: "Notification",
+                  weight: FontWeight.w400,
+                  size: 4,
+                  textcolor: Colors.black),
+            ),
           ],
           selectedIndex: _selectedIndex,
           onDestinationSelected: (int index) {
@@ -133,6 +143,8 @@ class _AdminDashState extends State<AdminDash> {
       return Premuim_VideoHome();
     // case 3:
     //   return ProfileScreen();
+    //   case 4:
+    //     return ();
       default:
         return Container();
     }
@@ -141,7 +153,6 @@ class _AdminDashState extends State<AdminDash> {
 
 class AppText extends StatelessWidget {
   const AppText(
-      //Custom Text Widget.....
           {super.key,
         required this.text,
         required this.weight,
@@ -171,29 +182,88 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("home"),
+      body: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
+                            count: "10", click:() {
+
+                            },),
+              ),
+            VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
+              count: "10", click: () {
+
+              },)
+
+          ],),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: VideoBox(name: "", img: img, count: count, click: click),
+            ),
+            VideoBox(name: name, img: img, count: count, click: click)
+          ],),
+        )
+
+
+
+
+
+      ]),
     );
   }
 }
 
-class MaterialScreen extends StatelessWidget {
-  const MaterialScreen({super.key});
 
+class VideoBox extends StatelessWidget {
+  const VideoBox({
+    super.key,
+    required this.name,
+    required this.img,
+    required this.count,
+    required this.click,
+  });
+  final String? name;
+  final String? img;
+  final String? count;
+  final void Function() click;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ExpansionTile(title: Text("Click"), children: [Text("Add Video")]),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text("profile"),
+    return InkWell(
+      onTap: click,
+      child: Container(
+        height: 180.h,
+        width: 60.w,
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 5.0,
+              offset: const Offset(0.0, 3.0)),
+        ], borderRadius: BorderRadius.circular(15).r, color: Colors.white),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          AppText(
+              text: name.toString(),
+              weight: FontWeight.w500,
+              size: 4,
+              textcolor: Colors.black),
+          Image.network(
+            img.toString(),
+            width: 13.w,
+          ),
+          AppText(
+              text: count.toString(),
+              weight: FontWeight.w600,
+              size: 5,
+              textcolor: Colors.black),
+        ]),
+      ),
     );
   }
 }

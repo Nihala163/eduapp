@@ -74,7 +74,7 @@ class _Edit_PremiumVideoState extends State<Edit_PremiumVideo> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.amber,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(children: [
