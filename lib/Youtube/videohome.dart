@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -18,6 +19,7 @@ class _VideoHomeState extends State<VideoHome> {
   var totalfyear;
   var totalsyear;
   var totalsub;
+
   @override
   void initState() {
     getTotalNumberOfDocuments();
@@ -55,9 +57,9 @@ class _VideoHomeState extends State<VideoHome> {
                           weight: FontWeight.bold,
                           size: 7,
                           textcolor: Colors.black),
-                      Divider(
+                      const Divider(
                         thickness: 2,
-                        color: Colors.grey.shade400,
+                        color: Colors.purple,
                       ),
                       Expanded(
                         child: StreamBuilder(
@@ -75,81 +77,132 @@ class _VideoHomeState extends State<VideoHome> {
                               }
                               final user = snapshot.data?.docs ?? [];
 
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ListTile(
-                                      leading: CircleAvatar(
-                                        child: Text("${index + 1}"),
-                                      ),
-                                      tileColor: Colors.white,
-                                      title: Text(user[index]['subject']),
-                                      subtitle: AppText(
-                                          text: user[index]['year'],
-                                          weight: FontWeight.w400,
-                                          size: 3,
-                                          textcolor: Colors.black),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.purple,
-                                                borderRadius:
-                                                BorderRadius.circular(5)),
-                                            child: IconButton(
+                              return SizedBox(
+                                width: double.infinity,
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  child: DataTable(
+                                    headingRowColor: MaterialStatePropertyAll(
+                                        Colors.purple.shade200),
+                                    columns: [
+                                      const DataColumn(
+                                          label: Text(
+                                        'No',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                      const DataColumn(
+                                          label: Text('Subject',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      const DataColumn(
+                                          label: Text('Trade',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      const DataColumn(
+                                          label: Text('Year',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      const DataColumn(
+                                          label: Text('Actions',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                    ],
+                                    rows: List<DataRow>.generate(
+                                      user.length,
+                                      (index) => DataRow(cells: [
+                                        DataCell(Text("${index + 1}")),
+                                        DataCell(Text(user[index]['subject'])),
+                                        DataCell(Text(user[index]['trade'])),
+                                        DataCell(Text(user[index]['year'])),
+                                        DataCell(
+                                          Row(
+                                            children: [
+                                              IconButton(
                                                 onPressed: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              EditVideo(
-                                                                id: user[index]
-                                                                    .id,
-                                                                trade: user[index]
-                                                                ['trade'],
-                                                                subject: user[index]
-                                                                ['subject'],
-                                                                url: user[index]
-                                                                ['url'],
-                                                                year: user[index]
-                                                                ['year'],
-                                                                //id: user[index].id,url:user[index]['url'],trade:user[index]['trade'],subject:user[index]['subject']),
-                                                              )));
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EditVideo(
+                                                        id: user[index].id,
+                                                        trade: user[index]
+                                                            ['trade'],
+                                                        subject: user[index]
+                                                            ['subject'],
+                                                        url: user[index]['url'],
+                                                        year: user[index]['year'],
+                                                      ),
+                                                    ),
+                                                  );
                                                 },
                                                 icon: const Icon(
                                                   Icons.edit_document,
-                                                  color: Colors.white,
-                                                )),
-                                          ),
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.purple,
-                                                borderRadius:
-                                                BorderRadius.circular(5)),
-                                            child: IconButton(
+                                                  color: Colors.purple,
+                                                ),
+                                              ),
+                                              IconButton(
                                                 onPressed: () {
-                                                  setState(() {
-                                                    user[index]
-                                                        .reference
-                                                        .delete();
-                                                  });
+                                                  showDialog<void>(
+                                                    context: context,
+                                                    barrierDismissible: false, // user must tap button!
+                                                    builder: (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: const Text('Are you sure Delete??'),
+                                                        content: const SingleChildScrollView(
+                                                          child: ListBody(
+                                                            children: <Widget>[
+
+                                                              Text('Are you shure to delete this video!!'),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            child: const Text('Delete'),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                user[index]
+                                                                    .reference
+                                                                    .delete();
+                                                              });
+                                                              Fluttertoast.showToast(
+                                                                  msg: "Deleted Successfully",
+                                                                  toastLength: Toast.LENGTH_SHORT,
+                                                                  //  gravity: ToastGravity.CENTER,
+                                                                  timeInSecForIosWeb: 3,
+                                                                  backgroundColor: Colors.red,
+                                                                  textColor: Colors.white,
+                                                                  fontSize: 16.0
+                                                              );
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                            child: const Text('Cancel'),
+                                                           onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+
                                                 },
                                                 icon: const Icon(
                                                   Icons.delete,
-                                                  color: Colors.white,
-                                                )),
+                                                  color: Colors.purple,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ]),
                                     ),
-                                  );
-                                },
-                                itemCount: user.length,
+                                  ),
+                                ),
                               );
                             }),
                       ),
@@ -174,12 +227,12 @@ class _VideoHomeState extends State<VideoHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  AddVideo(),
+                              builder: (context) => const AddVideo(),
                             ));
                       },
                       name: "Add Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/3722/3722525.png",
+                          "https://cdn-icons-png.flaticon.com/128/3722/3722525.png",
                       count: "_"),
                   SizedBox(
                     width: 10.w,
@@ -188,7 +241,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "Total Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/11733/11733730.png",
+                          "https://cdn-icons-png.flaticon.com/128/11733/11733730.png",
                       count: totalvideos.toString()),
                   SizedBox(
                     width: 10.w,
@@ -197,7 +250,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "Total Subjects",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/4465/4465416.png",
+                          "https://cdn-icons-png.flaticon.com/128/4465/4465416.png",
                       count: totalsub.toString()),
                   SizedBox(
                     width: 10.w,
@@ -206,7 +259,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "1st Year Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/2456/2456193.png",
+                          "https://cdn-icons-png.flaticon.com/128/2456/2456193.png",
                       count: totalfyear.toString()),
                   SizedBox(
                     width: 10.w,
@@ -215,7 +268,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "2nd Year Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/11733/11733730.png",
+                          "https://cdn-icons-png.flaticon.com/128/11733/11733730.png",
                       count: totalsyear.toString()),
                   SizedBox(
                     width: 10.w,
@@ -231,7 +284,7 @@ class _VideoHomeState extends State<VideoHome> {
 
   getTotalNumberOfDocuments() async {
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection('video').get();
+        await FirebaseFirestore.instance.collection('video').get();
     setState(() {
       totalvideos = querySnapshot.size;
     });
@@ -259,7 +312,7 @@ class _VideoHomeState extends State<VideoHome> {
 
   getTotalNumberOfSubjects() async {
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection('SubjectCollection').get();
+        await FirebaseFirestore.instance.collection('SubjectCollection').get();
     setState(() {
       totalsub = querySnapshot.size;
     });
@@ -274,10 +327,12 @@ class VideoBox extends StatelessWidget {
     required this.count,
     required this.click,
   });
+
   final String? name;
   final String? img;
   final String? count;
   final void Function() click;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -315,11 +370,11 @@ class VideoBox extends StatelessWidget {
 class AppText extends StatelessWidget {
   const AppText(
       //Custom Text Widget.....
-          {super.key,
-        required this.text,
-        required this.weight,
-        required this.size,
-        required this.textcolor});
+      {super.key,
+      required this.text,
+      required this.weight,
+      required this.size,
+      required this.textcolor});
 
   final String text;
   final FontWeight weight;

@@ -175,96 +175,52 @@ class AppText extends StatelessWidget {
     );
   }
 }
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Row(children: [
-     Expanded(child: SizedBox(
-child: Padding(
-  padding: const EdgeInsets.only(left: 20),
-  child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-    AppText(text: "Hi Admin.........", weight: FontWeight.w600, size: 5, textcolor:Colors.black),
-        SizedBox(height: 10,),
-        SizedBox(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network("https://wpmanageninja.com/wp-content/uploads/2022/12/EdTech-1.png",width:600,),
-          ),
-        ),
-        SizedBox(height: 50,),
-        Expanded(child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.3),
-                blurRadius: 5.0,
-                offset: const Offset(0.0, 3.0)),
-          ], borderRadius: BorderRadius.circular(15).r, color: Colors.white),
-        )
-        )
-  ]),
-),
-     )
-     ),
-        Expanded(
-          child: Container(color: Colors.white,child:
+      body: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
               Padding(
-                padding: const EdgeInsets.only(top: 30,left:50,bottom: 350,right: 50),
-                child: Container(decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                      color: Colors.purple.shade100.withOpacity(0.3),
-                      blurRadius: 5,
-                      offset: const Offset(0.0, 3.0)),
-                ],borderRadius: BorderRadius.circular(10)),
-                  child:
-                          Column(
-                            children: [Row(children: [Padding(
-                padding: const EdgeInsets.only(left: 90,top: 40,right:10),
+                padding: const EdgeInsets.only(right: 30),
                 child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
-                  count: "10", click:() {
+                            count: "10", click:() {
 
-                  },),
-                            ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 40,left: 40),
-                  child: VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
-                    count: "10", click: () {
+                            },),
+              ),
+            VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
+              count: "10", click: () {
 
-                    },),
-                ),
+              },)
 
-
-                            ],),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top:20,left: 90,right: 10),
-                    child: VideoBox(name: "Premium ", img: "https://cdn-icons-png.flaticon.com/128/1458/1458256.png",
-                      count: "100", click: () {
-
-                      },),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20,left: 40),
-                    child: VideoBox(name: "Premium ", img: "https://cdn-icons-png.flaticon.com/128/1458/1458256.png",
-                      count: "100", click: () {
-
-                      },),
-                  ),
-                ],)
-
-                          ],),),
-              )
-
-                 ),
+          ],),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: VideoBox(name: "", img: img, count: count, click: click),
+            ),
+            VideoBox(name: name, img: img, count: count, click: click)
+          ],),
         )
-      ],)
+
+
+
+
+
+      ]),
     );
   }
 }
+
 
 class VideoBox extends StatelessWidget {
   const VideoBox({
@@ -283,8 +239,8 @@ class VideoBox extends StatelessWidget {
     return InkWell(
       onTap: click,
       child: Container(
-        height: 120.h,
-        width: 50.w,
+        height: 180.h,
+        width: 60.w,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
               color: Colors.black.withOpacity(0.3),
@@ -311,4 +267,3 @@ class VideoBox extends StatelessWidget {
     );
   }
 }
-

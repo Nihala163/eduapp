@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Dash.dart';
+
+import '../dashboard/Dashboardnew.dart';
+
 
 class RegistrationFoarm extends StatefulWidget {
   const RegistrationFoarm({super.key});
@@ -66,11 +68,12 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
       "College": selectedcollegeValue,
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
+      "status": 0
     });
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Dash(),
+          builder: (context) => Dashboard(),
         ));
     print("Register sucsess");
   }
