@@ -294,7 +294,7 @@ class VideoBox extends StatelessWidget {
               color: Colors.black.withOpacity(0.3),
               blurRadius: 5.0,
               offset: const Offset(0.0, 3.0)),
-        ], borderRadius: BorderRadius.circular(15).r, color: Colors.yellowAccent),
+        ], borderRadius: BorderRadius.circular(15).r, color: Colors.amber),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           AppText(
               text: name.toString(),
