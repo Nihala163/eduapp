@@ -139,8 +139,8 @@ class _AdminDashState extends State<AdminDash> {
         return HomeScreen();
       case 1:
         return VideoHome();
-    case 2:
-      return Premuim_VideoHome();
+      case 2:
+        return Premuim_VideoHome();
     // case 3:
     //   return ProfileScreen();
     //   case 4:
@@ -153,7 +153,7 @@ class _AdminDashState extends State<AdminDash> {
 
 class AppText extends StatelessWidget {
   const AppText(
-          {super.key,
+      {super.key,
         required this.text,
         required this.weight,
         required this.size,
@@ -190,16 +190,16 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 30),
                 child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
-                            count: "10", click:() {
+                  count: "10", click:() {
 
-                            },),
+                  },),
               ),
-            VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
-              count: "10", click: () {
+              VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
+                count: "10", click: () {
 
-              },)
+                },)
 
-          ],),
+            ],),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
