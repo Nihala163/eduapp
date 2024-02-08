@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Admin panal.dart';
+import '../admin.dart/Admin student progres.dart';
 
 class EditVideo extends StatefulWidget {
   final url;
   final id;
   final trade;
   final year;
-
   final subject;
   const EditVideo(
       {super.key,
@@ -23,20 +22,38 @@ class EditVideo extends StatefulWidget {
   State<EditVideo> createState() => _EditVideoState();
 }
 
-final linkController = TextEditingController();
+late TextEditingController linkController;
+late String selectedTrade;
+late String selectedYear;
+late String selectedSubject;
+// final linkController = TextEditingController();
 final addTradeControllor = TextEditingController();
-final yearcontollor = TextEditingController();
+// final yearcontollor = TextEditingController();
 final addSubControllor = TextEditingController();
 List<String> year = <String>['1st Year', '2nd year'];
 
-String? selectedTrade;
-String? selectedYear;
-String? selectedSubject;
-String? selectedModule;
-
 class _EditVideoState extends State<EditVideo> {
   @override
+  void initState() {
+    super.initState();
+    linkController = TextEditingController(text: widget.url);
+    selectedTrade = widget.trade;
+    selectedYear = widget.year;
+    selectedSubject = widget.subject;
+  }
+
+  @override
+  void dispose() {
+    linkController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // linkController.text = widget.url;
+    // var selectedTrade = widget.trade;
+    // var selectedYear = widget.year;
+    // var selectedSubject = widget.subject;
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
@@ -62,10 +79,10 @@ class _EditVideoState extends State<EditVideo> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const AppText(
+                     AppText(
                         text: "Edit Video",
                         weight: FontWeight.bold,
-                        size: 7,
+                        size: 7.sp,
                         textcolor: Colors.purple),
                     SizedBox(
                       height: 60.h,
@@ -430,8 +447,7 @@ class _EditVideoState extends State<EditVideo> {
                                                 behavior:
                                                 SnackBarBehavior.floating,
                                               ));
-                                            } else if (selectedSubject ==
-                                                null) {
+                                            } else if (selectedSubject ==null) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                 content: Text("Select Subject"),
@@ -457,14 +473,10 @@ class _EditVideoState extends State<EditVideo> {
                                                 'subject': selectedSubject,
                                                 'year': selectedYear
                                               });
-                                              setState(() {
-                                                linkController.clear();
-                                                selectedTrade = null;
-                                                selectedSubject = null;
-                                                selectedYear = null;
-                                              });
+
                                               Navigator.pop(context);
                                             }
+                                            Navigator.pop(context);
                                           },
                                           style: ButtonStyle(
                                               shape: MaterialStateProperty.all<
@@ -506,23 +518,6 @@ class _EditVideoState extends State<EditVideo> {
                         SizedBox(
                           width: 10.w,
                         ),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                linkController.clear();
-                                selectedTrade = null;
-                                selectedSubject = null;
-                                selectedYear = null;
-                              });
-                            },
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                    const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        side:
-                                        BorderSide(color: Colors.purple)))),
-                            child: const Text("Clear"))
                       ],
                     )
                   ]),
@@ -533,3 +528,5 @@ class _EditVideoState extends State<EditVideo> {
     );
   }
 }
+
+

@@ -1,19 +1,19 @@
+import 'package:eduapp/Youtube/Premium/Add%20premium%20video.dart';
+import 'package:eduapp/Youtube/Premium/Edit%20Premium%20video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'Edit video.dart';
-import 'Youtube video adding.dart';
 
-class VideoHome extends StatefulWidget {
-  VideoHome({super.key});
+class Premuim_VideoHome extends StatefulWidget {
+  Premuim_VideoHome({super.key});
 
   @override
-  State<VideoHome> createState() => _VideoHomeState();
+  State<Premuim_VideoHome> createState() => _Premuim_VideoHomeState();
 }
 
-class _VideoHomeState extends State<VideoHome> {
+class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
   var totalvideos;
   var totalfyear;
   var totalsyear;
@@ -51,7 +51,7 @@ class _VideoHomeState extends State<VideoHome> {
                         height: 10.h,
                       ),
                       const AppText(
-                          text: "All Videos",
+                          text: "Premium Videos",
                           weight: FontWeight.bold,
                           size: 7,
                           textcolor: Colors.black),
@@ -62,7 +62,7 @@ class _VideoHomeState extends State<VideoHome> {
                       Expanded(
                         child: StreamBuilder(
                             stream: FirebaseFirestore.instance
-                                .collection('video')
+                                .collection('premiumvideo')
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -81,6 +81,7 @@ class _VideoHomeState extends State<VideoHome> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: ListTile(
                                       leading: CircleAvatar(
+                                        backgroundColor: Colors.yellow,
                                         child: Text("${index + 1}"),
                                       ),
                                       tileColor: Colors.white,
@@ -95,7 +96,7 @@ class _VideoHomeState extends State<VideoHome> {
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
-                                                color: Colors.purple,
+                                                color: Colors.yellow,
                                                 borderRadius:
                                                 BorderRadius.circular(5)),
                                             child: IconButton(
@@ -104,23 +105,26 @@ class _VideoHomeState extends State<VideoHome> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              EditVideo(
+                                                              Edit_PremiumVideo(
                                                                 id: user[index]
                                                                     .id,
-                                                                trade: user[index]
+                                                                trade: user[
+                                                                index]
                                                                 ['trade'],
-                                                                subject: user[index]
+                                                                subject: user[
+                                                                index]
                                                                 ['subject'],
                                                                 url: user[index]
                                                                 ['url'],
-                                                                year: user[index]
+                                                                year: user[
+                                                                index]
                                                                 ['year'],
                                                                 //id: user[index].id,url:user[index]['url'],trade:user[index]['trade'],subject:user[index]['subject']),
                                                               )));
                                                 },
                                                 icon: const Icon(
                                                   Icons.edit_document,
-                                                  color: Colors.white,
+                                                  color: Colors.black,
                                                 )),
                                           ),
                                           SizedBox(
@@ -128,7 +132,7 @@ class _VideoHomeState extends State<VideoHome> {
                                           ),
                                           Container(
                                             decoration: BoxDecoration(
-                                                color: Colors.purple,
+                                                color: Colors.yellow,
                                                 borderRadius:
                                                 BorderRadius.circular(5)),
                                             child: IconButton(
@@ -141,7 +145,7 @@ class _VideoHomeState extends State<VideoHome> {
                                                 },
                                                 icon: const Icon(
                                                   Icons.delete,
-                                                  color: Colors.white,
+                                                  color: Colors.black,
                                                 )),
                                           ),
                                         ],
@@ -174,12 +178,12 @@ class _VideoHomeState extends State<VideoHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  AddVideo(),
+                              builder: (context) =>  Premium_videoAdd(),
                             ));
                       },
                       name: "Add Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/3722/3722525.png",
+                      "https://cdn-icons-png.flaticon.com/128/10703/10703016.png",
                       count: "_"),
                   SizedBox(
                     width: 10.w,
@@ -188,7 +192,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "Total Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/11733/11733730.png",
+                      "https://cdn-icons-png.flaticon.com/128/3211/3211382.png",
                       count: totalvideos.toString()),
                   SizedBox(
                     width: 10.w,
@@ -197,7 +201,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "Total Subjects",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/4465/4465416.png",
+                      "https://cdn-icons-png.flaticon.com/128/5832/5832416.png",
                       count: totalsub.toString()),
                   SizedBox(
                     width: 10.w,
@@ -206,7 +210,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "1st Year Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/2456/2456193.png",
+                      "https://cdn-icons-png.flaticon.com/128/3797/3797550.png",
                       count: totalfyear.toString()),
                   SizedBox(
                     width: 10.w,
@@ -215,7 +219,7 @@ class _VideoHomeState extends State<VideoHome> {
                       click: () {},
                       name: "2nd Year Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/11733/11733730.png",
+                      "https://cdn-icons-png.flaticon.com/128/5618/5618775.png",
                       count: totalsyear.toString()),
                   SizedBox(
                     width: 10.w,
@@ -231,7 +235,7 @@ class _VideoHomeState extends State<VideoHome> {
 
   getTotalNumberOfDocuments() async {
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection('video').get();
+    await FirebaseFirestore.instance.collection('premiumvideo').get();
     setState(() {
       totalvideos = querySnapshot.size;
     });
@@ -239,7 +243,7 @@ class _VideoHomeState extends State<VideoHome> {
 
   getCountOfFirstYearDocuments() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('video')
+        .collection('premiumvideo')
         .where('year', isEqualTo: '1st Year')
         .get();
     setState(() {
@@ -249,7 +253,7 @@ class _VideoHomeState extends State<VideoHome> {
 
   getCountOfsecondYearDocuments() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('video')
+        .collection('premiumvideo')
         .where('year', isEqualTo: '2nd year')
         .get();
     setState(() {
@@ -290,7 +294,7 @@ class VideoBox extends StatelessWidget {
               color: Colors.black.withOpacity(0.3),
               blurRadius: 5.0,
               offset: const Offset(0.0, 3.0)),
-        ], borderRadius: BorderRadius.circular(15).r, color: Colors.white),
+        ], borderRadius: BorderRadius.circular(15).r, color: Colors.yellowAccent),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           AppText(
               text: name.toString(),

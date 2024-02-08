@@ -1,48 +1,64 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Admin panal.dart';
+import '../../admin.dart/Admin student progres.dart';
 
-class AddVideo extends StatefulWidget {
-  const AddVideo({super.key});
+
+class Edit_PremiumVideo extends StatefulWidget {
+  final url;
+  final id;
+  final trade;
+  final year;
+  final subject;
+  const Edit_PremiumVideo(
+      {super.key,
+        required this.id,
+        required this.url,
+        required this.trade,
+        required this.year,
+        required this.subject});
 
   @override
-  State<AddVideo> createState() => _AddVideoState();
+  State<Edit_PremiumVideo> createState() => _Edit_PremiumVideoState();
 }
 
-final linkController = TextEditingController();
+late TextEditingController linkController;
+late String selectedTrade;
+late String selectedYear;
+late String selectedSubject;
+// final linkController = TextEditingController();
 final addTradeControllor = TextEditingController();
-final yearcontollor = TextEditingController();
+// final yearcontollor = TextEditingController();
 final addSubControllor = TextEditingController();
 List<String> year = <String>['1st Year', '2nd year'];
 
-String? selectedTrade;
-String? selectedYear;
-String? selectedSubject;
-String? selectedModule;
+class _Edit_PremiumVideoState extends State<Edit_PremiumVideo> {
+  @override
+  void initState() {
+    super.initState();
+    linkController = TextEditingController(text: widget.url);
+    selectedTrade = widget.trade;
+    selectedYear = widget.year;
+    selectedSubject = widget.subject;
+  }
 
-class _AddVideoState extends State<AddVideo> {
-  Future<bool> checkLinkExists(String link) async {
-    // Reference to the Firestore collection
-    CollectionReference videoCollection =
-    FirebaseFirestore.instance.collection('video');
-
-    // Query to check if the document with the given link exists
-    QuerySnapshot querySnapshot =
-    await videoCollection.where('url', isEqualTo: link).get();
-
-    // Check if any documents are returned
-    return querySnapshot.docs.isNotEmpty;
+  @override
+  void dispose() {
+    linkController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // linkController.text = widget.url;
+    // var selectedTrade = widget.trade;
+    // var selectedYear = widget.year;
+    // var selectedSubject = widget.subject;
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.yellow,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(children: [
@@ -65,10 +81,10 @@ class _AddVideoState extends State<AddVideo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                      AppText(
-                        text: "Add Video",
+                        text: "Edit Video",
                         weight: FontWeight.bold,
-                        size: 7,
-                        textcolor: Colors.purple),
+                        size: 7.sp,
+                        textcolor: Colors.yellow),
                     SizedBox(
                       height: 60.h,
                     ),
@@ -129,11 +145,12 @@ class _AddVideoState extends State<AddVideo> {
 
                                           items: tradeList
                                               .map<DropdownMenuItem<String>>(
-                                                  (String value) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  ))
+                                                (String value) =>
+                                                DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                ),
+                                          )
                                               .toList(),
                                         ),
                                       ),
@@ -152,7 +169,7 @@ class _AddVideoState extends State<AddVideo> {
                                     false, // user must tap button!
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: Colors.white,
+                                        backgroundColor: Colors.yellow,
                                         title: Row(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -207,10 +224,10 @@ class _AddVideoState extends State<AddVideo> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Colors.yellow,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               )
                             ],
@@ -299,11 +316,12 @@ class _AddVideoState extends State<AddVideo> {
 
                                           items: tradeList
                                               .map<DropdownMenuItem<String>>(
-                                                  (String value) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  ))
+                                                (String value) =>
+                                                DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                ),
+                                          )
                                               .toList(),
                                         ),
                                       ),
@@ -377,10 +395,10 @@ class _AddVideoState extends State<AddVideo> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Colors.yellow,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               )
                             ],
@@ -395,105 +413,112 @@ class _AddVideoState extends State<AddVideo> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                            onPressed: () async {
-                              // Check if the link already exists
-                              bool linkExists =
-                              await checkLinkExists(linkController.text);
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                barrierDismissible:
+                                false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Are you shure?'),
+                                    content: const SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text('Are You shure to add Video!!'),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                          onPressed: () async {
+                                            if (linkController.text.isEmpty) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content:
+                                                Text("Enter video link"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else if (selectedTrade == null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content: Text("Select Trade"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else if (selectedSubject ==null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content: Text("Select Subject"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else if (selectedYear == null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content: Text("Select Year"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else {
+                                              await FirebaseFirestore.instance
+                                                  .collection('video')
+                                                  .doc(widget.id)
+                                                  .update({
+                                                'url': linkController.text,
+                                                'trade': selectedTrade,
+                                                'subject': selectedSubject,
+                                                'year': selectedYear
+                                              });
 
-                              if (linkController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Enter video link"),
-                                    backgroundColor: Colors.purple,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (selectedTrade == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Select Trade"),
-                                    backgroundColor: Colors.purple,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (selectedSubject == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Select Subject"),
-                                    backgroundColor: Colors.purple,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (selectedYear == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Select Year"),
-                                    backgroundColor: Colors.purple,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (linkExists) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text(
-                                          'The provided link already exists in the database.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
+                                              Navigator.pop(context);
+                                            }
+                                            Navigator.pop(context);
                                           },
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                await FirebaseFirestore.instance
-                                    .collection('video')
-                                    .add({
-                                  'url': linkController.text,
-                                  'trade': selectedTrade,
-                                  'subject': selectedSubject,
-                                  'year': selectedYear
-                                });
-                                setState(() {
-                                  linkController.clear();
-                                  selectedTrade = null;
-                                  selectedSubject = null;
-                                  selectedYear = null;
-                                });
-                              }
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.zero,
+                                                      side: BorderSide(
+                                                          color:
+                                                          Colors.black)))),
+                                          child: const Text("Edit")),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.zero,
+                                                      side: BorderSide(
+                                                          color:
+                                                          Colors.black)))),
+                                          child: const Text("Cancel",style: TextStyle(color: Colors.black),))
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
                                     const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.zero,
-                                        side: BorderSide(color: Colors.purple)))),
-                            child: const Text("Add")),
+                                        side:
+                                        BorderSide(color: Colors.black)))),
+                            child: const Text("Update",style: TextStyle(color: Colors.black),)),
                         SizedBox(
                           width: 10.w,
                         ),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                linkController.clear();
-                                selectedTrade = null;
-                                selectedSubject = null;
-                                selectedYear = null;
-                              });
-                            },
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                    const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                        side: BorderSide(color: Colors.purple)))),
-                            child: const Text("Clear"))
                       ],
                     )
                   ]),
@@ -504,3 +529,5 @@ class _AddVideoState extends State<AddVideo> {
     );
   }
 }
+
+
