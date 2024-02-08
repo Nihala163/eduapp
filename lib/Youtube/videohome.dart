@@ -107,16 +107,13 @@ class _VideoHomeState extends State<VideoHome> {
                                                               EditVideo(
                                                                 id: user[index]
                                                                     .id,
-                                                                trade: user[
-                                                                index]
+                                                                trade: user[index]
                                                                 ['trade'],
-                                                                subject: user[
-                                                                index]
+                                                                subject: user[index]
                                                                 ['subject'],
                                                                 url: user[index]
                                                                 ['url'],
-                                                                year: user[
-                                                                index]
+                                                                year: user[index]
                                                                 ['year'],
                                                                 //id: user[index].id,url:user[index]['url'],trade:user[index]['trade'],subject:user[index]['subject']),
                                                               )));
