@@ -39,74 +39,73 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.only(left: 50, right: 50, top: 20),
-                child: Container(
-                  height: 210.h,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.purple.withOpacity(0.3),
-                        blurRadius: 5.0,
-                        offset: const Offset(0.0, 5.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                notification[index]['matter'],
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  FirebaseFirestore.instance
+                                      .collection('notification')
+                                      .doc(notification[index].id)
+                                      .delete();
+                                },
+                                icon: Icon(Icons.delete),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            notification[index]['content'],
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            notification[index]['Link'],
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ],
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(notification[index]['date']),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(notification[index]['Time'])
+                        ],
+                      ),
+                      SizedBox(height: 10.h,),
+                      Container(
+                        height: 2,
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.blue.withOpacity(0.5),
+                                  blurRadius: 5.0,
+                                  offset: const Offset(0.0, 5.0)),
+                            ],
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: Colors.white),
+                      )
                     ],
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  notification[index]['matter'],
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    FirebaseFirestore.instance
-                                        .collection('notification')
-                                        .doc(notification[index].id)
-                                        .delete();
-                                  },
-                                  icon: Icon(Icons.delete),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              notification[index]['content'],
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              notification[index]['Link'],
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(notification[index]['date']),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(notification[index]['Time'])
-                          ],
-                        ),
-                      ],
-                    ),
                   ),
                 ),
               );
