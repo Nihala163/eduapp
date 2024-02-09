@@ -39,7 +39,7 @@ class _NotificationlistState extends State<Notificationlist> {
             itemCount: notification.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.only(left: 5, right: 5, top: 0),
+                padding: EdgeInsets.only(left: 5, right: 5, top: 10),
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
@@ -84,7 +84,7 @@ class _NotificationlistState extends State<Notificationlist> {
                           Text(notification[index]['Time'])
                         ],
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 10,),
                       Container(
                         height: 2,
                         decoration: BoxDecoration(
