@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduapp/Youtube/Admin%20panal.dart';
 import 'package:eduapp/Youtube/Total%20video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class AdminHome extends StatelessWidget {
@@ -9,6 +11,10 @@ class AdminHome extends StatelessWidget {
 
   double profile_count = 0.9;
 
+  String _selectedOption = 'Option 1';
+
+  final notificationlist =
+  FirebaseFirestore.instance.collection("notification");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,17 +239,93 @@ class AdminHome extends StatelessWidget {
                                   )),
                             ),
                             Expanded(
-                              child: ListView.builder(
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      height: 50,
-                                      color: Colors.blue.shade50,
-                                    ),
+                              child:StreamBuilder(
+                                stream: notificationlist.snapshots(),
+                                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                  if (snapshot.hasError) {
+                                    return Center(
+                                      child: Text("Error:${snapshot.error}"),
+                                    );
+                                  }
+                                  final notification = snapshot.data?.docs ?? [];
+
+                                  return ListView.builder(
+                                    itemCount: notification.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(left: 5, right: 5, top: 0),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        notification[index]['matter'],
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 15
+                                                        ),
+                                                      ),
+
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                    notification[index]['content'],
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 12
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    notification[index]['Link'],
+                                                    style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 12,
+                                                        color: Colors.blue),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text(notification[index]['date'],style: TextStyle(color: Colors.grey,fontSize: 12),),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(notification[index]['Time'],style: TextStyle(color: Colors.grey,fontSize: 12))
+                                                ],
+                                              ),
+                                              SizedBox(height: 10,),
+                                              Container(
+                                                height: 2,
+                                                decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Colors.blue.withOpacity(0.5),
+                                                          blurRadius: 5.0,
+                                                          offset: const Offset(0.0, 5.0)),
+                                                    ],
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                                itemCount: 5,
                               ),
                             )
                           ]),
