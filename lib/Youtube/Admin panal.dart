@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'Premium/Premium video home.dart';
+import 'adminHome.dart';
 
 class AdminDash extends StatefulWidget {
   const AdminDash({super.key});
@@ -71,14 +72,14 @@ class _AdminDashState extends State<AdminDash> {
           selectedIconTheme: IconThemeData(
             color: Colors.black,
           ),
-          destinations: const [
+          destinations:  [
             NavigationRailDestination(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home,color: Colors.blue.shade200,),
               label: AppText(
                   text: "Home",
                   weight: FontWeight.w400,
                   size: 4,
-                  textcolor: Colors.black),
+                  textcolor: Colors.blue),
             ),
             NavigationRailDestination(
               icon: Icon(Icons.video_collection_outlined,color: Colors.purple,),
@@ -136,7 +137,7 @@ class _AdminDashState extends State<AdminDash> {
   Widget _buildScreen() {
     switch (_selectedIndex) {
       case 0:
-        return HomeScreen();
+        return AdminHome();
       case 1:
         return VideoHome();
     case 2:
@@ -176,50 +177,7 @@ class AppText extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // body: Column(children: [
-      //   Padding(
-      //     padding: const EdgeInsets.all(10.0),
-      //     child: Row(
-      //       children: [
-      //         Padding(
-      //           padding: const EdgeInsets.only(right: 30),
-      //           child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
-      //                       count: "10", click:() {
-      //
-      //                       },),
-      //         ),
-      //       VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
-      //         count: "10", click: () {
-      //
-      //         },)
-      //
-      //     ],),
-      //   ),
-      //   Padding(
-      //     padding: const EdgeInsets.all(8.0),
-      //     child: Row(children: [
-      //       Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: VideoBox(name: "", img: img, count: count, click: click),
-      //       ),
-      //       VideoBox(name: name, img: img, count: count, click: click)
-      //     ],),
-      //   )
-      //
-      //
-      //
-      //
-      //
-      // ]),
-    );
-  }
-}
 
 
 class VideoBox extends StatelessWidget {
