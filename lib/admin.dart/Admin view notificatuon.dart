@@ -98,7 +98,7 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
                         decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.blue.withOpacity(0.5),
+                                  color: Colors.purple.withOpacity(0.5),
                                   blurRadius: 5.0,
                                   offset: const Offset(0.0, 5.0)),
                             ],
