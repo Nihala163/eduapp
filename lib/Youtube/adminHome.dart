@@ -16,7 +16,7 @@ class AdminHome extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(
                   text: "Welcome Admin",
@@ -36,7 +36,7 @@ class AdminHome extends StatelessWidget {
                 children: [
                   Box(
                     img:
-                        "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
+                    "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
                     title: "Students",
                     value: "15.k",
                     theam: Colors.purple.shade50,
@@ -49,7 +49,7 @@ class AdminHome extends StatelessWidget {
                   },
                     child: Box(
                       img:
-                          "https://cdn-icons-png.flaticon.com/128/13447/13447074.png",
+                      "https://cdn-icons-png.flaticon.com/128/13447/13447074.png",
                       title: "Videos",
                       value: "100",
                       theam: Colors.blue.shade50,
@@ -58,7 +58,7 @@ class AdminHome extends StatelessWidget {
                   ),
                   Box(
                     img:
-                        "https://cdn-icons-png.flaticon.com/128/2128/2128421.png",
+                    "https://cdn-icons-png.flaticon.com/128/2128/2128421.png",
                     title: "Premium",
                     value: "10.k",
                     theam: Colors.amber.shade50,
@@ -92,7 +92,7 @@ class AdminHome extends StatelessWidget {
                             padding: const EdgeInsets.all(20),
                             child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                MainAxisAlignment.spaceAround,
                                 children: [
                                   AppText(
                                       text: "Payments",
@@ -129,7 +129,7 @@ class AdminHome extends StatelessWidget {
                             padding: const EdgeInsets.all(20),
                             child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                MainAxisAlignment.spaceAround,
                                 children: [
                                   AppText(
                                       text: "Payments",
@@ -209,28 +209,28 @@ class AdminHome extends StatelessWidget {
                               color: Colors.blue.shade100,
                               child: Center(
                                   child: Row(
-                                mainAxisAlignment:
+                                    mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
-                                children: [
-                                  AppText(
-                                      text: "Notification",
-                                      weight: FontWeight.w500,
-                                      size: 5,
-                                      textcolor: Colors.black87),
-                                  Row(
                                     children: [
-                                      Icon(
+                                      AppText(
+                                          text: "Notification",
+                                          weight: FontWeight.w500,
+                                          size: 5,
+                                          textcolor: Colors.black87),
+                                      Row(
+                                        children: [
+                                          Icon(
                                             Icons.notification_add_outlined,
                                             color: Colors.yellow.shade900,
                                           ),
-                                      SizedBox(width: 10,),
-                                      InkWell(
-                                          onTap: (){},
-                                          child: AppText(text: "Add", weight: FontWeight.bold, size: 5, textcolor: Colors.black87))
+                                          SizedBox(width: 10,),
+                                          InkWell(
+                                              onTap: (){},
+                                              child: AppText(text: "Add", weight: FontWeight.bold, size: 5, textcolor: Colors.black87))
+                                        ],
+                                      )
                                     ],
-                                  )
-                                ],
-                              )),
+                                  )),
                             ),
                             Expanded(
                               child: ListView.builder(

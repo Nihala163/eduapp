@@ -15,7 +15,7 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
   String _selectedOption = 'Option 1';
 
   final notificationlist =
-      FirebaseFirestore.instance.collection("notification");
+  FirebaseFirestore.instance.collection("notification");
   @override
   Widget build(BuildContext context) {
     return Scaffold(

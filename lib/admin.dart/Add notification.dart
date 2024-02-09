@@ -87,7 +87,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                         fontSize: 12.0,
                       ),
                       contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.purple),
                         borderRadius: BorderRadius.circular(8).r,
@@ -127,7 +127,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                         fontSize: 12.0,
                       ),
                       contentPadding:
-                          EdgeInsets.symmetric(vertical: 50, horizontal: 15).r,
+                      EdgeInsets.symmetric(vertical: 50, horizontal: 15).r,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.purple),
                         borderRadius: BorderRadius.circular(8).r,
@@ -163,7 +163,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                       suffixIcon: Icon(CupertinoIcons.link),
                       filled: true,
                       contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.purple),
                         borderRadius: BorderRadius.circular(8).r,
