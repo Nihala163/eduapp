@@ -39,7 +39,7 @@ class _NotificationlistState extends State<Notificationlist> {
             itemCount: notification.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.only(left: 5, right: 5, top: 10),
+                padding: EdgeInsets.only(left: 5, right: 5, top: 10).r,
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
@@ -55,6 +55,7 @@ class _NotificationlistState extends State<Notificationlist> {
                                 notification[index]['matter'],
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 15.sp
                                 ),
                               ),
 
@@ -64,12 +65,14 @@ class _NotificationlistState extends State<Notificationlist> {
                             notification[index]['content'],
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w400,
+                              fontSize: 12.sp
                             ),
                           ),
                           Text(
                             notification[index]['Link'],
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w400,
+                                fontSize: 12.sp,
                                 color: Colors.blue),
                           ),
                         ],
@@ -77,20 +80,20 @@ class _NotificationlistState extends State<Notificationlist> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(notification[index]['date']),
+                          Text(notification[index]['date'],style: TextStyle(color: Colors.grey,fontSize: 12.sp),),
                           SizedBox(
-                            width: 10,
+                            width: 10.w,
                           ),
-                          Text(notification[index]['Time'])
+                          Text(notification[index]['Time'],style: TextStyle(color: Colors.grey,fontSize: 12.sp))
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       Container(
                         height: 2,
                         decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.purple.withOpacity(0.5),
+                                  color: Colors.blue.withOpacity(0.5),
                                   blurRadius: 5.0,
                                   offset: const Offset(0.0, 5.0)),
                             ],
