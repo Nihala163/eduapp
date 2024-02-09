@@ -58,7 +58,7 @@ class _ViewuserloginState extends State<Viewuserlogin> {
           height: 600,width: 500,decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.purple.withOpacity(0.3),
                   blurRadius: 5.0,
                   offset: const Offset(0.0, 5.0)),
             ],

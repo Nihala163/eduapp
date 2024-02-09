@@ -1,4 +1,7 @@
+import 'package:eduapp/Youtube/adminHome.dart';
 import 'package:eduapp/Youtube/videohome.dart';
+import 'package:eduapp/admin.dart/Add%20notification.dart';
+import 'package:eduapp/admin.dart/Admin%20view%20notificatuon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +15,7 @@ class AdminDash extends StatefulWidget {
   State<AdminDash> createState() => _AdminDashState();
 }
 
-bool isExpanded = false;
+bool isExpanded = true;
 int _selectedIndex = 0;
 
 class _AdminDashState extends State<AdminDash> {
@@ -136,15 +139,15 @@ class _AdminDashState extends State<AdminDash> {
   Widget _buildScreen() {
     switch (_selectedIndex) {
       case 0:
-        return HomeScreen();
+        return AdminHome();
       case 1:
         return VideoHome();
-    case 2:
-      return Premuim_VideoHome();
-    // case 3:
-    //   return ProfileScreen();
-    //   case 4:
-    //     return ();
+      case 2:
+        return Premuim_VideoHome();
+      case 3:
+        return Adminviewnotification();
+      case 4:
+        return Adminaddnotification();
       default:
         return Container();
     }
@@ -153,7 +156,7 @@ class _AdminDashState extends State<AdminDash> {
 
 class AppText extends StatelessWidget {
   const AppText(
-          {super.key,
+      {super.key,
         required this.text,
         required this.weight,
         required this.size,
@@ -172,51 +175,6 @@ class AppText extends StatelessWidget {
           fontSize: size.sp, color: textcolor, fontWeight: weight),
       overflow: TextOverflow.ellipsis,
       maxLines: 1,
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: VideoBox(name: "students", img: "https://cdn-icons-png.flaticon.com/128/3402/3402259.png",
-                            count: "10", click:() {
-
-                            },),
-              ),
-            VideoBox(name: "Videos", img: "https://cdn-icons-png.flaticon.com/128/514/514835.png",
-              count: "10", click: () {
-
-              },)
-
-          ],),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: VideoBox(name: "", img: img, count: count, click: click),
-            ),
-            VideoBox(name: name, img: img, count: count, click: click)
-          ],),
-        )
-
-
-
-
-
-      ]),
     );
   }
 }

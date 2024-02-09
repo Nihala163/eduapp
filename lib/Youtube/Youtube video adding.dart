@@ -1,7 +1,8 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'Admin panal.dart';
 
@@ -16,6 +17,7 @@ final linkController = TextEditingController();
 final addTradeControllor = TextEditingController();
 final yearcontollor = TextEditingController();
 final addSubControllor = TextEditingController();
+var vedioId;
 List<String> year = <String>['1st Year', '2nd year'];
 
 String? selectedTrade;
@@ -27,11 +29,11 @@ class _AddVideoState extends State<AddVideo> {
   Future<bool> checkLinkExists(String link) async {
     // Reference to the Firestore collection
     CollectionReference videoCollection =
-    FirebaseFirestore.instance.collection('video');
+        FirebaseFirestore.instance.collection('video');
 
     // Query to check if the document with the given link exists
     QuerySnapshot querySnapshot =
-    await videoCollection.where('url', isEqualTo: link).get();
+        await videoCollection.where('url', isEqualTo: link).get();
 
     // Check if any documents are returned
     return querySnapshot.docs.isNotEmpty;
@@ -64,11 +66,28 @@ class _AddVideoState extends State<AddVideo> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     AppText(
-                        text: "Add Video",
-                        weight: FontWeight.bold,
-                        size: 7,
-                        textcolor: Colors.purple),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText(
+                            text: "Add Video",
+                            weight: FontWeight.bold,
+                            size: 7,
+                            textcolor: Colors.purple),
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.purple)),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.purple,
+                                )))
+                      ],
+                    ),
                     SizedBox(
                       height: 60.h,
                     ),
@@ -102,7 +121,7 @@ class _AddVideoState extends State<AddVideo> {
                                   } else {
                                     List<String> tradeList = snapshot.data!.docs
                                         .map((DocumentSnapshot document) =>
-                                        document['trade'].toString())
+                                            document['trade'].toString())
                                         .toList();
 
                                     return Expanded(
@@ -111,13 +130,13 @@ class _AddVideoState extends State<AddVideo> {
                                             border: Border.all(
                                                 color: Colors.black54),
                                             borderRadius:
-                                            BorderRadius.circular(8)),
+                                                BorderRadius.circular(8)),
                                         child: DropdownButton<String>(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 3),
                                           underline: const SizedBox(),
                                           borderRadius:
-                                          BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                           hint: const Text("Select Trade"),
                                           value: selectedTrade,
                                           // Set initial value if needed
@@ -130,10 +149,10 @@ class _AddVideoState extends State<AddVideo> {
                                           items: tradeList
                                               .map<DropdownMenuItem<String>>(
                                                   (String value) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  ))
+                                                      DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      ))
                                               .toList(),
                                         ),
                                       ),
@@ -149,13 +168,13 @@ class _AddVideoState extends State<AddVideo> {
                                   return showDialog<void>(
                                     context: context,
                                     barrierDismissible:
-                                    false, // user must tap button!
+                                        false, // user must tap button!
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         backgroundColor: Colors.white,
                                         title: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Text('Add Trade'),
                                             IconButton(
@@ -175,7 +194,7 @@ class _AddVideoState extends State<AddVideo> {
                                                 controller: addTradeControllor,
                                                 decoration: const InputDecoration(
                                                     border:
-                                                    OutlineInputBorder()),
+                                                        OutlineInputBorder()),
                                               ),
                                               const SizedBox(
                                                 height: 30,
@@ -185,7 +204,7 @@ class _AddVideoState extends State<AddVideo> {
                                                   await FirebaseFirestore
                                                       .instance
                                                       .collection(
-                                                      'TradeCollection')
+                                                          'TradeCollection')
                                                       .add({
                                                     'trade': addTradeControllor
                                                         .text
@@ -244,12 +263,12 @@ class _AddVideoState extends State<AddVideo> {
                                 });
                               },
                               items: year.map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             ),
                           ),
                         ),
@@ -272,7 +291,7 @@ class _AddVideoState extends State<AddVideo> {
                                   } else {
                                     List<String> tradeList = snapshot.data!.docs
                                         .map((DocumentSnapshot document) =>
-                                        document['subject'].toString())
+                                            document['subject'].toString())
                                         .toList();
 
                                     return Expanded(
@@ -281,13 +300,13 @@ class _AddVideoState extends State<AddVideo> {
                                             border: Border.all(
                                                 color: Colors.black54),
                                             borderRadius:
-                                            BorderRadius.circular(8)),
+                                                BorderRadius.circular(8)),
                                         child: DropdownButton<String>(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 3),
                                           underline: const SizedBox(),
                                           borderRadius:
-                                          BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                           hint: const Text("Select Subject"),
                                           value: selectedSubject,
                                           // Set initial value if needed
@@ -300,10 +319,10 @@ class _AddVideoState extends State<AddVideo> {
                                           items: tradeList
                                               .map<DropdownMenuItem<String>>(
                                                   (String value) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  ))
+                                                      DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      ))
                                               .toList(),
                                         ),
                                       ),
@@ -319,12 +338,12 @@ class _AddVideoState extends State<AddVideo> {
                                   return showDialog<void>(
                                     context: context,
                                     barrierDismissible:
-                                    false, // user must tap button!
+                                        false, // user must tap button!
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Text('Add Subject'),
                                             IconButton(
@@ -344,7 +363,7 @@ class _AddVideoState extends State<AddVideo> {
                                                 controller: addSubControllor,
                                                 decoration: const InputDecoration(
                                                     border:
-                                                    OutlineInputBorder()),
+                                                        OutlineInputBorder()),
                                               ),
                                               const SizedBox(
                                                 height: 30,
@@ -354,7 +373,7 @@ class _AddVideoState extends State<AddVideo> {
                                                   await FirebaseFirestore
                                                       .instance
                                                       .collection(
-                                                      'SubjectCollection')
+                                                          'SubjectCollection')
                                                       .add({
                                                     'subject': addSubControllor
                                                         .text
@@ -366,7 +385,7 @@ class _AddVideoState extends State<AddVideo> {
                                                     shape: MaterialStatePropertyAll(
                                                         BeveledRectangleBorder())),
                                                 child:
-                                                const Text("Add Subject"),
+                                                    const Text("Add Subject"),
                                               )
                                             ],
                                           ),
@@ -396,9 +415,12 @@ class _AddVideoState extends State<AddVideo> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
+                              vedioId = YoutubePlayer.convertUrlToId(
+                                  linkController.text);
+                              print('-----------${vedioId}');
                               // Check if the link already exists
                               bool linkExists =
-                              await checkLinkExists(linkController.text);
+                                  await checkLinkExists(linkController.text);
 
                               if (linkController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -455,7 +477,7 @@ class _AddVideoState extends State<AddVideo> {
                                 await FirebaseFirestore.instance
                                     .collection('video')
                                     .add({
-                                  'url': linkController.text,
+                                  'url': vedioId,
                                   'trade': selectedTrade,
                                   'subject': selectedSubject,
                                   'year': selectedYear
@@ -466,14 +488,23 @@ class _AddVideoState extends State<AddVideo> {
                                   selectedSubject = null;
                                   selectedYear = null;
                                 });
+                                Fluttertoast.showToast(
+                                    msg: "Uploaded Successfully",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    //  gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
                               }
                             },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
+                                        RoundedRectangleBorder>(
                                     const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.zero,
-                                        side: BorderSide(color: Colors.purple)))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             child: const Text("Add")),
                         SizedBox(
                           width: 10.w,
@@ -489,10 +520,11 @@ class _AddVideoState extends State<AddVideo> {
                             },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
+                                        RoundedRectangleBorder>(
                                     const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.zero,
-                                        side: BorderSide(color: Colors.purple)))),
+                                        side:
+                                            BorderSide(color: Colors.purple)))),
                             child: const Text("Clear"))
                       ],
                     )

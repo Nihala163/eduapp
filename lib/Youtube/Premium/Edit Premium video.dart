@@ -96,11 +96,28 @@ class _Edit_PremiumVideoState extends State<Edit_PremiumVideo> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     AppText(
-                        text: "Edit Video",
-                        weight: FontWeight.bold,
-                        size: 7.sp,
-                        textcolor: Colors.yellow),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText(
+                            text: "Edit Video",
+                            weight: FontWeight.bold,
+                            size: 7,
+                            textcolor: Colors.amber),
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.amber)),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.purple,
+                                )))
+                      ],
+                    ),
                     SizedBox(
                       height: 60.h,
                     ),

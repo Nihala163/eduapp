@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../admin.dart/Admin student progres.dart';
 
@@ -76,11 +77,28 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     AppText(
-                        text: "Add Video",
-                        weight: FontWeight.bold,
-                        size: 7.sp,
-                        textcolor: Colors.amber),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText(
+                            text: "Add Video",
+                            weight: FontWeight.bold,
+                            size: 7,
+                            textcolor: Colors.amber),
+                        Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: Colors.amber)),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.purple,
+                                )))
+                      ],
+                    ),
                     SizedBox(
                       height: 60.h,
                     ),
@@ -535,6 +553,15 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                   'subject': selectedSubject,
                                   'year': selectedYear
                                 });
+                                Fluttertoast.showToast(
+                                    msg: "Uploaded Successfully",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    //  gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 3,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
                                 setState(() {
                                   linkController.clear();
                                   selectedTrade = null;

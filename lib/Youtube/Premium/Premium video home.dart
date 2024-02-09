@@ -2,9 +2,9 @@ import 'package:eduapp/Youtube/Premium/Add%20premium%20video.dart';
 import 'package:eduapp/Youtube/Premium/Edit%20Premium%20video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 class Premuim_VideoHome extends StatefulWidget {
   Premuim_VideoHome({super.key});
@@ -18,6 +18,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
   var totalfyear;
   var totalsyear;
   var totalsub;
+
   @override
   void initState() {
     getTotalNumberOfDocuments();
@@ -75,85 +76,131 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
                               }
                               final user = snapshot.data?.docs ?? [];
 
-                              return ListView.builder(
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ListTile(
-                                      leading: CircleAvatar(
-                                        backgroundColor: Colors.yellow,
-                                        child: Text("${index + 1}"),
-                                      ),
-                                      tileColor: Colors.white,
-                                      title: Text(user[index]['subject']),
-                                      subtitle: AppText(
-                                          text: user[index]['year'],
-                                          weight: FontWeight.w400,
-                                          size: 3,
-                                          textcolor: Colors.black),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.yellow,
-                                                borderRadius:
-                                                BorderRadius.circular(5)),
-                                            child: IconButton(
+                              return SizedBox(
+                                width: double.infinity,
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  child: DataTable(
+                                    headingRowColor: MaterialStatePropertyAll(
+                                        Colors.amber.shade200),
+                                    columns: [
+                                      DataColumn(
+                                          label: Text(
+                                        'No',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                      DataColumn(
+                                          label: Text('Subject',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      DataColumn(
+                                          label: Text('Trade',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      DataColumn(
+                                          label: Text('Year',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                      DataColumn(
+                                          label: Text('Actions',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold))),
+                                    ],
+                                    rows: List<DataRow>.generate(
+                                      user.length,
+                                      (index) => DataRow(cells: [
+                                        DataCell(Text("${index + 1}")),
+                                        DataCell(Text(user[index]['subject'])),
+                                        DataCell(Text(user[index]['trade'])),
+                                        DataCell(Text(user[index]['year'])),
+                                        DataCell(
+                                          Row(
+                                            children: [
+                                              IconButton(
                                                 onPressed: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Edit_PremiumVideo(
-                                                                id: user[index]
-                                                                    .id,
-                                                                trade: user[
-                                                                index]
-                                                                ['trade'],
-                                                                subject: user[
-                                                                index]
-                                                                ['subject'],
-                                                                url: user[index]
-                                                                ['url'],
-                                                                year: user[
-                                                                index]
-                                                                ['year'],
-                                                                //id: user[index].id,url:user[index]['url'],trade:user[index]['trade'],subject:user[index]['subject']),
-                                                              )));
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Edit_PremiumVideo(
+                                                        id: user[index].id,
+                                                        trade: user[index]
+                                                            ['trade'],
+                                                        subject: user[index]
+                                                            ['subject'],
+                                                        url: user[index]['url'],
+                                                        year: user[index]['year'],
+                                                      ),
+                                                    ),
+                                                  );
                                                 },
-                                                icon: const Icon(
+                                                icon: Icon(
                                                   Icons.edit_document,
-                                                  color: Colors.black,
-                                                )),
-                                          ),
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.yellow,
-                                                borderRadius:
-                                                BorderRadius.circular(5)),
-                                            child: IconButton(
+                                                  color: Colors.amber,
+                                                ),
+                                              ),
+                                              IconButton(
                                                 onPressed: () {
-                                                  setState(() {
-                                                    user[index]
-                                                        .reference
-                                                        .delete();
-                                                  });
+                                                  showDialog<void>(
+                                                    context: context,
+                                                    barrierDismissible: false, // user must tap button!
+                                                    builder: (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: const Text('Are you sure Delete??'),
+                                                        content: const SingleChildScrollView(
+                                                          child: ListBody(
+                                                            children: <Widget>[
+
+                                                              Text('Are you shure to delete this video!!'),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            child: const Text('Delete'),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                user[index]
+                                                                    .reference
+                                                                    .delete();
+                                                              });
+                                                              Fluttertoast.showToast(
+                                                                  msg: "Deleted Successfully",
+                                                                  toastLength: Toast.LENGTH_SHORT,
+                                                                  //  gravity: ToastGravity.CENTER,
+                                                                  timeInSecForIosWeb: 3,
+                                                                  backgroundColor: Colors.red,
+                                                                  textColor: Colors.white,
+                                                                  fontSize: 16.0
+                                                              );
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                            child: const Text('Cancel'),
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
                                                 },
-                                                icon: const Icon(
+                                                icon: Icon(
                                                   Icons.delete,
-                                                  color: Colors.black,
-                                                )),
+                                                  color: Colors.amber,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ]),
                                     ),
-                                  );
-                                },
-                                itemCount: user.length,
+                                  ),
+                                ),
                               );
                             }),
                       ),
@@ -178,12 +225,12 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  Premium_videoAdd(),
+                              builder: (context) => Premium_videoAdd(),
                             ));
                       },
                       name: "Add Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/10703/10703016.png",
+                          "https://cdn-icons-png.flaticon.com/128/10703/10703016.png",
                       count: "_"),
                   SizedBox(
                     width: 10.w,
@@ -192,7 +239,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
                       click: () {},
                       name: "Total Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/3211/3211382.png",
+                          "https://cdn-icons-png.flaticon.com/128/3211/3211382.png",
                       count: totalvideos.toString()),
                   SizedBox(
                     width: 10.w,
@@ -201,7 +248,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
                       click: () {},
                       name: "Total Subjects",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/5832/5832416.png",
+                          "https://cdn-icons-png.flaticon.com/128/5832/5832416.png",
                       count: totalsub.toString()),
                   SizedBox(
                     width: 10.w,
@@ -210,7 +257,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
                       click: () {},
                       name: "1st Year Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/3797/3797550.png",
+                          "https://cdn-icons-png.flaticon.com/128/3797/3797550.png",
                       count: totalfyear.toString()),
                   SizedBox(
                     width: 10.w,
@@ -219,7 +266,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
                       click: () {},
                       name: "2nd Year Video",
                       img:
-                      "https://cdn-icons-png.flaticon.com/128/5618/5618775.png",
+                          "https://cdn-icons-png.flaticon.com/128/5618/5618775.png",
                       count: totalsyear.toString()),
                   SizedBox(
                     width: 10.w,
@@ -235,7 +282,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
 
   getTotalNumberOfDocuments() async {
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection('premiumvideo').get();
+        await FirebaseFirestore.instance.collection('premiumvideo').get();
     setState(() {
       totalvideos = querySnapshot.size;
     });
@@ -263,7 +310,7 @@ class _Premuim_VideoHomeState extends State<Premuim_VideoHome> {
 
   getTotalNumberOfSubjects() async {
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection('SubjectCollection').get();
+        await FirebaseFirestore.instance.collection('SubjectCollection').get();
     setState(() {
       totalsub = querySnapshot.size;
     });
@@ -278,10 +325,12 @@ class VideoBox extends StatelessWidget {
     required this.count,
     required this.click,
   });
+
   final String? name;
   final String? img;
   final String? count;
   final void Function() click;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -319,11 +368,11 @@ class VideoBox extends StatelessWidget {
 class AppText extends StatelessWidget {
   const AppText(
       //Custom Text Widget.....
-          {super.key,
-        required this.text,
-        required this.weight,
-        required this.size,
-        required this.textcolor});
+      {super.key,
+      required this.text,
+      required this.weight,
+      required this.size,
+      required this.textcolor});
 
   final String text;
   final FontWeight weight;
