@@ -93,7 +93,6 @@ class _EditVideoState extends State<EditVideo> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
