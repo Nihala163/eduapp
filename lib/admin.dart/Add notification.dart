@@ -42,6 +42,10 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
     // ));
   }
 
+
+  bool checkbox1Value = false;
+  bool checkbox2Value = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,11 +179,41 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                       border: const OutlineInputBorder()),
                 ),
               ),
+              SizedBox(height: 15,),
 
               //=======================================================================================================================================================
 
               Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 155),
+                child: Column(
+                  children: [
+                    CheckboxListTile(
+                      title: Text('Students'),
+                      value: checkbox1Value,
+                      onChanged: (value) {
+                        setState(() {
+                          checkbox1Value = value!;
+                        });
+                      },
+                    ),
+                    CheckboxListTile(
+                      title: Text('Premium'),
+                      value: checkbox2Value,
+                      onChanged: (value) {
+                        setState(() {
+                          checkbox2Value = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+
+              //=======================================================================================================================================================
+
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -198,7 +232,8 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                             backgroundColor: Colors.purple.shade400,
                             behavior: SnackBarBehavior.floating,
                           ));
-                        } else {
+                        }
+                        else {
                           addnotifications();
                         }
                       },
