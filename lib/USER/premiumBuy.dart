@@ -50,7 +50,7 @@ class _PremiumpageState extends State<Premiumpage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Benfits",
+                  "Benefits",
                   style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
                 ),
               ),
