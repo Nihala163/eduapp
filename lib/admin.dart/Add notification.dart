@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 // import 'package:eduapp/Youtube/Admin%20panal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:intl/intl.dart';
 
 import '../Admin login/app colors.dart';
 import '../Admin login/app stayles.dart';
-
 
 class Adminaddnotification extends StatefulWidget {
   const Adminaddnotification({super.key});
@@ -32,6 +32,9 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
       'Time': time.format(context),
       'date': DateFormat('dd/MM/yyyy').format(date)
     });
+    entermatter.clear();
+    entercontent.clear();
+    addlink.clear();
     // Navigator.pushReplacement(context, MaterialPageRoute(
     //   builder: (context) {
     //     return AdminDash();
@@ -182,7 +185,22 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                   children: [
                     InkWell(
                       onTap: () {
-                        addnotifications();
+                        if (entermatter.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
+                            content: Text("Enter Matter"),
+                            backgroundColor: Colors.purple.shade400,
+                            behavior: SnackBarBehavior.floating,
+                          ));
+                        } else if (entercontent.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Enter Content"),
+                            backgroundColor: Colors.purple.shade400,
+                            behavior: SnackBarBehavior.floating,
+                          ));
+                        } else {
+                          addnotifications();
+                        }
                       },
                       child: Container(
                         width: 200,

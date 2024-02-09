@@ -1,8 +1,8 @@
 import 'package:eduapp/Youtube/Admin%20panal.dart';
+import 'package:eduapp/Youtube/Total%20video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class AdminHome extends StatelessWidget {
   AdminHome({super.key});
@@ -42,18 +42,24 @@ class AdminHome extends StatelessWidget {
                     theam: Colors.purple.shade50,
                     iccolor: Colors.purple,
                   ),
-                  Box(
-                    img:
-                        "https://cdn-icons-png.flaticon.com/128/13447/13447074.png",
-                    title: "Videos",
-                    value: "100",
-                    theam: Colors.blue.shade50,
-                    iccolor: Colors.blue,
+                  InkWell(onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return Total_videos();
+                    },));
+                  },
+                    child: Box(
+                      img:
+                          "https://cdn-icons-png.flaticon.com/128/13447/13447074.png",
+                      title: "Videos",
+                      value: "100",
+                      theam: Colors.blue.shade50,
+                      iccolor: Colors.blue,
+                    ),
                   ),
                   Box(
                     img:
                         "https://cdn-icons-png.flaticon.com/128/2128/2128421.png",
-                    title: "Subscribers",
+                    title: "Premium",
                     value: "10.k",
                     theam: Colors.amber.shade50,
                     iccolor: Colors.amber,

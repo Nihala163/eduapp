@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/link.dart';
 
 class Adminviewnotification extends StatefulWidget {
   const Adminviewnotification({super.key});
@@ -21,7 +20,7 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: notificationlist.snapshots(),
+        stream: notificationlist.orderBy('date', descending: true).snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -30,7 +29,7 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
           }
           if (snapshot.hasError) {
             return Center(
-              child: Text("Error:${snapshot.error}"),
+              child: Text("Error: ${snapshot.error}"),
             );
           }
           final notification = snapshot.data?.docs ?? [];
@@ -43,14 +42,16 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
                 child: Container(
                   height: 210.h,
                   decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.purple.withOpacity(0.3),
-                            blurRadius: 5.0,
-                            offset: const Offset(0.0, 5.0)),
-                      ],
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: Colors.white),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.purple.withOpacity(0.3),
+                        blurRadius: 5.0,
+                        offset: const Offset(0.0, 5.0),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(10.r),
+                    color: Colors.white,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Column(
@@ -77,10 +78,8 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
                                   },
                                   icon: Icon(Icons.delete),
                                 ),
-
                               ],
                             ),
-
                             Text(
                               notification[index]['content'],
                               style: GoogleFonts.poppins(
@@ -90,8 +89,9 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
                             Text(
                               notification[index]['Link'],
                               style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.blue),
+                                fontWeight: FontWeight.w400,
+                                color: Colors.blue,
+                              ),
                             ),
                           ],
                         ),
@@ -108,13 +108,14 @@ class _AdminviewnotificationState extends State<Adminviewnotification> {
                       ],
                     ),
                   ),
-
                 ),
               );
             },
           );
         },
       ),
+
+
     );
   }
 }
