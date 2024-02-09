@@ -11,7 +11,6 @@ import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
-import 'Dash.dart';
 import 'RegistrationForm.dart';
 
 class OtpScreen extends StatefulWidget {

@@ -1,9 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../dashboard/Dashboardnew.dart';
+import 'LoginOtpScreen.dart';
+import 'UserOtpScreen.dart';
 
 class MobileLogin extends StatefulWidget {
   const MobileLogin({super.key});
@@ -13,11 +21,101 @@ class MobileLogin extends StatefulWidget {
 }
 
 class _MobileLoginState extends State<MobileLogin> {
+  //
+  String id = '';
+  String name = '';
+  String email = '';
+  String phone = '';
+  String collage = '';
+  String department = '';
+  String Year = '';
+  //get data to mobile number
+  void userLogin() async {
+    final user = await FirebaseFirestore.instance
+        .collection('UserRegister')
+        .where('Phone number', isEqualTo: phoneController.text)
+        .get();
+    if (user.docs.isNotEmpty) {
+      id = user.docs[0].id;
+      name = user.docs[0]['Name'];
+      email = user.docs[0]['Email'];
+      phone = user.docs[0]['Phone number'];
+      Year = user.docs[0]['Year'];
+      collage = user.docs[0]['College'];
+      department = user.docs[0]['Department'];
+
+      SharedPreferences data = await SharedPreferences.getInstance();
+      data.setString('id', id);
+      data.setString('name', name);
+      data.setString('email', email);
+      data.setString('phone', phone);
+      data.setString('collage', collage);
+      data.setString('Year', Year);
+      data.setString('Department', department);
+
+      print(
+          '<<<<<<<<<<<<<<<<<get data from shared preffrence>>>>>>>>>>>>>>>>>');
+
+      mobscreen();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+        "invalied mobilenumber",
+        style: TextStyle(color: Colors.red),
+      )));
+    }
+  }
+
+  //authenticationfunction
+  Future<void> mobscreen() async {
+    String phone = phoneController.text;
+    String formattPhoneNumber = formatPhoneNumber(phone, '91');
+    print(formattPhoneNumber);
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: formattPhoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) {
+        print("<<<<<>>>>>>>>>VerificationCompleated");
+      },
+      timeout: Duration(seconds: 10),
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        Fluttertoast.showToast(
+            msg: "Varification code sent",
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            gravity: ToastGravity.BOTTOM);
+        print("<<<<<<<<<<<go to otp screen>>>>>>>>>>>");
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginOtp(
+                verificationid: verificationId,
+              ),
+            ));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
+  //
+  //
+  //
+  String formatPhoneNumber(String phoneNumber, String countryCode) {
+    String digits = phoneNumber.replaceAll(RegExp(r'\D'), '');
+    return '+$countryCode$digits';
+  }
+
   var phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -92,8 +190,7 @@ class _MobileLoginState extends State<MobileLogin> {
               children: [
                 InkWell(
                   onTap: () {
-                    // getData();
-                    // otpNumber();
+                    userLogin();
                   },
                   child: Container(
                     height: 50.h,
@@ -134,4 +231,3 @@ class _MobileLoginState extends State<MobileLogin> {
     );
   }
 }
-

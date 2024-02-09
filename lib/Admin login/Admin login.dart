@@ -10,14 +10,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app colors.dart';
 import 'app stayles.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class Adminlogin extends StatefulWidget {
+  const Adminlogin({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Adminlogin> createState() => _AdminloginState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _AdminloginState extends State<Adminlogin> {
   final _formfield = GlobalKey<FormState>();
 
   final email = TextEditingController();
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: AppColors.backColor,
+      backgroundColor: Colors.purple[100],
       body: SizedBox(
         height: height,
         width: width,
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   : Expanded(
                       child: Container(
                         height: height,
-                        color: AppColors.mainBlueColor,
+                        color: Colors.purple,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -54,8 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               // 'AdminExpress',
                               'EduPort',
                               style: ralewayStyle.copyWith(
-                                fontSize: 48.0,
-                                color: AppColors.whiteColor,
+                                fontSize: 49.0,
+                                color: Colors.purple[100],
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       horizontal: ResponsiveWidget.isSmallScreen(context)
                           ? height * 0.032
                           : height * 0.12),
-                  color: AppColors.backColor,
+                  color: Colors.purple[100],
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.only(bottom: 40.0),
                     child: Column(
@@ -150,14 +150,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               border: const OutlineInputBorder()),
                           validator: (value) {
-                            bool emailvalid = RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value!);
-
                             if (value!.isEmpty) {
-                              return "Enter Email";
-                            } else if (!emailvalid) {
-                              return "Enter Valied Email";
+                              return "Enter Password";
+                            } else if (email.text!='kmo@gmail.com') {
+                              return "E-mail don't match";
                             }
                           },
                         ),
@@ -214,26 +210,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter Password";
-                            } else if (password.text.length < 6) {
-                              return "Password Length Should not be less\nthan 6 characters";
+                            } else if (password.text!='kmo123') {
+                              return "Password don't match";
                             }
                           },
                         ),
-                        //
-                        // SizedBox(height: height * 0.03),
-                        // Align(
-                        //   alignment: Alignment.centerRight,
-                        //   child: TextButton(
-                        //     onPressed: (){},
-                        //     child: Text('Forgot Password?',
-                        //       style: ralewayStyle.copyWith(
-                        //         fontSize: 12.0,
-                        //         color: AppColors.mainBlueColor,
-                        //         fontWeight: FontWeight.w600,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+
 
                         SizedBox(height: height * 0.05),
                         Material(
@@ -241,13 +223,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: InkWell(
                             onTap: () {
                               if (_formfield.currentState!.validate()) {
-                                Navigator.pushReplacement(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return Demo();
-                                  },
-                                ));
-                                email.clear();
-                                password.clear();
+                                if (email.text == 'kmo@gmail.com'&&
+                                    password.text == 'kmo123') {
+                                  print("click");
+                                  // Navigator.push(context, MaterialPageRoute(
+                                  //   builder: (context) {
+                                  //     return AuthenticationScreen();
+                                  //   },
+                                  // ));
+                                }
                               }
                             },
                             borderRadius: BorderRadius.circular(16.0),
@@ -256,13 +240,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   horizontal: 70.0, vertical: 18.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: AppColors.mainBlueColor,
+                                color: Colors.purple
                               ),
                               child: Text(
                                 'Login',
                                 style: ralewayStyle.copyWith(
                                   fontWeight: FontWeight.w700,
-                                  color: AppColors.whiteColor,
+                                  color: Colors.purple[100],
                                   fontSize: 16.0,
                                 ),
                               ),

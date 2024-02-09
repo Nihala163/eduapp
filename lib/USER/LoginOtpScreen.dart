@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +8,57 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pinput/pinput.dart';
 
+import '../dashboard/Dashboardnew.dart';
+
+
 class LoginOtp extends StatefulWidget {
-  const LoginOtp({super.key});
+  String verificationid = '';
+  LoginOtp({
+    required this.verificationid,
+    super.key,
+  });
 
   @override
   State<LoginOtp> createState() => _LoginOtpState();
 }
 
 class _LoginOtpState extends State<LoginOtp> {
+  TextEditingController Getotp = TextEditingController();
+  //
+  //
+  Future<void> verifyOtp() async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: widget.verificationid,
+        smsCode: Getotp.text,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      print("<<<<<<<<<<<<<<<<<<<go dashborad>>>>>>>>>>>>>>>>>>>");
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Dashboard(),
+        ),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error during OTP validation: $e");
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Invalid OTP. Please try again."),
+          duration: Duration(seconds: 10),
+        ),
+      );
+    }
+  }
+  //
+  //
+
   @override
   Widget build(BuildContext context) {
     String otp;
@@ -40,7 +85,8 @@ class _LoginOtpState extends State<LoginOtp> {
               )
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Enter Verification Code",
@@ -49,7 +95,8 @@ class _LoginOtpState extends State<LoginOtp> {
               )
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Please sign in to continue",
@@ -61,11 +108,9 @@ class _LoginOtpState extends State<LoginOtp> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Pinput(
-              
-              keyboardType: TextInputType.number,
-              length: 6,
-              onChanged: (value) => otp = value,
-            ),
+                keyboardType: TextInputType.number,
+                length: 6,
+                controller: Getotp),
           ),
           Padding(
             padding: EdgeInsets.only(top: 100.h),
@@ -73,9 +118,8 @@ class _LoginOtpState extends State<LoginOtp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    // getData();
-                    // otpNumber();
+                  onTap: () async {
+                    verifyOtp();
                   },
                   child: Container(
                     height: 50.h,
@@ -91,21 +135,21 @@ class _LoginOtpState extends State<LoginOtp> {
                         ]),
                     child: Center(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Verify",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            )
-                          ],
-                        )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Verify",
+                          style: GoogleFonts.poppins(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        )
+                      ],
+                    )),
                   ),
                 )
               ],
@@ -116,3 +160,5 @@ class _LoginOtpState extends State<LoginOtp> {
     );
   }
 }
+
+TextEditingController Getotp = TextEditingController();

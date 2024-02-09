@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:excel/excel.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Dash.dart';
+import '../dashboard/Dashboardnew.dart';
+
 
 class RegistrationFoarm extends StatefulWidget {
   const RegistrationFoarm({super.key});
@@ -69,11 +68,12 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
       "College": selectedcollegeValue,
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
+      "status": 0
     });
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Dash(),
+          builder: (context) => Dashboard(),
         ));
     print("Register sucsess");
   }
