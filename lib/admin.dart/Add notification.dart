@@ -1,9 +1,12 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // import 'package:eduapp/Youtube/Admin%20panal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -30,7 +33,8 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
       "content": entercontent.text,
       "Link": addlink.text,
       'Time': time.format(context),
-      'date': DateFormat('dd/MM/yyyy').format(date)
+      'date': DateFormat('dd/MM/yyyy').format(date),
+      'premium':premium
     });
     entermatter.clear();
     entercontent.clear();
@@ -42,9 +46,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
     // ));
   }
 
-
-  bool checkbox1Value = false;
-  bool checkbox2Value = false;
+  bool premium = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +93,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                         fontSize: 12.0,
                       ),
                       contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.purple),
                         borderRadius: BorderRadius.circular(8).r,
@@ -131,7 +133,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                         fontSize: 12.0,
                       ),
                       contentPadding:
-                      EdgeInsets.symmetric(vertical: 50, horizontal: 15).r,
+                          EdgeInsets.symmetric(vertical: 50, horizontal: 15).r,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.purple),
                         borderRadius: BorderRadius.circular(8).r,
@@ -167,7 +169,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                       suffixIcon: Icon(CupertinoIcons.link),
                       filled: true,
                       contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15).r,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(color: Colors.purple),
                         borderRadius: BorderRadius.circular(8).r,
@@ -179,36 +181,28 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                       border: const OutlineInputBorder()),
                 ),
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
 
               //=======================================================================================================================================================
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 155),
+                padding: const EdgeInsets.symmetric(horizontal: 110),
                 child: Column(
                   children: [
                     CheckboxListTile(
-                      title: Text('Students'),
-                      value: checkbox1Value,
+                      title: Text('Sent premium members'),
+                      value: premium,
                       onChanged: (value) {
                         setState(() {
-                          checkbox1Value = value!;
-                        });
-                      },
-                    ),
-                    CheckboxListTile(
-                      title: Text('Premium'),
-                      value: checkbox2Value,
-                      onChanged: (value) {
-                        setState(() {
-                          checkbox2Value = value!;
+                          premium = value!;
                         });
                       },
                     ),
                   ],
                 ),
               ),
-
 
               //=======================================================================================================================================================
 
@@ -219,9 +213,9 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                   children: [
                     InkWell(
                       onTap: () {
+
                         if (entermatter.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-
                             content: Text("Enter Matter"),
                             backgroundColor: Colors.purple.shade400,
                             behavior: SnackBarBehavior.floating,
@@ -232,9 +226,9 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                             backgroundColor: Colors.purple.shade400,
                             behavior: SnackBarBehavior.floating,
                           ));
-                        }
-                        else {
-                          addnotifications();
+                        } else {
+                          _showAlertDialog();
+
                         }
                       },
                       child: Container(
@@ -268,5 +262,72 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
         ),
       ),
     );
+  }
+
+  Future<void> _showAlertDialog() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple[100],
+            shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.purple)),
+            shadowColor: Colors.purple,
+              title: Column(
+                children: [
+                  Icon(
+                    Icons.notification_important_outlined,
+                    color: Colors.purple,
+                    size: 35,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    'Sent notification',
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(onTap: () {
+                        Navigator.pop(context);
+                      },
+                        child: Text(
+                          'Cancel',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      InkWell(onTap: () async{
+                        addnotifications();
+                        Fluttertoast.showToast(
+                            msg: "Notification sent successfully",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                        Navigator.pop(context);
+                      },
+                        child: Text(
+                          'Ok',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
+          );
+        });
   }
 }
