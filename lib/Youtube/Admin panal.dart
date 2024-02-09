@@ -1,12 +1,10 @@
-import 'package:eduapp/Youtube/adminHome.dart';
 import 'package:eduapp/Youtube/videohome.dart';
-import 'package:eduapp/admin.dart/Add%20notification.dart';
-import 'package:eduapp/admin.dart/Admin%20view%20notificatuon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'Premium/Premium video home.dart';
+import 'adminHome.dart';
 
 class AdminDash extends StatefulWidget {
   const AdminDash({super.key});
@@ -39,7 +37,7 @@ class _AdminDashState extends State<AdminDash> {
         title: Text(
           "Admin Dashboard",
           style: TextStyle(
-              color:  _selectedIndex==2?Colors.black:Colors.white, fontSize: 8.sp, fontWeight: FontWeight.w400),
+              color:  _selectedIndex==2?Colors.black:Colors.white, fontSize: 7.sp, fontWeight: FontWeight.bold),
         ),
         actions: [
           Container(
@@ -74,14 +72,14 @@ class _AdminDashState extends State<AdminDash> {
           selectedIconTheme: IconThemeData(
             color: Colors.black,
           ),
-          destinations: const [
+          destinations:  [
             NavigationRailDestination(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home,color: Colors.blue.shade200,),
               label: AppText(
                   text: "Home",
                   weight: FontWeight.w400,
                   size: 4,
-                  textcolor: Colors.black),
+                  textcolor: Colors.blue),
             ),
             NavigationRailDestination(
               icon: Icon(Icons.video_collection_outlined,color: Colors.purple,),
@@ -103,26 +101,26 @@ class _AdminDashState extends State<AdminDash> {
                 ],
               ),
             ),
-            NavigationRailDestination(
-              icon: Icon(Icons.currency_rupee,color: Colors.blueAccent),
-              label: Row(
-                children: [
-                  AppText(
-                      text: "Payment",
-                      weight: FontWeight.w400,
-                      size: 4,
-                      textcolor: Colors.blueAccent),SizedBox(width: 10,),
-                ],
-              ),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Icons.notification_add,color: Colors.yellow),
-              label: AppText(
-                  text: "Notification",
-                  weight: FontWeight.w400,
-                  size: 4,
-                  textcolor: Colors.black),
-            ),
+            // NavigationRailDestination(
+            //   icon: Icon(Icons.currency_rupee,color: Colors.blueAccent),
+            //   label: Row(
+            //     children: [
+            //       AppText(
+            //           text: "Payment",
+            //           weight: FontWeight.w400,
+            //           size: 4,
+            //           textcolor: Colors.blueAccent),SizedBox(width: 10,),
+            //     ],
+            //   ),
+            // ),
+            // NavigationRailDestination(
+            //   icon: Icon(Icons.notification_add,color: Colors.yellow),
+            //   label: AppText(
+            //       text: "Notification",
+            //       weight: FontWeight.w400,
+            //       size: 4,
+            //       textcolor: Colors.black),
+           // ),
           ],
           selectedIndex: _selectedIndex,
           onDestinationSelected: (int index) {
@@ -142,12 +140,12 @@ class _AdminDashState extends State<AdminDash> {
         return AdminHome();
       case 1:
         return VideoHome();
-      case 2:
-        return Premuim_VideoHome();
-     case 3:
-       return Adminviewnotification();
-      case 4:
-        return Adminaddnotification();
+    case 2:
+      return Premuim_VideoHome();
+    // case 3:
+    //   return ProfileScreen();
+    //   case 4:
+    //     return ();
       default:
         return Container();
     }
@@ -156,7 +154,7 @@ class _AdminDashState extends State<AdminDash> {
 
 class AppText extends StatelessWidget {
   const AppText(
-      {super.key,
+          {super.key,
         required this.text,
         required this.weight,
         required this.size,
@@ -178,6 +176,8 @@ class AppText extends StatelessWidget {
     );
   }
 }
+
+
 
 
 class VideoBox extends StatelessWidget {
