@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eduapp/Youtube/Admin%20panal.dart';
-import 'package:eduapp/Youtube/Total%20video.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+
+import '../Admin notification/Admin student progres.dart';
+import 'Total video.dart';
 
 class AdminHome extends StatelessWidget {
   AdminHome({super.key});
