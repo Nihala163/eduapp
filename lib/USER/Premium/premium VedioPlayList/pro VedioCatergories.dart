@@ -25,19 +25,7 @@ class _proVedioCategoryState extends State<proVedioCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: CustomCupertinoTextField(
-      //       placeholder: 'Search',
-      //       searchController: searchController,
-      //       preffix: Padding(
-      //         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      //         child: Icon(
-      //           Icons.search,
-      //           color: const Color.fromRGBO(117, 117, 117, 1),
-      //         ),
-      //       )),
-      // ),
+
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
@@ -65,17 +53,24 @@ class _proVedioCategoryState extends State<proVedioCategory> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.blue,
+                            )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               'Departments',
                               style: TextStyle(
-                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue),
                             ),
-                            // Icon(Icons.filter_list_rounded)
-                            // IconButton(
-                            //     onPressed: () {}, icon: Icon(Icons.filter_list_rounded))
                           ],
                         ),
                         SizedBox(
@@ -106,7 +101,7 @@ class _proVedioCategoryState extends State<proVedioCategory> {
                                       boxShadow: [
                                         BoxShadow(
                                             color:
-                                                Colors.grey.withOpacity(0.85),
+                                                Colors.blue.withOpacity(0.85),
                                             blurRadius: 5,
                                             offset: Offset(2.0, 5.0),
                                             spreadRadius: 1)
@@ -132,70 +127,6 @@ class _proVedioCategoryState extends State<proVedioCategory> {
                         //   height: 20,
                         // ),
                         // Spacer(),
-                        Text(
-                          'Recently Viewed',
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        ),
-                        Divider(),
-                        SizedBox(
-                          height: MediaQuery.sizeOf(context).height / 5,
-                          child: recenWatchedId.isEmpty
-                              ? Center(child: Text('No recent watched vedios'))
-                              : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) {
-                                    return Row(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           VedioplayerUser(
-                                            //               vedioId: vedioId),
-                                            //     ));
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 10.w),
-                                            decoration: BoxDecoration(
-                                              color: Colors.deepPurpleAccent,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    blurRadius: 2,
-                                                    spreadRadius: 1,
-                                                    color: Color.fromARGB(
-                                                        255, 153, 123, 205))
-                                              ],
-                                              borderRadius:
-                                                  BorderRadius.circular(10.w),
-                                            ),
-                                            height: 150,
-                                            width: 200,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.w),
-                                              child: Image.network(
-                                                YoutubePlayer.getThumbnail(
-                                                  videoId: recenWatchedId
-                                                      .elementAt(index),
-                                                ),
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                          ),
-                                          // SizedBox(
-                                          //   width: 20,
-                                          // )
-                                        )
-                                      ],
-                                    );
-                                  },
-                                ),
-                        )
                       ]),
                 );
               }
