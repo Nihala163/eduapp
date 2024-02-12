@@ -10,7 +10,6 @@ import 'package:pinput/pinput.dart';
 
 import '../dashboard/Dashboardnew.dart';
 
-
 class LoginOtp extends StatefulWidget {
   String verificationid = '';
   LoginOtp({
