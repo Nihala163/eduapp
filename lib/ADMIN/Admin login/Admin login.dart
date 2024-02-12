@@ -1,4 +1,5 @@
-import 'package:eduapp/Admin%20login/responsive.dart';
+
+import 'package:eduapp/ADMIN/Admin%20login/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:responsive_layout/app_styles.dart';
 // import 'package:responsive_layout/responsive_widget.dart';
 
+import 'Phoneauth.dart';
 import 'app colors.dart';
 import 'app stayles.dart';
 
@@ -82,7 +84,7 @@ class _AdminloginState extends State<Adminlogin> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                  text: 'Let’s',
+                                  text: '',
                                   style: ralewayStyle.copyWith(
                                     fontSize: 25.0,
                                     color: AppColors.blueDarkColor,
@@ -226,11 +228,11 @@ class _AdminloginState extends State<Adminlogin> {
                                 if (email.text == 'kmo@gmail.com'&&
                                     password.text == 'kmo123') {
                                   print("click");
-                                  // Navigator.push(context, MaterialPageRoute(
-                                  //   builder: (context) {
-                                  //     return AuthenticationScreen();
-                                  //   },
-                                  // ));
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return Phoneauth();
+                                    },
+                                  ));
                                 }
                               }
                             },

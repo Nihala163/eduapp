@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // import 'package:eduapp/Youtube/Admin%20panal.dart';
@@ -34,7 +32,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
       "Link": addlink.text,
       'Time': time.format(context),
       'date': DateFormat('dd/MM/yyyy').format(date),
-      'premium':premium
+      'premium': premium
     });
     entermatter.clear();
     entercontent.clear();
@@ -213,7 +211,6 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                   children: [
                     InkWell(
                       onTap: () {
-
                         if (entermatter.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Enter Matter"),
@@ -228,7 +225,6 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                           ));
                         } else {
                           _showAlertDialog();
-
                         }
                       },
                       child: Container(
@@ -269,11 +265,11 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Colors.purple[100],
-            shape: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.purple)),
-            shadowColor: Colors.purple,
+              backgroundColor: Colors.purple[100],
+              shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.purple)),
+              shadowColor: Colors.purple,
               title: Column(
                 children: [
                   Icon(
@@ -289,32 +285,35 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                     style: GoogleFonts.poppins(
                         fontSize: 14, fontWeight: FontWeight.w400),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      InkWell(onTap: () {
-                        Navigator.pop(context);
-                      },
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         child: Text(
                           'Cancel',
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      InkWell(onTap: () async{
-                        addnotifications();
-                        Fluttertoast.showToast(
-                            msg: "Notification sent successfully",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0
-                        );
-                        Navigator.pop(context);
-                      },
+                      InkWell(
+                        onTap: () async {
+                          addnotifications();
+                          Fluttertoast.showToast(
+                              msg: "Notification sent successfully",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                          Navigator.pop(context);
+                        },
                         child: Text(
                           'Ok',
                           style: GoogleFonts.poppins(
@@ -326,8 +325,7 @@ class _AdminaddnotificationState extends State<Adminaddnotification> {
                     ],
                   )
                 ],
-              )
-          );
+              ));
         });
   }
 }

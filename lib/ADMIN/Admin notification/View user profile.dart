@@ -19,12 +19,28 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.purple,
         surfaceTintColor: Colors.purple,
-        title: Text(
-          "Profile",
-          style: GoogleFonts.inter(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        title: Row(
+          children: [
+            InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                )),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              "Profile",
+              style: GoogleFonts.inter(
+                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          ],
         ),
       ),
       backgroundColor: Colors.white70,

@@ -1,12 +1,13 @@
-import 'package:eduapp/Youtube/adminHome.dart';
-import 'package:eduapp/Youtube/videohome.dart';
-import 'package:eduapp/admin.dart/Add%20notification.dart';
-import 'package:eduapp/admin.dart/Admin%20view%20notificatuon.dart';
+import 'package:eduapp/ADMIN/Youtube/videohome.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Admin notification/Add notification.dart';
+import '../Admin notification/Admin view notificatuon.dart';
 import 'Premium/Premium video home.dart';
+import 'adminHome.dart';
 
 class AdminDash extends StatefulWidget {
   const AdminDash({super.key});

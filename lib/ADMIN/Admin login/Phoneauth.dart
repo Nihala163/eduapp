@@ -93,7 +93,7 @@ class _PhoneauthState extends State<Phoneauth> {
                                 ));
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {},
-                          phoneNumber: '+91 9847 768 052');
+                          phoneNumber: '+91 9847768052');
                     },
                     child: Text('Sent OTP'))
               ],

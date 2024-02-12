@@ -1,62 +1,81 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../admin.dart/Admin student progres.dart';
+import '../Admin notification/Admin student progres.dart';
 
 
-class Premium_videoAdd extends StatefulWidget {
-  const Premium_videoAdd({super.key});
+class EditVideo extends StatefulWidget {
+  final url;
+  final id;
+  final trade;
+  final year;
+  final subject;
+  const EditVideo(
+      {super.key,
+        required this.id,
+        required this.url,
+        required this.trade,
+        required this.year,
+        required this.subject});
 
   @override
-  State<Premium_videoAdd> createState() => _Premium_videoAddState();
+  State<EditVideo> createState() => _EditVideoState();
+}
+Future<bool> checkYTradeExists(String link) async {
+  CollectionReference videoCollection =
+  FirebaseFirestore.instance.collection('TradeCollection');
+
+  QuerySnapshot querySnapshot =
+  await videoCollection.where('trade', isEqualTo: link).get();
+  return querySnapshot.docs.isNotEmpty;
+}
+Future<bool> checkYSubjectExists(String link) async {
+  CollectionReference videoCollection =
+  FirebaseFirestore.instance.collection('SubjectCollection');
+
+  QuerySnapshot querySnapshot =
+  await videoCollection.where('subject', isEqualTo: link).get();
+  return querySnapshot.docs.isNotEmpty;
 }
 
-final linkController = TextEditingController();
+late TextEditingController linkController;
+late String selectedTrade;
+late String selectedYear;
+late String selectedSubject;
+// final linkController = TextEditingController();
 final addTradeControllor = TextEditingController();
-final yearcontollor = TextEditingController();
+// final yearcontollor = TextEditingController();
 final addSubControllor = TextEditingController();
 List<String> year = <String>['1st Year', '2nd year'];
 
-String? selectedTrade;
-String? selectedYear;
-String? selectedSubject;
-String? selectedModule;
-
-class _Premium_videoAddState extends State<Premium_videoAdd> {
-  Future<bool> checkLinkExists(String link) async {
-    CollectionReference videoCollection =
-    FirebaseFirestore.instance.collection('premiumvideo');
-
-    QuerySnapshot querySnapshot =
-    await videoCollection.where('url', isEqualTo: link).get();
-    return querySnapshot.docs.isNotEmpty;
+class _EditVideoState extends State<EditVideo> {
+  @override
+  void initState() {
+    super.initState();
+    linkController = TextEditingController(text: widget.url);
+    selectedTrade = widget.trade;
+    selectedYear = widget.year;
+    selectedSubject = widget.subject;
   }
-  Future<bool> checkYTradeExists(String link) async {
-    CollectionReference videoCollection =
-    FirebaseFirestore.instance.collection('TradeCollection');
 
-    QuerySnapshot querySnapshot =
-    await videoCollection.where('trade', isEqualTo: link).get();
-    return querySnapshot.docs.isNotEmpty;
-  }
-  Future<bool> checkYSubjectExists(String link) async {
-    CollectionReference videoCollection =
-    FirebaseFirestore.instance.collection('SubjectCollection');
-
-    QuerySnapshot querySnapshot =
-    await videoCollection.where('subject', isEqualTo: link).get();
-    return querySnapshot.docs.isNotEmpty;
+  @override
+  void dispose() {
+    linkController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // linkController.text = widget.url;
+    // var selectedTrade = widget.trade;
+    // var selectedYear = widget.year;
+    // var selectedSubject = widget.subject;
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.amber,
-        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.purple,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(children: [
         SizedBox(
@@ -75,20 +94,19 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppText(
-                            text: "Add Video",
+                            text: "Edit Video",
                             weight: FontWeight.bold,
                             size: 7,
-                            textcolor: Colors.amber),
+                            textcolor: Colors.purple),
                         Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: Colors.amber)),
+                                border: Border.all(color: Colors.purple)),
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -159,11 +177,12 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
 
                                           items: tradeList
                                               .map<DropdownMenuItem<String>>(
-                                                  (String value) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  ))
+                                                (String value) =>
+                                                DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                ),
+                                          )
                                               .toList(),
                                         ),
                                       ),
@@ -194,7 +213,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                 },
                                                 icon: const Icon(
                                                   Icons.close,
-                                                  color: Colors.yellow,
+                                                  color: Colors.purple,
                                                 ))
                                           ],
                                         ),
@@ -219,7 +238,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                       const SnackBar(
                                                         content: Text("Enter trade",style: TextStyle(color:Colors.black,)),
-                                                        backgroundColor: Colors.yellow,
+                                                        backgroundColor: Colors.purple,
                                                         behavior: SnackBarBehavior.floating,
                                                       ),
                                                     );
@@ -252,7 +271,6 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                         .trim()
                                                   });
                                                   addTradeControllor.clear();}
-
                                                 },
                                                 style: const ButtonStyle(
                                                     shape: MaterialStatePropertyAll(
@@ -268,10 +286,10 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.yellow,
+                                backgroundColor: Colors.purple,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               )
                             ],
@@ -360,11 +378,12 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
 
                                           items: tradeList
                                               .map<DropdownMenuItem<String>>(
-                                                  (String value) =>
-                                                  DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  ))
+                                                (String value) =>
+                                                DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                ),
+                                          )
                                               .toList(),
                                         ),
                                       ),
@@ -394,7 +413,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                 },
                                                 icon: const Icon(
                                                   Icons.close,
-                                                  color: Colors.yellow,
+                                                  color: Colors.purple,
                                                 ))
                                           ],
                                         ),
@@ -419,7 +438,7 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                       const SnackBar(
                                                         content: Text("Enter Subject",style: TextStyle(color:Colors.black,)),
-                                                        backgroundColor: Colors.yellow,
+                                                        backgroundColor: Colors.purple,
                                                         behavior: SnackBarBehavior.floating,
                                                       ),
                                                     );
@@ -470,10 +489,10 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.yellow,
+                                backgroundColor: Colors.purple,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               )
                             ],
@@ -488,114 +507,112 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                            onPressed: () async {
-                              // Check if the link already exists
-                              bool linkExists =
-                              await checkLinkExists(linkController.text);
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                barrierDismissible:
+                                false, // user must tap button!
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Are you shure?'),
+                                    content: const SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text('Are You shure to add Video!!'),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                          onPressed: () async {
+                                            if (linkController.text.isEmpty) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content:
+                                                Text("Enter video link"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else if (selectedTrade == null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content: Text("Select Trade"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else if (selectedSubject ==null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content: Text("Select Subject"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else if (selectedYear == null) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content: Text("Select Year"),
+                                                backgroundColor: Colors.purple,
+                                                behavior:
+                                                SnackBarBehavior.floating,
+                                              ));
+                                            } else {
+                                              await FirebaseFirestore.instance
+                                                  .collection('video')
+                                                  .doc(widget.id)
+                                                  .update({
+                                                'url': linkController.text,
+                                                'trade': selectedTrade,
+                                                'subject': selectedSubject,
+                                                'year': selectedYear
+                                              });
 
-                              if (linkController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Enter video link",style: TextStyle(color:Colors.black,)),
-                                    backgroundColor: Colors.yellow,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (selectedTrade == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Select Trade",style: TextStyle(color:Colors.black,)),
-                                    backgroundColor: Colors.yellow,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (selectedSubject == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Select Subject",style: TextStyle(color:Colors.black,)),
-                                    backgroundColor: Colors.yellow,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (selectedYear == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Select Year",style: TextStyle(color:Colors.black,)),
-                                    backgroundColor: Colors.yellow,
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              } else if (linkExists) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text(
-                                          'The provided link already exists in the database.'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
+                                              Navigator.pop(context);
+                                            }
+                                            Navigator.pop(context);
                                           },
-                                          child: const Text('OK',style: TextStyle(color:Colors.black,),)
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                await FirebaseFirestore.instance
-                                    .collection('premiumvideo')
-                                    .add({
-                                  'url': linkController.text,
-                                  'trade': selectedTrade,
-                                  'subject': selectedSubject,
-                                  'year': selectedYear
-                                });
-                                Fluttertoast.showToast(
-                                    msg: "Uploaded Successfully",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    //  gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 3,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0
-                                );
-                                setState(() {
-                                  linkController.clear();
-                                  selectedTrade = null;
-                                  selectedSubject = null;
-                                  selectedYear = null;
-                                });
-                              }
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.zero,
+                                                      side: BorderSide(
+                                                          color:
+                                                          Colors.black)))),
+                                          child: const Text("Edit")),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.zero,
+                                                      side: BorderSide(
+                                                          color:
+                                                          Colors.black)))),
+                                          child: const Text("Cancel"))
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
-                                     RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        side: BorderSide(color: Colors.black)))),
-                            child: const Text("Add",style: TextStyle(color:Colors.black,))),
+                                    const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero,
+                                        side:
+                                        BorderSide(color: Colors.purple)))),
+                            child: const Text("Update")),
                         SizedBox(
                           width: 10.w,
                         ),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                linkController.clear();
-                                selectedTrade = null;
-                                selectedSubject = null;
-                                selectedYear = null;
-                              });
-                            },
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                     RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        side: BorderSide(color: Colors.black)))),
-                            child: const Text("Clear",style: TextStyle(color:Colors.black,)))
                       ],
                     )
                   ]),
@@ -606,3 +623,5 @@ class _Premium_videoAddState extends State<Premium_videoAdd> {
     );
   }
 }
+
+

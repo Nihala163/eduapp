@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:eduapp/Admin%20login/Admin%20login.dart';
-
-import 'package:eduapp/admin.dart/View%20user%20login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+
+import '../Youtube/Admin panal.dart';
+
 
 class Otpscreen extends StatefulWidget {
   String verificationid;
@@ -48,8 +48,9 @@ class _OtpscreenState extends State<Otpscreen> {
                       fontWeight: FontWeight.w400,
                       color: Colors.purple),
                 ),
-                SizedBox(height: 15,),
-
+                SizedBox(
+                  height: 15,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -85,10 +86,8 @@ class _OtpscreenState extends State<Otpscreen> {
                     controller: otpcontroller,
                     keyboardType: TextInputType.number,
                     length: 6,
-
                   ),
                 ),
-
                 ElevatedButton(
                     onPressed: () async {
                       try {
@@ -102,7 +101,7 @@ class _OtpscreenState extends State<Otpscreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Adminlogin(),
+                                builder: (context) => AdminDash(),
                               ));
                         });
                       } catch (ex) {

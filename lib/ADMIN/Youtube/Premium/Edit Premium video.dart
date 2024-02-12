@@ -2,15 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../admin.dart/Admin student progres.dart';
+import '../../Admin notification/Admin student progres.dart';
 
-class EditVideo extends StatefulWidget {
+
+
+class Edit_PremiumVideo extends StatefulWidget {
   final url;
   final id;
   final trade;
   final year;
   final subject;
-  const EditVideo(
+  const Edit_PremiumVideo(
       {super.key,
         required this.id,
         required this.url,
@@ -19,8 +21,9 @@ class EditVideo extends StatefulWidget {
         required this.subject});
 
   @override
-  State<EditVideo> createState() => _EditVideoState();
+  State<Edit_PremiumVideo> createState() => _Edit_PremiumVideoState();
 }
+
 Future<bool> checkYTradeExists(String link) async {
   CollectionReference videoCollection =
   FirebaseFirestore.instance.collection('TradeCollection');
@@ -37,7 +40,6 @@ Future<bool> checkYSubjectExists(String link) async {
   await videoCollection.where('subject', isEqualTo: link).get();
   return querySnapshot.docs.isNotEmpty;
 }
-
 late TextEditingController linkController;
 late String selectedTrade;
 late String selectedYear;
@@ -48,7 +50,7 @@ final addTradeControllor = TextEditingController();
 final addSubControllor = TextEditingController();
 List<String> year = <String>['1st Year', '2nd year'];
 
-class _EditVideoState extends State<EditVideo> {
+class _Edit_PremiumVideoState extends State<Edit_PremiumVideo> {
   @override
   void initState() {
     super.initState();
@@ -73,7 +75,7 @@ class _EditVideoState extends State<EditVideo> {
     return Scaffold(
       backgroundColor: const Color(0xfff5f6f9),
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.amber,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(children: [
@@ -93,6 +95,7 @@ class _EditVideoState extends State<EditVideo> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,11 +104,11 @@ class _EditVideoState extends State<EditVideo> {
                             text: "Edit Video",
                             weight: FontWeight.bold,
                             size: 7,
-                            textcolor: Colors.purple),
+                            textcolor: Colors.amber),
                         Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: Colors.purple)),
+                                border: Border.all(color: Colors.amber)),
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -200,7 +203,7 @@ class _EditVideoState extends State<EditVideo> {
                                     false, // user must tap button!
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        backgroundColor: Colors.white,
+                                        backgroundColor: Colors.yellow,
                                         title: Row(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -237,7 +240,7 @@ class _EditVideoState extends State<EditVideo> {
                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                       const SnackBar(
                                                         content: Text("Enter trade",style: TextStyle(color:Colors.black,)),
-                                                        backgroundColor: Colors.purple,
+                                                        backgroundColor: Colors.yellow,
                                                         behavior: SnackBarBehavior.floating,
                                                       ),
                                                     );
@@ -285,10 +288,10 @@ class _EditVideoState extends State<EditVideo> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Colors.yellow,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               )
                             ],
@@ -437,7 +440,7 @@ class _EditVideoState extends State<EditVideo> {
                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                       const SnackBar(
                                                         content: Text("Enter Subject",style: TextStyle(color:Colors.black,)),
-                                                        backgroundColor: Colors.purple,
+                                                        backgroundColor: Colors.yellow,
                                                         behavior: SnackBarBehavior.floating,
                                                       ),
                                                     );
@@ -488,10 +491,10 @@ class _EditVideoState extends State<EditVideo> {
                                 },
                                 mini: true,
                                 shape: const RoundedRectangleBorder(),
-                                backgroundColor: Colors.purple,
+                                backgroundColor: Colors.yellow,
                                 child: const Text(
                                   "+",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                               )
                             ],
@@ -595,7 +598,7 @@ class _EditVideoState extends State<EditVideo> {
                                                       side: BorderSide(
                                                           color:
                                                           Colors.black)))),
-                                          child: const Text("Cancel"))
+                                          child: const Text("Cancel",style: TextStyle(color: Colors.black),))
                                     ],
                                   );
                                 },
@@ -607,8 +610,8 @@ class _EditVideoState extends State<EditVideo> {
                                     const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.zero,
                                         side:
-                                        BorderSide(color: Colors.purple)))),
-                            child: const Text("Update")),
+                                        BorderSide(color: Colors.black)))),
+                            child: const Text("Update",style: TextStyle(color: Colors.black),)),
                         SizedBox(
                           width: 10.w,
                         ),

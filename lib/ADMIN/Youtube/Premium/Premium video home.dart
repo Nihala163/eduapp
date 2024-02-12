@@ -1,10 +1,12 @@
-import 'package:eduapp/Youtube/Premium/Add%20premium%20video.dart';
-import 'package:eduapp/Youtube/Premium/Edit%20Premium%20video.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'Add premium video.dart';
+import 'Edit Premium video.dart';
 
 class Premuim_VideoHome extends StatefulWidget {
   Premuim_VideoHome({super.key});

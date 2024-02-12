@@ -1,10 +1,9 @@
-
-
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -32,40 +31,47 @@ class _StudentProgressState extends State<StudentProgress> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         surfaceTintColor: Colors.purple,
-
         elevation: 0,
         backgroundColor: Colors.purple,
-        title: const AppText(
-            text: "Student Status",
-            weight: FontWeight.w400,
-            size: 18,
-            textcolor: Colors.white),
+        title: Row(
+          children: [
+            InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                )),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              'Student Status',
+              style: GoogleFonts.inter(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white),
+            )
+          ],
+        ),
       ),
       body: Center(
-        child: Container(
-          height: 600,width: 500,decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 5.0,
-                  offset: const Offset(0.0, 5.0)),
-            ],
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.purple[50]),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 200,right: 200).r,
           child: ListView(
             children: [
               SizedBox(
                 height: 200,
                 width: double.infinity,
-                child:
-                StreamBuilder(
+                child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("UserRegister")
                         .doc(widget.id)
                         .snapshots(),
                     builder: (context, snapshot) {
-
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
                           child: CircularProgressIndicator(),
@@ -77,31 +83,32 @@ class _StudentProgressState extends State<StudentProgress> {
                           child: Text('Error: ${snapshot.error}'),
                         );
                       }
-                      return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        const CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(
-                              "https://t4.ftcdn.net/jpg/05/52/94/89/360_F_552948967_rfWkVCstu3t9ypSnpt2ZePVnuqoi6D6o.jpg"),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        AppText(
-                            text: snapshot.data!['Name'],
-                            weight: FontWeight.w400,
-                            size: 20,
-                            textcolor: customBalck),
-                        const AppText(
-                            text: "B com",
-                            weight: FontWeight.w400,
-                            size: 17,
-                            textcolor: customBalck)
-                      ]);
-                    }
-                ),
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(
+                                  "https://t4.ftcdn.net/jpg/05/52/94/89/360_F_552948967_rfWkVCstu3t9ypSnpt2ZePVnuqoi6D6o.jpg"),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            AppText(
+                                text: snapshot.data!['Name'],
+                                weight: FontWeight.w400,
+                                size: 20,
+                                textcolor: customBalck),
+                            const AppText(
+                                text: "B com",
+                                weight: FontWeight.w400,
+                                size: 17,
+                                textcolor: customBalck)
+                          ]);
+                    }),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 50),
                 child: Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -111,7 +118,7 @@ class _StudentProgressState extends State<StudentProgress> {
                             blurRadius: 5.0,
                             offset: const Offset(0.0, 3.0)),
                       ],
-                      color: Colors.white,
+                      color: Colors.blue[50],
                       borderRadius: BorderRadius.circular(30)),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
@@ -126,9 +133,15 @@ class _StudentProgressState extends State<StudentProgress> {
                       const SizedBox(
                         height: 20,
                       ),
-                      InkWell(onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Viewuserprofile(id: widget.id),));
-                      },
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Viewuserprofile(id: widget.id),
+                              ));
+                        },
                         child: CircularPercentIndicator(
                           radius: 100,
                           backgroundColor: Colors.grey.shade300,
@@ -155,14 +168,14 @@ class _StudentProgressState extends State<StudentProgress> {
                 height: 20,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 50),
                 child: Row(
                   children: [
                     Expanded(
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.greenAccent[100],
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withOpacity(0.3),
@@ -171,8 +184,8 @@ class _StudentProgressState extends State<StudentProgress> {
                             ],
                             borderRadius: BorderRadius.circular(30)),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 20),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                           child: Column(children: [
                             const Align(
                                 alignment: Alignment.bottomLeft,
@@ -212,7 +225,7 @@ class _StudentProgressState extends State<StudentProgress> {
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                            color: white,
+                            color: Colors.yellow[100],
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withOpacity(0.3),
@@ -221,8 +234,8 @@ class _StudentProgressState extends State<StudentProgress> {
                             ],
                             borderRadius: BorderRadius.circular(30)),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 20),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                           child: Column(children: [
                             const Align(
                                 alignment: Alignment.bottomLeft,
@@ -273,11 +286,11 @@ class _StudentProgressState extends State<StudentProgress> {
 class AppText extends StatelessWidget {
   const AppText(
       //Custom Text Widget.....
-          {super.key,
-        required this.text,
-        required this.weight,
-        required this.size,
-        required this.textcolor});
+      {super.key,
+      required this.text,
+      required this.weight,
+      required this.size,
+      required this.textcolor});
 
   final String text;
   final FontWeight weight;

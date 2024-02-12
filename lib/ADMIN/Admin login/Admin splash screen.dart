@@ -1,7 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:eduapp/Admin%20login/Admin%20login.dart';
 import 'package:flutter/material.dart';
 
+import 'Admin login.dart';
 import 'app stayles.dart';
 
 class Adminsplashscreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _AdminsplashscreenState extends State<Adminsplashscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedSplashScreen(
-   duration: 1000,
+        duration: 1000,
         splash: Text(
           // 'AdminExpress',
           'EduPort',
