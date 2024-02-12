@@ -5,10 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboard/Dashboardnew.dart';
+import 'Premium/pro Dashboard.dart';
 
 class LoginOtp extends StatefulWidget {
   String verificationid = '';
@@ -25,6 +26,7 @@ class _LoginOtpState extends State<LoginOtp> {
   TextEditingController Getotp = TextEditingController();
   //
   //
+
   Future<void> verifyOtp() async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -34,14 +36,24 @@ class _LoginOtpState extends State<LoginOtp> {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      print("<<<<<<<<<<<<<<<<<<<go dashborad>>>>>>>>>>>>>>>>>>>");
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Dashboard(),
-        ),
-      );
+      print("<<<<<<<<<<<<<go dashborad>>>>>>>>>>>>");
+      if (status == "1") {
+        print('<<<<<<<<<<<<<<<<<<<<<pro>>>>>>>>>>>>>>>>>>>>>');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PremiumDash(),
+          ),
+        );
+      } else {
+        print('object');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Dashboard(),
+          ),
+        );
+      }
     } catch (e) {
       if (kDebugMode) {
         print("Error during OTP validation: $e");
@@ -55,8 +67,26 @@ class _LoginOtpState extends State<LoginOtp> {
       );
     }
   }
+
   //
   //
+
+  void initState() {
+    getData();
+  }
+
+  String status = '';
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      status = spref.getString("status")!;
+
+      spref.setString('status', status);
+      print('status=$status');
+    });
+    print("Updated");
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -25,7 +25,6 @@ class _proVedioCategoryState extends State<proVedioCategory> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance

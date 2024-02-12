@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboard/Dashboardnew.dart';
 
-
 class RegistrationFoarm extends StatefulWidget {
   const RegistrationFoarm({super.key});
 
