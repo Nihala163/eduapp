@@ -29,6 +29,8 @@ class _MobileLoginState extends State<MobileLogin> {
   String collage = '';
   String department = '';
   String Year = '';
+  String status = '';
+
   //get data to mobile number
   void userLogin() async {
     final user = await FirebaseFirestore.instance
@@ -43,8 +45,10 @@ class _MobileLoginState extends State<MobileLogin> {
       Year = user.docs[0]['Year'];
       collage = user.docs[0]['College'];
       department = user.docs[0]['Department'];
+      status = user.docs[0]['status'];
 
       SharedPreferences data = await SharedPreferences.getInstance();
+      data.setString('status', status);
       data.setString('id', id);
       data.setString('name', name);
       data.setString('email', email);

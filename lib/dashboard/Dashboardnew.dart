@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../USER/LOGIN SCREEN.dart';
 import '../USER/UserNotification.dart';
+import '../USER/VedioPlayList/VedioCatergories.dart';
 import '../USER/premiumBuy.dart';
 import 'SubjectList.dart';
 
@@ -178,7 +179,7 @@ class _DashboardState extends State<Dashboard> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SubjecteList(),
+                    builder: (context) => VedioCategory(),
                   ));
             },
             child: Container(

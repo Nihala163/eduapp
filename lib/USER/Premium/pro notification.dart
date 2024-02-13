@@ -13,8 +13,9 @@ class ProNotification extends StatefulWidget {
 }
 
 class _ProNotificationState extends State<ProNotification> {
-  final notificationlist =
-      FirebaseFirestore.instance.collection("notification");
+  final notificationlist = FirebaseFirestore.instance
+      .collection("notification")
+      .where("premium", isEqualTo: true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

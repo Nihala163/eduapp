@@ -1,3 +1,4 @@
+import 'package:eduapp/USER/Premium/premium%20VedioPlayList/pro%20VedioCatergories.dart';
 import 'package:eduapp/USER/Premium/pro%20notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -164,11 +165,11 @@ class _PremiumDashState extends State<PremiumDash> {
           padding: const EdgeInsets.all(15),
           child: InkWell(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => SubjecteList(),
-              //     ));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => proVedioCategory(),
+                  ));
             },
             child: Container(
               height: 150,
