@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,8 @@ class Viewuserprofile extends StatefulWidget {
   @override
   State<Viewuserprofile> createState() => _ViewuserprofileState();
 }
+
+bool isSelected = false;
 
 class _ViewuserprofileState extends State<Viewuserprofile> {
   @override
@@ -38,7 +41,9 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
             Text(
               "Profile",
               style: GoogleFonts.inter(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
           ],
         ),
@@ -145,12 +150,11 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                   ),
                                 ]),
 
-
-
                                 //===========================================================================================================================
 
                                 TableRow(children: [
-                                  Container( height: 40,
+                                  Container(
+                                    height: 40,
                                     child: TableCell(
                                       child: Text(
                                         "E-mail",
@@ -164,7 +168,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                   TableCell(
                                       child: Center(child: Text(":")),
                                       verticalAlignment:
-                                      TableCellVerticalAlignment.middle),
+                                          TableCellVerticalAlignment.middle),
                                   TableCell(
                                     child: Text(
                                       snapshot.data!['Email'],
@@ -178,7 +182,8 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
 
                                 //===========================================================================================================================
                                 TableRow(children: [
-                                  Container( height: 40,
+                                  Container(
+                                    height: 40,
                                     child: TableCell(
                                       child: Text(
                                         "Phone Number",
@@ -192,7 +197,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                   TableCell(
                                       child: Center(child: Text(":")),
                                       verticalAlignment:
-                                      TableCellVerticalAlignment.middle),
+                                          TableCellVerticalAlignment.middle),
                                   TableCell(
                                     child: Text(
                                       snapshot.data!['Phone number'],
@@ -206,7 +211,8 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
 
                                 //===========================================================================================================================
                                 TableRow(children: [
-                                  Container( height: 40,
+                                  Container(
+                                    height: 40,
                                     child: TableCell(
                                       child: Text(
                                         "College",
@@ -220,7 +226,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                   TableCell(
                                       child: Center(child: Text(":")),
                                       verticalAlignment:
-                                      TableCellVerticalAlignment.middle),
+                                          TableCellVerticalAlignment.middle),
                                   TableCell(
                                     child: Text(
                                       snapshot.data!['College'],
@@ -234,7 +240,8 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
 
                                 //===========================================================================================================================
                                 TableRow(children: [
-                                  Container( height: 40,
+                                  Container(
+                                    height: 40,
                                     child: TableCell(
                                       child: Text(
                                         "Department",
@@ -248,7 +255,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                   TableCell(
                                       child: Center(child: Text(":")),
                                       verticalAlignment:
-                                      TableCellVerticalAlignment.middle),
+                                          TableCellVerticalAlignment.middle),
                                   TableCell(
                                     child: Text(
                                       snapshot.data!['Department'],
@@ -262,7 +269,8 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
 
                                 //===========================================================================================================================
                                 TableRow(children: [
-                                  Container( height: 40,
+                                  Container(
+                                    height: 40,
                                     child: TableCell(
                                       child: Text(
                                         "Year",
@@ -276,7 +284,7 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                   TableCell(
                                       child: Center(child: Text(":")),
                                       verticalAlignment:
-                                      TableCellVerticalAlignment.middle),
+                                          TableCellVerticalAlignment.middle),
                                   TableCell(
                                     child: Text(
                                       snapshot.data!['Year'],
@@ -289,8 +297,6 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                                 ]),
 
                                 //===========================================================================================================================
-
-
                               ],
                             ),
                           ],
@@ -298,6 +304,36 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                       ),
                       SizedBox(
                         height: 30.h,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Add premium member",
+                            style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          CupertinoSwitch(
+                            trackColor: Colors.purple,
+
+                            activeColor: Colors.yellow,
+                            value: isSelected,
+                            onChanged: (value) {
+                              setState(() {
+                                isSelected = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -331,13 +367,6 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                           ),
                         ],
                       ),
-
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     exportDataToExcel();
-                      //   },
-                      //   child: Text('Export to Excel'),
-                      // ),
 
                       SizedBox(
                         height: 60.h,
