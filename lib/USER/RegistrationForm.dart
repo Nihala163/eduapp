@@ -18,6 +18,7 @@ class RegistrationFoarm extends StatefulWidget {
 
 class _RegistrationFoarmState extends State<RegistrationFoarm> {
   var mob = '';
+
   void initState() {
     getData();
   }

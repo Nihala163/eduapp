@@ -58,7 +58,6 @@ class _DashboardState extends State<Dashboard> {
       status = spref.getString("status")!;
 
       spref.setString('status', status);
-
       spref.setString('id', id);
       spref.setString('name', Name1);
       spref.setString("email", Email);
@@ -70,8 +69,6 @@ class _DashboardState extends State<Dashboard> {
 
     print("Updated");
   }
-
-
 
   //
   //
