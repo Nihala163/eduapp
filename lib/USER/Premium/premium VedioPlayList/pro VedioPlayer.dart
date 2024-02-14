@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class VedioplayerUser extends StatefulWidget {
-  const VedioplayerUser({
+class proVedioplayerUser extends StatefulWidget {
+  const proVedioplayerUser({
     super.key,
     required this.vedioId,
     required this.remains,
@@ -13,10 +13,10 @@ class VedioplayerUser extends StatefulWidget {
   final remains;
 
   @override
-  State<VedioplayerUser> createState() => _VedioplayerUserState();
+  State<proVedioplayerUser> createState() => _proVedioplayerUserState();
 }
 
-class _VedioplayerUserState extends State<VedioplayerUser> {
+class _proVedioplayerUserState extends State<proVedioplayerUser> {
   late YoutubePlayerController controller;
   // late PlayerState _playerState;
   // late YoutubeMetaData _vedioMetaData;

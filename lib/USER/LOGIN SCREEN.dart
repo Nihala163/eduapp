@@ -29,6 +29,8 @@ class _MobileLoginState extends State<MobileLogin> {
   String collage = '';
   String department = '';
   String Year = '';
+  String status = '';
+
   //get data to mobile number
   void userLogin() async {
     final user = await FirebaseFirestore.instance
@@ -44,7 +46,10 @@ class _MobileLoginState extends State<MobileLogin> {
       collage = user.docs[0]['College'];
       department = user.docs[0]['Department'];
 
+      user.docs[0]['status'];
+
       SharedPreferences data = await SharedPreferences.getInstance();
+      data.setString('status', status);
       data.setString('id', id);
       data.setString('name', name);
       data.setString('email', email);
@@ -54,13 +59,13 @@ class _MobileLoginState extends State<MobileLogin> {
       data.setString('Department', department);
 
       print(
-          '<<<<<<<<<<<<<<<<<get data from shared preffrence>>>>>>>>>>>>>>>>>');
+          '<<<<<<<<<<<<<<<<<get data from shared preference>>>>>>>>>>>>>>>>>');
 
       mobscreen();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-        "invalied mobilenumber",
+        "invalid mobile number",
         style: TextStyle(color: Colors.red),
       )));
     }
@@ -75,7 +80,7 @@ class _MobileLoginState extends State<MobileLogin> {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: formattPhoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) {
-        print("<<<<<>>>>>>>>>VerificationCompleated");
+        print("<<<<<>>>>>>>>>VerificationCompleted");
       },
       timeout: Duration(seconds: 10),
       verificationFailed: (FirebaseAuthException e) {
@@ -85,7 +90,7 @@ class _MobileLoginState extends State<MobileLogin> {
       },
       codeSent: (String verificationId, int? resendToken) {
         Fluttertoast.showToast(
-            msg: "Varification code sent",
+            msg: "Verification code sent",
             backgroundColor: Colors.green,
             textColor: Colors.white,
             gravity: ToastGravity.BOTTOM);
