@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduapp/USER/RegistrationForm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,26 +28,38 @@ class _DashboardState extends State<Dashboard> {
         context, MaterialPageRoute(builder: (context) => MobileLogin()));
   }
 
+  DocumentSnapshot? user;
   var Name1;
   var Mobile;
   var department;
   var Email;
   var Year;
   var college;
+  var status;
+  var id;
+  //
+
+  String statuse = '';
   void initState() {
     getData();
+    // project();
   }
 
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
+      id = spref.getString('id');
       Name1 = spref.getString('name');
       Email = spref.getString("email");
       Mobile = spref.getString("phone");
       college = spref.getString("collage");
       department = spref.getString("Department");
       Year = spref.getString("Year");
+      status = spref.getString("status")!;
 
+      spref.setString('status', status);
+
+      spref.setString('id', id);
       spref.setString('name', Name1);
       spref.setString("email", Email);
       spref.setString("phone", Mobile);
@@ -54,8 +67,16 @@ class _DashboardState extends State<Dashboard> {
       spref.setString("Department", department);
       spref.setString("Year", Year);
     });
+
     print("Updated");
   }
+
+  get() async {
+    user = await FirebaseFirestore.instance.collection('User').doc(id).get();
+  }
+
+  //
+  //
 
   @override
   Widget build(BuildContext context) {

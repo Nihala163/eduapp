@@ -66,7 +66,7 @@ class _VedioCategoryState extends State<VedioCategory> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Dipartments',
+                              'Departments',
                               style: TextStyle(
                                   fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
