@@ -71,9 +71,7 @@ class _DashboardState extends State<Dashboard> {
     print("Updated");
   }
 
-  get() async {
-    user = await FirebaseFirestore.instance.collection('User').doc(id).get();
-  }
+
 
   //
   //
