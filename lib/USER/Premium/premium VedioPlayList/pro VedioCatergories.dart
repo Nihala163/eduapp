@@ -24,16 +24,16 @@ class _proVedioCategoryState extends State<proVedioCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
-                .collection('premiumvideo')
+                .collection('premium video')
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               // var data = snapshot.data?.docs ?? [];
               if (ConnectionState == ConnectionState.waiting) {
-                return LinearProgressIndicator();
+                return CircularProgressIndicator();
               }
               var documents = snapshot.data?.docs ?? [];
               // List<DocumentSnapshot> documents = snapshot.data!.docs;
@@ -100,7 +100,7 @@ class _proVedioCategoryState extends State<proVedioCategory> {
                                       boxShadow: [
                                         BoxShadow(
                                             color:
-                                                Colors.blue.withOpacity(0.85),
+                                                Colors.grey.withOpacity(0.85),
                                             blurRadius: 5,
                                             offset: Offset(2.0, 5.0),
                                             spreadRadius: 1)

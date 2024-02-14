@@ -36,7 +36,7 @@ class _LoginOtpState extends State<LoginOtp> {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      print("<<<<<<<<<<<<<go dashborad>>>>>>>>>>>>");
+      print("<<<<<<<<<<<<<go dashboard>>>>>>>>>>>>");
       if (status == "1") {
         print('<<<<<<<<<<<<<<<<<<<<<pro>>>>>>>>>>>>>>>>>>>>>');
         Navigator.push(

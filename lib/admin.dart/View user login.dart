@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eduapp/admin.dart/Admin%20student%20progres.dart';
-import 'package:eduapp/admin.dart/View%20user%20profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../ADMIN/Admin notification/Admin student progres.dart';
 
 
 class Viewuserlogin extends StatefulWidget {

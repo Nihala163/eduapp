@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eduapp/USER/VedioPlayList/VedioPlayer.dart';
-import 'package:eduapp/USER/VedioPlayList/Widgets/customCupertinoTextField.dart';
+import 'package:eduapp/ADMIN/Admin%20notification/Admin%20student%20progres.dart';
 import 'package:eduapp/USER/VedioPlayList/vedioList.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -23,7 +20,6 @@ class _VedioCategoryState extends State<VedioCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       // appBar: AppBar(
       //   centerTitle: true,
       //   title: CustomCupertinoTextField(
@@ -66,7 +62,7 @@ class _VedioCategoryState extends State<VedioCategory> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Dipartments',
+                              'Departments',
                               style: TextStyle(
                                   fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
@@ -98,7 +94,7 @@ class _VedioCategoryState extends State<VedioCategory> {
                                   margin: EdgeInsets.symmetric(vertical: 10.w),
                                   height: 100,
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: Colors.purple,
                                       borderRadius: BorderRadius.circular(6.r),
                                       boxShadow: [
                                         BoxShadow(
@@ -115,8 +111,9 @@ class _VedioCategoryState extends State<VedioCategory> {
                                           .elementAt(index)
                                           .toUpperCase(),
                                       style: TextStyle(
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.w300),
+                                          fontSize: 18.sp,
+                                          color: white,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                 ),

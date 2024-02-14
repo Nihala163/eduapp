@@ -18,8 +18,8 @@ class VedioplayerUser extends StatefulWidget {
 
 class _VedioplayerUserState extends State<VedioplayerUser> {
   late YoutubePlayerController controller;
-  late PlayerState _playerState;
-  late YoutubeMetaData _vedioMetaData;
+  // late PlayerState _playerState;
+  // late YoutubeMetaData _vedioMetaData;
   bool isplayerReady = false;
   List upnext = [];
 
@@ -27,11 +27,11 @@ class _VedioplayerUserState extends State<VedioplayerUser> {
   void initState() {
     super.initState();
     upnext = widget.remains;
-    setState(() {
-      upnext.removeWhere(
-        (element) => element.url == widget.vedioId,
-      );
-    });
+    // setState(() {
+    //   upnext.removeWhere(
+    //     (element) => element.url == widget.vedioId,
+    //   );
+    // });
 
     controller = YoutubePlayerController(
       initialVideoId: widget.vedioId,
@@ -55,7 +55,7 @@ class _VedioplayerUserState extends State<VedioplayerUser> {
 
   // @override
   // void deactivate() {
-  //   // TODO: implement deactivate
+  // TODO: implement deactivate
   //   super.deactivate();
   //   controller.pause();
   // }
