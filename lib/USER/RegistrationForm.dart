@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:excel/excel.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,21 +25,28 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
 
   var Name;
   var Mobile;
-
+  var department;
   var Email;
+  var Year;
+  var college;
 
   Future<void> setData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     Name = name.text;
     Mobile = mob.simplifyText();
-
     Email = email.toString();
+    department = selectedDepartmentValue.toString();
+    college = selectedcollegeValue.toString();
+    Year = SelectedYear.toString();
 
     setState(() {
       spref.setString("name", Name);
       spref.setString("phone", Mobile);
       spref.setString("email", Email.toString());
-
+      spref.setString("collage", college);
+      spref.setString("Department", department);
+      spref.setString("Year", Year);
+      print("<<<<<<<<<<<<<<<sharedprefrencedataadded>>>>>>>>>>>>>>>");
       print("sharepfr:$Name");
       print("shareprf:$Mobile");
       print("Shareprf$Email");
@@ -67,9 +75,10 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
       "College": selectedcollegeValue,
       "Department": selectedDepartmentValue,
       "Year": SelectedYear,
-      "status": 0
+      "Status": 0
     });
-    Navigator.pushReplacement(
+
+    await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => Dashboard(),
@@ -138,7 +147,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
+                    (BuildContext context, int index) {
                   // Build your list items here
                   return Form(
                     key: _formfield,
@@ -157,8 +166,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                         ),
                         Padding(
                           padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
+                          const EdgeInsets.only(left: 30, right: 30, top: 5)
+                              .r,
                           child: TextFormField(
                             controller: name,
                             decoration: InputDecoration(
@@ -170,7 +179,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xff878787)),
                                 contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 15)
+                                    vertical: 10, horizontal: 15)
                                     .r,
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -205,8 +214,8 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                         ),
                         Padding(
                           padding:
-                              const EdgeInsets.only(left: 30, right: 30, top: 5)
-                                  .r,
+                          const EdgeInsets.only(left: 30, right: 30, top: 5)
+                              .r,
                           child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: email,
@@ -219,7 +228,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xff878787)),
                                 contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 15)
+                                    vertical: 10, horizontal: 15)
                                     .r,
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -234,7 +243,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                                 border: const OutlineInputBorder()),
                             validator: (value) {
                               bool emailvalid = RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                   .hasMatch(value!);
 
                               if (value!.isEmpty) {
@@ -278,7 +287,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                                 fillColor: Colors.white,
 
                                 contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 16),
+                                const EdgeInsets.symmetric(vertical: 16),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(8).r,
@@ -291,14 +300,14 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                               ),
                               items: collegeItems
                                   .map((item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -358,7 +367,7 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 16),
+                                const EdgeInsets.symmetric(vertical: 16),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.blue),
                                   borderRadius: BorderRadius.circular(8).r,
@@ -371,14 +380,14 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                               ),
                               items: departmentitem
                                   .map((item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -438,10 +447,10 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 16),
+                                const EdgeInsets.symmetric(vertical: 16),
                                 border: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0xff878787)),
+                                  BorderSide(color: Color(0xff878787)),
                                   borderRadius: BorderRadius.circular(8).r,
                                 ),
                                 // Add more decoration..
@@ -452,14 +461,14 @@ class _RegistrationFoarmState extends State<RegistrationFoarm> {
                               ),
                               items: yearlist
                                   .map((item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ))
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {

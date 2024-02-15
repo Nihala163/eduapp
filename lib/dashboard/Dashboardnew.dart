@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eduapp/USER/RegistrationForm.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,6 @@ import '../USER/LOGIN SCREEN.dart';
 import '../USER/UserNotification.dart';
 import '../USER/VedioPlayList/VedioCatergories.dart';
 import '../USER/premiumBuy.dart';
-import 'SubjectList.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -48,18 +47,13 @@ class _DashboardState extends State<Dashboard> {
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
-      id = spref.getString('id');
       Name1 = spref.getString('name');
       Email = spref.getString("email");
       Mobile = spref.getString("phone");
       college = spref.getString("collage");
       department = spref.getString("Department");
       Year = spref.getString("Year");
-      status = spref.getString("status")!;
 
-      spref.setString('status', status);
-
-      spref.setString('id', id);
       spref.setString('name', Name1);
       spref.setString("email", Email);
       spref.setString("phone", Mobile);
@@ -70,8 +64,6 @@ class _DashboardState extends State<Dashboard> {
 
     print("Updated");
   }
-
-
 
   //
   //
