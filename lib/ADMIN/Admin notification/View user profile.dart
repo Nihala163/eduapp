@@ -306,67 +306,69 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
                         height: 30.h,
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Add premium member",
-                            style: GoogleFonts.inter(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          CupertinoSwitch(
-                            trackColor: Colors.purple,
-
-                            activeColor: Colors.yellow,
-                            value: isSelected,
-                            onChanged: (value) {
-                              setState(() {
-                                isSelected = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Row(mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.pop(context);
+                              FirebaseFirestore.instance
+                                  .collection("UserRegister")
+                                  .doc(widget.id)
+                                  .update({"status": 1});
+                              if(snapshot.data!['status']==1){
+
+                              }
                             },
                             child: Container(
-                              width: 100.w,
-                              height: 50.h,
+                              width: 200,
+                              height: 50,
                               decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
-                                        blurRadius: 5.0,
-                                        offset: const Offset(0.0, 5.0)),
-                                  ],
-                                  borderRadius: BorderRadius.circular(10).r,
-                                  color: Colors.purple),
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.yellow),
                               child: Center(
                                 child: Text(
-                                  "Back",
+                                  'Change To Premium',
                                   style: GoogleFonts.inter(
-                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 15,
                                       color: Colors.white),
                                 ),
                               ),
-                            ),
+                            )
                           ),
+
+                          SizedBox(width: 20,),
+
+                          InkWell(
+                              onTap: () {
+                                FirebaseFirestore.instance
+                                    .collection("UserRegister")
+                                    .doc(widget.id)
+                                    .update({"status": 0});
+                                if(snapshot.data!['status']==1){
+
+                                }
+                              },
+                              child: Container(
+                                width: 200,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.purple),
+                                child: Center(
+                                  child: Text(
+                                    'Change To Normal',
+                                    style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              )
+                          ),
+
                         ],
                       ),
+
 
                       SizedBox(
                         height: 60.h,
@@ -379,4 +381,6 @@ class _ViewuserprofileState extends State<Viewuserprofile> {
       ),
     );
   }
+
+
 }
